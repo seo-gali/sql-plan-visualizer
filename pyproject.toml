@@ -1,0 +1,34 @@
+[project]
+name = "sql-plan-visualizer"
+version = "0.1.0"
+description = "Visualize SQL parsing, ASTs, query flows, and database execution plans."
+requires-python = "==3.13.15"
+dependencies = [
+    "pymssql==2.4.6",
+    "pymysql>=1.1.1",
+    "psycopg[binary]>=3.2.0",
+    "jinja2>=3.1.6",
+    "pytest>=9.1.1",
+    "ruff>=0.16.8",
+    "sqlglot>=30.18.0",
+]
+
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+sqlpvi = "sqlpvi.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sqlpvi = ["templates/*.html", "assets/*.css", "assets/*.js"]
+
+[tool.ruff]
+target-version = "py313"
+extend-exclude = [".uv-cache", ".python-runtime", "artifacts", "build", "dist"]
+
+[tool.pytest.ini_options]
+markers = ["integration: explicit isolated test database required"]

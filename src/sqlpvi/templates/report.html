@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="data:,">
+  <title>SQLPVI · {{ report.filename }}</title>
+  <style>{{ css|safe }}</style>
+</head>
+<body>
+<a class="skip" href="#sql-source" data-i18n>Skip to SQL source</a>
+<header>
+  <div class="brand">SQLPVI <span>SQL Plan Visualizer</span></div>
+  <label class="language-picker" for="language">Language / 언어
+    <select id="language"><option value="en">English</option><option value="ko">한국어</option></select>
+  </label>
+  <h1>{{ report.filename }}</h1>
+  <p class="badges"><span data-i18n>{{ report.status }}</span><span data-i18n>{{ report.basis }}</span><span>{{ report.dialect }}</span></p>
+</header>
+<main>
+  <section aria-labelledby="overview-title">
+    <h2 id="overview-title" data-i18n>Overview</h2>
+    <div class="metrics"><p><strong>{{ report.references|length }}</strong> <span data-i18n>References</span></p><p><strong>{{ report.flow.nodes|length }}</strong> <span data-i18n>SQL Flow nodes</span></p></div>
+    <ul class="notes">{% for warning in report.warnings %}<li data-i18n>{{ warning }}</li>{% endfor %}</ul>
+  </section>
+  <section aria-labelledby="source-title">
+    <h2 id="source-title" data-i18n>SQL Source</h2>
+    <p class="hint" data-i18n>Hover or focus a token to highlight its references and tree nodes.</p>
+    <pre id="sql-source" tabindex="0"><code>{% for text, range in chunks %}{% if range %}<span id="{{ range }}" class="linked token" data-range="{{ range }}" tabindex="0">{{ text }}</span>{% else %}{{ text }}{% endif %}{% endfor %}</code></pre>
+  </section>
+  <section aria-labelledby="references-title">
+    <h2 id="references-title" data-i18n>References</h2>
+    <div class="table-scroll"><table>
+      <caption data-i18n>Source binding status; database object existence is not checked in static mode.</caption>
+      <thead><tr><th scope="col" data-i18n>Reference</th><th scope="col" data-i18n>Kind / Alias</th><th scope="col" data-i18n>Scope</th><th scope="col" data-i18n>Status</th><th scope="col" data-i18n>Basis / Candidates</th></tr></thead>
+      <tbody>{% for ref in report.references %}
+        <tr id="{{ ref.id }}" class="linked" data-range="{{ key(ref.source) }}">
+          <td>{% if ref.source %}<a href="#{{ key(ref.source) }}">{% endif %}<code>{% if ref.qualifier %}{{ ref.qualifier }}.{% endif %}{{ ref.name }}</code>{% if ref.source %}</a>{% endif %}</td>
+          <td>{{ ref.kind }}{% if ref.alias %} / {{ ref.alias }}{% endif %}</td><td>{{ ref.scope }}</td>
+          <td><span class="status {{ ref.status|lower }}" data-i18n>{{ ref.status }}</span></td><td><span data-i18n>{{ ref.basis }}</span> / {{ ref.candidates|join(', ') or '—' }}</td>
+        </tr>
+      {% else %}<tr><td colspan="5" data-i18n>No explicit table or column references.</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+  <div class="columns">
+    <section aria-labelledby="ast-title">
+      <h2 id="ast-title">AST</h2>
+      {% macro tree(node) %}
+        <li>{% if node.children %}<details{% if node.id == report.ast.id %} open{% endif %}><summary class="linked" data-range="{{ key(node.source) }}"><strong>{{ node.kind }}</strong> <code>{{ node.label }}</code></summary><ul>{% for child in node.children %}{{ tree(child) }}{% endfor %}</ul></details>
+        {% else %}<span class="linked ast-leaf" data-range="{{ key(node.source) }}" tabindex="0"><strong>{{ node.kind }}</strong> <code>{{ node.label }}</code></span>{% endif %}</li>
+      {% endmacro %}
+      <ul class="ast-tree">{{ tree(report.ast) }}</ul>
+    </section>
+    <section aria-labelledby="flow-title">
+      <h2 id="flow-title">SQL Flow</h2>
+      <p class="hint" data-i18n>SQL structure · STATIC · This is not a database execution plan.</p>
+      <div id="flow-diagram"><svg id="flow-edges" aria-hidden="true"></svg><ol class="flow-nodes">
+        {% for node in report.flow.nodes %}<li id="{{ node.id }}" class="linked flow-node" data-range="{{ key(node.source) }}" data-inputs="{{ node.inputs|join(' ') }}" tabindex="0">
+          <strong data-i18n>{{ node.operation }}</strong>{% if node.id == report.flow.root %} <span class="hint" data-i18n>output</span>{% endif %}<code>{{ node.detail }}</code>
+          {% if node.inputs %}<small><span data-i18n>Inputs:</span> {% for input in node.inputs %}<a href="#{{ input }}">{{ input }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</small>{% endif %}
+        </li>{% endfor %}
+      </ol></div>
+    </section>
+  </div>
+  {% if report.plan %}
+  <section aria-labelledby="plan-title">
+    <h2 id="plan-title" data-i18n>Execution Plan</h2>
+    <p class="badges"><span>{{ report.plan.vendor }}</span><span data-i18n>{{ report.plan.mode }}</span><span data-i18n>{{ report.plan.basis }}</span></p>
+    {% if report.plan.mode == 'RUNTIME' %}<p><span data-i18n>Actual execution time (ms):</span> {{ report.plan.execution_time_ms }}</p>{% endif %}
+    {% macro plan_tree(node) %}<li id="{{ node.id }}"><details open><summary><strong>{{ node.operation }}</strong>{% if node.relation %} · {{ node.relation }}{% endif %} · <span data-i18n>Estimated rows:</span> {{ node.estimated_rows }} · <span data-i18n>Cost:</span> {{ node.estimated_cost }}</summary><dl>{% for name, value in node.details.items() %}<dt>{{ name }}</dt><dd>{{ value }}</dd>{% endfor %}</dl>{% if node.children %}<ul>{% for child in node.children %}{{ plan_tree(child) }}{% endfor %}</ul>{% endif %}</details></li>{% endmacro %}
+    <ul class="plan-tree">{{ plan_tree(report.plan.root) }}</ul>
+  </section>
+  {% endif %}
+  {% if report.metadata %}
+  <section aria-labelledby="metadata-title">
+    <h2 id="metadata-title" data-i18n>Database Metadata</h2>
+    {% for relation in report.metadata %}<details><summary>{{ relation.schema }}.{{ relation.name }} · DATABASE · <span data-i18n>Estimated rows:</span> {{ relation.estimated_rows }}</summary>
+      <div class="table-scroll"><table><thead><tr><th data-i18n>Column</th><th data-i18n>Data type</th><th data-i18n>Nullable</th><th data-i18n>Null fraction</th><th data-i18n>Distinct estimate</th></tr></thead><tbody>{% for column in relation.columns %}<tr><td>{{ column.name }}</td><td>{{ column.data_type }}</td><td>{{ column.nullable }}</td><td>{{ column.null_fraction }}</td><td>{{ column.distinct_estimate }}</td></tr>{% endfor %}</tbody></table></div>
+      <h3 data-i18n>Indexes</h3><ul>{% for name, definition in relation.indexes.items() %}<li><strong>{{ name }}</strong><code>{{ definition }}</code></li>{% else %}<li data-i18n>No indexes visible.</li>{% endfor %}</ul>
+    </details>{% endfor %}
+  </section>
+  {% endif %}
+  {% if report.recommendations %}
+  <section aria-labelledby="recommendations-title">
+    <h2 id="recommendations-title" data-i18n>Recommendations</h2>
+    {% for candidate in report.recommendations %}
+    <article id="{{ candidate.id }}">
+      <h3 data-i18n>{{ candidate.title }}</h3>
+      <p class="badges"><span data-i18n>{{ candidate.basis }}</span></p>
+      <p data-i18n>Observed evidence</p>
+      <ul>{% for evidence in candidate.evidence %}<li id="{{ evidence.id }}"><a href="#{{ evidence.target_id }}">{{ evidence.id }}</a> · <span data-i18n>{{ evidence.basis }}</span> · <code>{{ evidence.observation }}</code></li>{% endfor %}</ul>
+      <dl>
+        <dt data-i18n>Reason</dt><dd data-i18n>{{ candidate.reason }}</dd>
+        <dt data-i18n>Conditions</dt><dd data-i18n>{{ candidate.conditions }}</dd>
+        <dt data-i18n>Limitations</dt><dd data-i18n>{{ candidate.limitations }}</dd>
+        <dt data-i18n>Verification</dt><dd data-i18n>{{ candidate.verification }}</dd>
+      </dl>
+      <p data-i18n>Suggested SQL (text only)</p>
+      <pre><code>{{ candidate.suggested_sql }}</code></pre>
+    </article>
+    {% endfor %}
+  </section>
+  {% endif %}
+</main>
+<footer data-i18n>SQLPVI · Evidence before assumptions · Input SQL is preserved.</footer>
+<script>{{ js|safe }}</script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="data:,">
+  <title>SQLPVI · fixtures\sql\hash-spill.sql</title>
+  <style>:root{color-scheme:light;--ink:#152b40;--muted:#4b6075;--border:#c9d5df;--accent:#075985;--paper:#fff;--active:#fff0b5}
+*{box-sizing:border-box}body{margin:0;background:#edf2f6;color:var(--ink);font:15px/1.55 system-ui,sans-serif}header,main,footer{max-width:1440px;margin:auto;padding:24px 32px}header{padding-top:32px}.brand{font-weight:800;letter-spacing:.08em;color:var(--accent)}.brand span{font-weight:400;letter-spacing:0;margin-left:12px}h1{font-size:clamp(21px,3vw,32px);line-height:1.3;overflow-wrap:anywhere;margin:14px 0}h2{font-size:19px;margin:0 0 16px}p{margin:8px 0}.badges{display:flex;gap:8px;flex-wrap:wrap}.badges span,.status{border:1px solid var(--border);padding:3px 9px;border-radius:5px;font-size:12px;font-weight:700;background:#f5f8fb}main{padding-top:0}section{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;min-width:0}.columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}.metrics{display:flex;gap:36px;flex-wrap:wrap}.metrics strong{font-size:28px;display:block}.notes,.hint,caption,small{color:var(--muted)}.notes{padding-left:20px;font-size:13px}.hint{font-size:13px}pre{background:#102438;color:#e8f1f8;padding:22px;border-radius:6px;overflow:auto;line-height:1.8;tab-size:4}code{font:13px/1.6 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}.token{border-radius:3px}.linked.active{background:var(--active);color:#152b40;outline:2px solid #875e00;outline-offset:1px}a{color:var(--accent);text-underline-offset:3px}:focus-visible{outline:3px solid #0077b6;outline-offset:3px}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;text-align:left;font-size:13px}caption{text-align:left;font-size:12px;padding-bottom:12px}th,td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top}th{background:#f3f6f9}.ambiguous{background:#fff3cd;color:#664d03}.unresolved{background:#fbe9eb;color:#842029}.resolved{background:#e4f3eb;color:#14532d}.ast-tree,.ast-tree ul{list-style:none;padding-left:16px}.ast-tree{padding-left:0;max-height:720px;overflow:auto}.ast-tree li{margin:7px 0}.ast-tree summary{cursor:pointer}.ast-tree code{display:block;color:var(--muted)}.ast-leaf{display:block}#flow-diagram{position:relative}#flow-edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.flow-nodes{list-style:none;padding:0 0 0 44px;position:relative}.flow-node{border:1px solid var(--border);border-radius:6px;padding:12px;margin:14px 0;background:#f9fbfd}.flow-node code,.flow-node small{display:block}.flow-node code{max-height:100px;overflow:auto}.flow-node small{margin-top:6px}footer{font-size:12px;color:var(--muted);padding-top:0}.skip{position:absolute;top:-100px;left:16px;z-index:2;background:white;padding:10px}.skip:focus{top:8px}
+@media(max-width:800px){header,main,footer{padding-left:16px;padding-right:16px}.columns{grid-template-columns:1fr;gap:0}section{padding:16px}.brand span{display:block;margin-left:0}th,td{padding:9px}pre{padding:14px}}
+.plan-tree,.plan-tree ul{list-style:none;padding-left:18px}.plan-tree{padding-left:0}.plan-tree summary{cursor:pointer;padding:10px;background:#f3f6f9;border-radius:5px}.plan-tree li{margin:10px 0}.plan-tree dl{font-size:13px;margin:10px}.plan-tree dt{font-weight:700}.plan-tree dd{margin:0 0 8px;overflow-wrap:anywhere}
+.language-picker{display:flex;align-items:center;justify-content:flex-end;gap:8px;font-size:13px;color:var(--muted)}.language-picker select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--border);border-radius:5px;padding:6px 10px}
+</style>
+</head>
+<body>
+<a class="skip" href="#sql-source" data-i18n>Skip to SQL source</a>
+<header>
+  <div class="brand">SQLPVI <span>SQL Plan Visualizer</span></div>
+  <label class="language-picker" for="language">Language / 언어
+    <select id="language"><option value="en">English</option><option value="ko">한국어</option></select>
+  </label>
+  <h1>fixtures\sql\hash-spill.sql</h1>
+  <p class="badges"><span data-i18n>PARSED</span><span data-i18n>STATIC</span><span>postgres</span></p>
+</header>
+<main>
+  <section aria-labelledby="overview-title">
+    <h2 id="overview-title" data-i18n>Overview</h2>
+    <div class="metrics"><p><strong>6</strong> <span data-i18n>References</span></p><p><strong>5</strong> <span data-i18n>SQL Flow nodes</span></p></div>
+    <ul class="notes"><li data-i18n>PARSED does not establish database executability or object existence.</li><li data-i18n>SQL Flow describes SQL structure, not the DBMS execution order.</li><li data-i18n>Source mapping covers parser-provided token ranges only.</li><li data-i18n>Catalog statistics are estimates and may be stale.</li></ul>
+  </section>
+  <section aria-labelledby="source-title">
+    <h2 id="source-title" data-i18n>SQL Source</h2>
+    <p class="hint" data-i18n>Hover or focus a token to highlight its references and tree nodes.</p>
+    <pre id="sql-source" tabindex="0"><code>SELECT <span id="range-7-10" class="linked token" data-range="range-7-10" tabindex="0">SUM</span>(<span id="range-11-12" class="linked token" data-range="range-11-12" tabindex="0">o</span>.<span id="range-13-19" class="linked token" data-range="range-13-19" tabindex="0">amount</span> + <span id="range-22-23" class="linked token" data-range="range-22-23" tabindex="0">p</span>.<span id="range-24-30" class="linked token" data-range="range-24-30" tabindex="0">amount</span>) AS <span id="range-35-47" class="linked token" data-range="range-35-47" tabindex="0">total_amount</span>
+FROM <span id="range-53-59" class="linked token" data-range="range-53-59" tabindex="0">orders</span> AS <span id="range-63-64" class="linked token" data-range="range-63-64" tabindex="0">o</span>
+JOIN <span id="range-70-76" class="linked token" data-range="range-70-76" tabindex="0">orders</span> AS <span id="range-80-81" class="linked token" data-range="range-80-81" tabindex="0">p</span> ON <span id="range-85-86" class="linked token" data-range="range-85-86" tabindex="0">o</span>.<span id="range-87-98" class="linked token" data-range="range-87-98" tabindex="0">customer_id</span> = <span id="range-101-102" class="linked token" data-range="range-101-102" tabindex="0">p</span>.<span id="range-103-114" class="linked token" data-range="range-103-114" tabindex="0">customer_id</span>;
+</code></pre>
+  </section>
+  <section aria-labelledby="references-title">
+    <h2 id="references-title" data-i18n>References</h2>
+    <div class="table-scroll"><table>
+      <caption data-i18n>Source binding status; database object existence is not checked in static mode.</caption>
+      <thead><tr><th scope="col" data-i18n>Reference</th><th scope="col" data-i18n>Kind / Alias</th><th scope="col" data-i18n>Scope</th><th scope="col" data-i18n>Status</th><th scope="col" data-i18n>Basis / Candidates</th></tr></thead>
+      <tbody>
+        <tr id="ref-0" class="linked" data-range="range-53-59">
+          <td><a href="#range-53-59"><code>orders</code></a></td>
+          <td>TABLE / o</td><td>scope-0</td>
+          <td><span class="status resolved" data-i18n>RESOLVED</span></td><td><span data-i18n>DATABASE</span> / orders AS o</td>
+        </tr>
+      
+        <tr id="ref-1" class="linked" data-range="range-70-76">
+          <td><a href="#range-70-76"><code>orders</code></a></td>
+          <td>TABLE / p</td><td>scope-0</td>
+          <td><span class="status resolved" data-i18n>RESOLVED</span></td><td><span data-i18n>DATABASE</span> / orders AS p</td>
+        </tr>
+      
+        <tr id="ref-2" class="linked" data-range="range-13-19">
+          <td><a href="#range-13-19"><code>o.amount</code></a></td>
+          <td>COLUMN</td><td>scope-0</td>
+          <td><span class="status resolved" data-i18n>RESOLVED</span></td><td><span data-i18n>DATABASE</span> / o</td>
+        </tr>
+      
+        <tr id="ref-3" class="linked" data-range="range-24-30">
+          <td><a href="#range-24-30"><code>p.amount</code></a></td>
+          <td>COLUMN</td><td>scope-0</td>
+          <td><span class="status resolved" data-i18n>RESOLVED</span></td><td><span data-i18n>DATABASE</span> / p</td>
+        </tr>
+      
+        <tr id="ref-4" class="linked" data-range="range-87-98">
+          <td><a href="#range-87-98"><code>o.customer_id</code></a></td>
+          <td>COLUMN</td><td>scope-0</td>
+          <td><span class="status resolved" data-i18n>RESOLVED</span></td><td><span data-i18n>DATABASE</span> / o</td>
+        </tr>
+      
+        <tr id="ref-5" class="linked" data-range="range-103-114">
+          <td><a href="#range-103-114"><code>p.customer_id</code></a></td>
+          <td>COLUMN</td><td>scope-0</td>
+          <td><span class="status resolved" data-i18n>RESOLVED</span></td><td><span data-i18n>DATABASE</span> / p</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+  <div class="columns">
+    <section aria-labelledby="ast-title">
+      <h2 id="ast-title">AST</h2>
+      
+      <ul class="ast-tree">
+        <li><details open><summary class="linked" data-range=""><strong>Select</strong> <code>SELECT SUM(o.amount + p.amount) AS total_amount FROM orders AS o JOIN orders AS p ON o.customer_id = p.customer_id</code></summary><ul>
+        <li><details><summary class="linked" data-range="range-7-10"><strong>Alias</strong> <code>SUM(o.amount + p.amount) AS total_amount</code></summary><ul>
+        <li><details><summary class="linked" data-range="range-7-10"><strong>Sum</strong> <code>SUM(o.amount + p.amount)</code></summary><ul>
+        <li><details><summary class="linked" data-range=""><strong>Add</strong> <code>o.amount + p.amount</code></summary><ul>
+        <li><details><summary class="linked" data-range="range-13-19"><strong>Column</strong> <code>o.amount</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-13-19" tabindex="0"><strong>Identifier</strong> <code>amount</code></span></li>
+      
+        <li><span class="linked ast-leaf" data-range="range-11-12" tabindex="0"><strong>Identifier</strong> <code>o</code></span></li>
+      </ul></details>
+        </li>
+      
+        <li><details><summary class="linked" data-range="range-24-30"><strong>Column</strong> <code>p.amount</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-24-30" tabindex="0"><strong>Identifier</strong> <code>amount</code></span></li>
+      
+        <li><span class="linked ast-leaf" data-range="range-22-23" tabindex="0"><strong>Identifier</strong> <code>p</code></span></li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      
+        <li><span class="linked ast-leaf" data-range="range-35-47" tabindex="0"><strong>Identifier</strong> <code>total_amount</code></span></li>
+      </ul></details>
+        </li>
+      
+        <li><details><summary class="linked" data-range=""><strong>From</strong> <code>FROM orders AS o</code></summary><ul>
+        <li><details><summary class="linked" data-range="range-53-59"><strong>Table</strong> <code>orders AS o</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-53-59" tabindex="0"><strong>Identifier</strong> <code>orders</code></span></li>
+      
+        <li><details><summary class="linked" data-range="range-63-64"><strong>TableAlias</strong> <code>o</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-63-64" tabindex="0"><strong>Identifier</strong> <code>o</code></span></li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      
+        <li><details><summary class="linked" data-range=""><strong>Join</strong> <code>JOIN orders AS p ON o.customer_id = p.customer_id</code></summary><ul>
+        <li><details><summary class="linked" data-range="range-70-76"><strong>Table</strong> <code>orders AS p</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-70-76" tabindex="0"><strong>Identifier</strong> <code>orders</code></span></li>
+      
+        <li><details><summary class="linked" data-range="range-80-81"><strong>TableAlias</strong> <code>p</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-80-81" tabindex="0"><strong>Identifier</strong> <code>p</code></span></li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      
+        <li><details><summary class="linked" data-range=""><strong>EQ</strong> <code>o.customer_id = p.customer_id</code></summary><ul>
+        <li><details><summary class="linked" data-range="range-87-98"><strong>Column</strong> <code>o.customer_id</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-87-98" tabindex="0"><strong>Identifier</strong> <code>customer_id</code></span></li>
+      
+        <li><span class="linked ast-leaf" data-range="range-85-86" tabindex="0"><strong>Identifier</strong> <code>o</code></span></li>
+      </ul></details>
+        </li>
+      
+        <li><details><summary class="linked" data-range="range-103-114"><strong>Column</strong> <code>p.customer_id</code></summary><ul>
+        <li><span class="linked ast-leaf" data-range="range-103-114" tabindex="0"><strong>Identifier</strong> <code>customer_id</code></span></li>
+      
+        <li><span class="linked ast-leaf" data-range="range-101-102" tabindex="0"><strong>Identifier</strong> <code>p</code></span></li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      </ul></details>
+        </li>
+      </ul>
+    </section>
+    <section aria-labelledby="flow-title">
+      <h2 id="flow-title">SQL Flow</h2>
+      <p class="hint" data-i18n>SQL structure · STATIC · This is not a database execution plan.</p>
+      <div id="flow-diagram"><svg id="flow-edges" aria-hidden="true"></svg><ol class="flow-nodes">
+        <li id="flow-0" class="linked flow-node" data-range="range-53-59" data-inputs="" tabindex="0">
+          <strong data-i18n>Scan</strong><code>orders AS o</code>
+          
+        </li><li id="flow-1" class="linked flow-node" data-range="range-70-76" data-inputs="" tabindex="0">
+          <strong data-i18n>Scan</strong><code>orders AS p</code>
+          
+        </li><li id="flow-2" class="linked flow-node" data-range="" data-inputs="flow-0 flow-1" tabindex="0">
+          <strong data-i18n>Join</strong><code>JOIN orders AS p ON o.customer_id = p.customer_id</code>
+          <small><span data-i18n>Inputs:</span> <a href="#flow-0">flow-0</a>, <a href="#flow-1">flow-1</a></small>
+        </li><li id="flow-3" class="linked flow-node" data-range="" data-inputs="flow-2" tabindex="0">
+          <strong data-i18n>Aggregate</strong><code>SELECT SUM(o.amount + p.amount) AS total_amount FROM orders AS o JOIN orders AS p ON o.customer_id = p.customer_id</code>
+          <small><span data-i18n>Inputs:</span> <a href="#flow-2">flow-2</a></small>
+        </li><li id="flow-4" class="linked flow-node" data-range="" data-inputs="flow-3" tabindex="0">
+          <strong data-i18n>Project</strong> <span class="hint" data-i18n>output</span><code>SELECT SUM(o.amount + p.amount) AS total_amount FROM orders AS o JOIN orders AS p ON o.customer_id = p.customer_id</code>
+          <small><span data-i18n>Inputs:</span> <a href="#flow-3">flow-3</a></small>
+        </li>
+      </ol></div>
+    </section>
+  </div>
+  
+  <section aria-labelledby="plan-title">
+    <h2 id="plan-title" data-i18n>Execution Plan</h2>
+    <p class="badges"><span>postgres</span><span data-i18n>RUNTIME</span><span data-i18n>DATABASE</span></p>
+    <p><span data-i18n>Actual execution time (ms):</span> 32.442</p>
+    
+    <ul class="plan-tree"><li id="plan-0"><details open><summary><strong>Aggregate</strong> · <span data-i18n>Estimated rows:</span> 1 · <span data-i18n>Cost:</span> 3870.01</summary><dl><dt>Node Type</dt><dd>Aggregate</dd><dt>Strategy</dt><dd>Plain</dd><dt>Partial Mode</dt><dd>Simple</dd><dt>Parallel Aware</dt><dd>False</dd><dt>Async Capable</dt><dd>False</dd><dt>Startup Cost</dt><dd>3870.0</dd><dt>Total Cost</dt><dd>3870.01</dd><dt>Plan Rows</dt><dd>1</dd><dt>Plan Width</dt><dd>32</dd><dt>Actual Startup Time</dt><dd>32.348</dd><dt>Actual Total Time</dt><dd>32.353</dd><dt>Actual Rows</dt><dd>1.0</dd><dt>Actual Loops</dt><dd>1</dd><dt>Disabled</dt><dd>False</dd><dt>Shared Hit Blocks</dt><dd>110</dd><dt>Shared Read Blocks</dt><dd>0</dd><dt>Shared Dirtied Blocks</dt><dd>0</dd><dt>Shared Written Blocks</dt><dd>0</dd><dt>Local Hit Blocks</dt><dd>0</dd><dt>Local Read Blocks</dt><dd>0</dd><dt>Local Dirtied Blocks</dt><dd>0</dd><dt>Local Written Blocks</dt><dd>0</dd><dt>Temp Read Blocks</dt><dd>76</dd><dt>Temp Written Blocks</dt><dd>76</dd></dl><ul><li id="plan-1"><details open><summary><strong>Hash Join</strong> · <span data-i18n>Estimated rows:</span> 200000 · <span data-i18n>Cost:</span> 2870.0</summary><dl><dt>Node Type</dt><dd>Hash Join</dd><dt>Parent Relationship</dt><dd>Outer</dd><dt>Parallel Aware</dt><dd>False</dd><dt>Async Capable</dt><dd>False</dd><dt>Join Type</dt><dd>Inner</dd><dt>Startup Cost</dt><dd>320.0</dd><dt>Total Cost</dt><dd>2870.0</dd><dt>Plan Rows</dt><dd>200000</dd><dt>Plan Width</dt><dd>8</dd><dt>Actual Startup Time</dt><dd>2.065</dd><dt>Actual Total Time</dt><dd>16.975</dd><dt>Actual Rows</dt><dd>200000.0</dd><dt>Actual Loops</dt><dd>1</dd><dt>Disabled</dt><dd>False</dd><dt>Inner Unique</dt><dd>False</dd><dt>Hash Cond</dt><dd>(o.customer_id = p.customer_id)</dd><dt>Shared Hit Blocks</dt><dd>110</dd><dt>Shared Read Blocks</dt><dd>0</dd><dt>Shared Dirtied Blocks</dt><dd>0</dd><dt>Shared Written Blocks</dt><dd>0</dd><dt>Local Hit Blocks</dt><dd>0</dd><dt>Local Read Blocks</dt><dd>0</dd><dt>Local Dirtied Blocks</dt><dd>0</dd><dt>Local Written Blocks</dt><dd>0</dd><dt>Temp Read Blocks</dt><dd>76</dd><dt>Temp Written Blocks</dt><dd>76</dd></dl><ul><li id="plan-2"><details open><summary><strong>Seq Scan</strong> · orders · <span data-i18n>Estimated rows:</span> 10000 · <span data-i18n>Cost:</span> 155.0</summary><dl><dt>Node Type</dt><dd>Seq Scan</dd><dt>Parent Relationship</dt><dd>Outer</dd><dt>Parallel Aware</dt><dd>False</dd><dt>Async Capable</dt><dd>False</dd><dt>Relation Name</dt><dd>orders</dd><dt>Alias</dt><dd>o</dd><dt>Startup Cost</dt><dd>0.0</dd><dt>Total Cost</dt><dd>155.0</dd><dt>Plan Rows</dt><dd>10000</dd><dt>Plan Width</dt><dd>8</dd><dt>Actual Startup Time</dt><dd>0.02</dd><dt>Actual Total Time</dt><dd>0.681</dd><dt>Actual Rows</dt><dd>10000.0</dd><dt>Actual Loops</dt><dd>1</dd><dt>Disabled</dt><dd>False</dd><dt>Shared Hit Blocks</dt><dd>55</dd><dt>Shared Read Blocks</dt><dd>0</dd><dt>Shared Dirtied Blocks</dt><dd>0</dd><dt>Shared Written Blocks</dt><dd>0</dd><dt>Local Hit Blocks</dt><dd>0</dd><dt>Local Read Blocks</dt><dd>0</dd><dt>Local Dirtied Blocks</dt><dd>0</dd><dt>Local Written Blocks</dt><dd>0</dd><dt>Temp Read Blocks</dt><dd>0</dd><dt>Temp Written Blocks</dt><dd>0</dd></dl></details></li><li id="plan-3"><details open><summary><strong>Hash</strong> · <span data-i18n>Estimated rows:</span> 10000 · <span data-i18n>Cost:</span> 155.0</summary><dl><dt>Node Type</dt><dd>Hash</dd><dt>Parent Relationship</dt><dd>Inner</dd><dt>Parallel Aware</dt><dd>False</dd><dt>Async Capable</dt><dd>False</dd><dt>Startup Cost</dt><dd>155.0</dd><dt>Total Cost</dt><dd>155.0</dd><dt>Plan Rows</dt><dd>10000</dd><dt>Plan Width</dt><dd>8</dd><dt>Actual Startup Time</dt><dd>1.931</dd><dt>Actual Total Time</dt><dd>1.932</dd><dt>Actual Rows</dt><dd>10000.0</dd><dt>Actual Loops</dt><dd>1</dd><dt>Disabled</dt><dd>False</dd><dt>Hash Buckets</dt><dd>4096</dd><dt>Original Hash Buckets</dt><dd>4096</dd><dt>Hash Batches</dt><dd>8</dd><dt>Original Hash Batches</dt><dd>8</dd><dt>Peak Memory Usage</dt><dd>85</dd><dt>Shared Hit Blocks</dt><dd>55</dd><dt>Shared Read Blocks</dt><dd>0</dd><dt>Shared Dirtied Blocks</dt><dd>0</dd><dt>Shared Written Blocks</dt><dd>0</dd><dt>Local Hit Blocks</dt><dd>0</dd><dt>Local Read Blocks</dt><dd>0</dd><dt>Local Dirtied Blocks</dt><dd>0</dd><dt>Local Written Blocks</dt><dd>0</dd><dt>Temp Read Blocks</dt><dd>0</dd><dt>Temp Written Blocks</dt><dd>31</dd></dl><ul><li id="plan-4"><details open><summary><strong>Seq Scan</strong> · orders · <span data-i18n>Estimated rows:</span> 10000 · <span data-i18n>Cost:</span> 155.0</summary><dl><dt>Node Type</dt><dd>Seq Scan</dd><dt>Parent Relationship</dt><dd>Outer</dd><dt>Parallel Aware</dt><dd>False</dd><dt>Async Capable</dt><dd>False</dd><dt>Relation Name</dt><dd>orders</dd><dt>Alias</dt><dd>p</dd><dt>Startup Cost</dt><dd>0.0</dd><dt>Total Cost</dt><dd>155.0</dd><dt>Plan Rows</dt><dd>10000</dd><dt>Plan Width</dt><dd>8</dd><dt>Actual Startup Time</dt><dd>0.007</dd><dt>Actual Total Time</dt><dd>0.734</dd><dt>Actual Rows</dt><dd>10000.0</dd><dt>Actual Loops</dt><dd>1</dd><dt>Disabled</dt><dd>False</dd><dt>Shared Hit Blocks</dt><dd>55</dd><dt>Shared Read Blocks</dt><dd>0</dd><dt>Shared Dirtied Blocks</dt><dd>0</dd><dt>Shared Written Blocks</dt><dd>0</dd><dt>Local Hit Blocks</dt><dd>0</dd><dt>Local Read Blocks</dt><dd>0</dd><dt>Local Dirtied Blocks</dt><dd>0</dd><dt>Local Written Blocks</dt><dd>0</dd><dt>Temp Read Blocks</dt><dd>0</dd><dt>Temp Written Blocks</dt><dd>0</dd></dl></details></li></ul></details></li></ul></details></li></ul></details></li></ul>
+  </section>
+  
+  
+  <section aria-labelledby="metadata-title">
+    <h2 id="metadata-title" data-i18n>Database Metadata</h2>
+    <details><summary>public.orders · DATABASE · <span data-i18n>Estimated rows:</span> 10000.0</summary>
+      <div class="table-scroll"><table><thead><tr><th data-i18n>Column</th><th data-i18n>Data type</th><th data-i18n>Nullable</th><th data-i18n>Null fraction</th><th data-i18n>Distinct estimate</th></tr></thead><tbody><tr><td>id</td><td>integer</td><td>False</td><td>0.0</td><td>-1.0</td></tr><tr><td>customer_id</td><td>integer</td><td>True</td><td>0.0</td><td>500.0</td></tr><tr><td>amount</td><td>numeric</td><td>False</td><td>0.0</td><td>1000.0</td></tr></tbody></table></div>
+      <h3 data-i18n>Indexes</h3><ul><li><strong>orders_pkey</strong><code>CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (id)</code></li><li><strong>orders_customer_idx</strong><code>CREATE INDEX orders_customer_idx ON public.orders USING btree (customer_id)</code></li></ul>
+    </details>
+  </section>
+  
+  
+  <section aria-labelledby="recommendations-title">
+    <h2 id="recommendations-title" data-i18n>Recommendations</h2>
+    
+    <article id="recommendation-hash-spill">
+      <h3 data-i18n>Review hash spilling</h3>
+      <p class="badges"><span data-i18n>RECOMMENDATION</span></p>
+      <p data-i18n>Observed evidence</p>
+      <ul><li id="evidence-plan-3"><a href="#plan-3">evidence-plan-3</a> · <span data-i18n>DATABASE</span> · <code>Hash Batches=8; Temp Written Blocks=31; Actual Rows=10000.0; Actual Loops=1</code></li></ul>
+      <dl>
+        <dt data-i18n>Reason</dt><dd data-i18n>The measured hash used multiple batches and wrote temporary blocks. Review hash input size and per-session memory settings.</dd>
+        <dt data-i18n>Conditions</dt><dd data-i18n>Use a representative workload, preserve result semantics, and account for concurrent queries.</dd>
+        <dt data-i18n>Limitations</dt><dd data-i18n>Hash spilling alone does not prove a problem or justify an index or a global memory increase.</dd>
+        <dt data-i18n>Verification</dt><dd data-i18n>Compare hash batches, temporary blocks, output rows, and timings in an isolated read-only test session.</dd>
+      </dl>
+      <p data-i18n>Suggested SQL (text only)</p>
+      <pre><code>EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)
+SELECT SUM(o.amount + p.amount) AS total_amount
+FROM orders AS o
+JOIN orders AS p ON o.customer_id = p.customer_id;
+</code></pre>
+    </article>
+    
+  </section>
+  
+</main>
+<footer data-i18n>SQLPVI · Evidence before assumptions · Input SQL is preserved.</footer>
+<script>"use strict";
+const linked = [...document.querySelectorAll("[data-range]")];
+function highlight(target) {
+  const range = target instanceof Element ? target.closest("[data-range]")?.dataset.range : null;
+  for (const node of linked) node.classList.toggle("active", Boolean(range) && node.dataset.range === range);
+}
+document.addEventListener("mouseover", event => highlight(event.target));
+document.addEventListener("focusin", event => highlight(event.target));
+document.addEventListener("mouseout", event => highlight(event.relatedTarget));
+document.addEventListener("focusout", event => highlight(event.relatedTarget));
+function drawFlow() {
+  const diagram = document.getElementById("flow-diagram");
+  const svg = document.getElementById("flow-edges");
+  const bounds = diagram.getBoundingClientRect();
+  svg.replaceChildren();
+  for (const node of document.querySelectorAll(".flow-node")) {
+    const box = node.getBoundingClientRect();
+    for (const input of node.dataset.inputs.split(" ").filter(Boolean)) {
+      const source = document.getElementById(input);
+      if (!source) continue;
+      const from = source.getBoundingClientRect();
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M 42 ${from.top + from.height / 2 - bounds.top} H 18 V ${box.top + box.height / 2 - bounds.top} H 42`);
+      path.setAttribute("stroke", "#627d92");
+      path.setAttribute("fill", "none");
+      svg.append(path);
+    }
+  }
+}
+window.addEventListener("resize", drawFlow);
+drawFlow();
+const korean = {
+  "Review hash spilling": "해시 임시 파일 사용 점검",
+  "The measured hash used multiple batches and wrote temporary blocks. Review hash input size and per-session memory settings.": "실측 해시 작업의 여러 배치 및 임시 블록 기록 확인. 해시 입력 행 수와 세션별 메모리 설정 점검.",
+  "Hash spilling alone does not prove a problem or justify an index or a global memory increase.": "해시 임시 파일 사용만으로 성능 문제 확정 불가. 인덱스 추가·전역 메모리 증설의 단독 근거로 사용 불가.",
+  "Compare hash batches, temporary blocks, output rows, and timings in an isolated read-only test session.": "격리된 조회 전용 테스트 세션에서 해시 배치 수·임시 블록·출력 행 수·실행 시간 비교.",
+  "Recommendations": "개선 후보",
+  "RECOMMENDATION": "RECOMMENDATION · 개선 후보",
+  "Review disk sorting": "디스크 정렬 점검",
+  "Observed evidence": "관측 근거",
+  "Reason": "제안 이유",
+  "Conditions": "적용 조건",
+  "Limitations": "한계",
+  "Verification": "검증 방법",
+  "Suggested SQL (text only)": "검증 SQL (텍스트 전용)",
+  "The measured sort used disk storage. Review sort input size and per-session work_mem.": "실제 정렬에서 디스크를 사용했습니다. 정렬 입력량과 세션별 work_mem을 점검하세요.",
+  "Use a representative workload, preserve result semantics, and account for concurrent queries.": "대표 부하에서 결과 의미를 보존하고 동시 실행 쿼리를 고려해야 합니다.",
+  "A disk sort alone does not prove a problem or justify an index or a global memory increase.": "디스크 정렬만으로 문제를 확정하거나 인덱스 추가·전역 메모리 증가를 권고하지 않습니다.",
+  "Compare sort space, output rows, buffers, and timings in an isolated read-only test session.": "격리된 조회 전용 테스트 세션에서 정렬 공간, 출력 행 수, 버퍼와 실행 시간을 비교하세요.",
+  "RUNTIME": "RUNTIME · 실제 실행",
+  "Actual execution time (ms):": "실제 실행 시간(ms):",
+  "Runtime mode executed the read-only query; actual metrics are environment-dependent.": "Runtime 모드에서 조회 전용 쿼리를 실제 실행했습니다. 측정값은 실행 환경에 따라 달라집니다.",
+  "Database Metadata": "DB 메타데이터",
+  "Column": "컬럼",
+  "Data type": "데이터 타입",
+  "Nullable": "NULL 허용",
+  "Null fraction": "NULL 비율",
+  "Distinct estimate": "고유값 수 추정",
+  "Indexes": "인덱스",
+  "No indexes visible.": "조회 가능한 인덱스가 없습니다.",
+  "Catalog statistics are estimates and may be stale.": "Catalog 통계는 추정값이며 최신 데이터 분포와 다를 수 있습니다.",
+  "Skip to SQL source": "SQL 원문으로 이동",
+  "Overview": "개요",
+  "References": "참조",
+  "SQL Flow nodes": "SQL Flow 노드",
+  "SQL Source": "SQL 원문",
+  "Reference": "참조",
+  "Kind / Alias": "유형 / 별칭",
+  "Scope": "범위",
+  "Status": "상태",
+  "Basis / Candidates": "출처 / 후보",
+  "PARSED": "PARSED · 파싱됨",
+  "STATIC": "STATIC · 정적 분석",
+  "DATABASE": "DATABASE · DB 근거",
+  "ESTIMATED": "ESTIMATED · 예상 계획",
+  "RESOLVED": "RESOLVED · 연결됨",
+  "AMBIGUOUS": "AMBIGUOUS · 후보가 여러 개",
+  "UNRESOLVED": "UNRESOLVED · 확인 불가",
+  "PARSED does not establish database executability or object existence.": "파싱 성공은 DB 실행 가능성이나 객체의 존재를 보증하지 않습니다.",
+  "SQL Flow describes SQL structure, not the DBMS execution order.": "SQL Flow는 SQL 구조를 나타냅니다. 실제 DBMS 실행 순서는 실행 계획에서 확인합니다.",
+  "Source mapping covers parser-provided token ranges only.": "원문 연결은 파서가 제공한 토큰 위치에만 적용됩니다.",
+  "Hover or focus a token to highlight its references and tree nodes.": "토큰에 마우스를 올리거나 키보드로 이동하면 연결된 참조와 트리 노드가 강조됩니다.",
+  "Source binding status; database object existence is not checked in static mode.": "SQL 원문에서의 연결 상태입니다. 정적 분석만으로 DB 객체의 존재를 확인하지 않습니다.",
+  "No explicit table or column references.": "명시적인 테이블 또는 컬럼 참조가 없습니다.",
+  "SQL structure · STATIC · This is not a database execution plan.": "SQL 구조 · STATIC · DB 실행 계획과 구분해 표시합니다.",
+  "Scan": "Scan · 테이블 참조",
+  "Project": "Project · 출력 컬럼",
+  "Filter": "Filter · 필터",
+  "Join": "Join · 조인",
+  "Aggregate": "Aggregate · 집계",
+  "Sort": "Sort · 정렬",
+  "Distinct": "Distinct · 중복 제거",
+  "Limit": "Limit · 행 수 제한",
+  "Offset": "Offset · 시작 위치",
+  "CTE": "CTE · 공통 테이블 식",
+  "Subquery": "Subquery · 서브쿼리",
+  "output": "출력",
+  "Inputs:": "입력:",
+  "Execution Plan": "실행 계획",
+  "Estimated rows:": "예상 행 수:",
+  "Cost:": "비용:",
+  "SQLPVI · Evidence before assumptions · Input SQL is preserved.": "SQLPVI · 근거를 바탕으로 분석합니다 · 입력 SQL은 변경하지 않습니다."
+};
+const languagePicker = document.getElementById("language");
+function setLanguage(language) {
+  const selected = language === "ko" ? "ko" : "en";
+  document.documentElement.lang = selected;
+  languagePicker.value = selected;
+  for (const element of document.querySelectorAll("[data-i18n]")) {
+    const original = element.dataset.i18n || element.textContent;
+    element.dataset.i18n = original;
+    element.textContent = selected === "ko" ? korean[original] || original : original;
+  }
+  try { localStorage.setItem("sqlpvi-language", selected); } catch { /* Storage may be unavailable for local files. */ }
+  drawFlow();
+}
+let initialLanguage = navigator.language.startsWith("ko") ? "ko" : "en";
+try { initialLanguage = localStorage.getItem("sqlpvi-language") || initialLanguage; } catch { /* The picker still works without storage. */ }
+languagePicker.addEventListener("change", () => setLanguage(languagePicker.value));
+setLanguage(initialLanguage);
+</script>
+</body>
+</html>

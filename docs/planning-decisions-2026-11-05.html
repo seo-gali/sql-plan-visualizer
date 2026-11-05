@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<link rel="icon" href="data:,">
+<title>기획서 정리에서 대신 고른 것 · SQLPVI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf2f7;color:#172b40;font:15px/1.6 "Malgun Gothic",system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:24px}h1{font-size:28px;line-height:1.3;margin:4px 0 10px}h2{font-size:19px;margin:0 0 10px}h3{font-size:16px;margin:0 0 5px}p{margin:0}header{margin-bottom:20px}.stamp{font-size:13px;color:#4b5f70}.review{border:1px solid #d8948c;border-left:5px solid #a52323;border-radius:10px;background:#fff1ef;padding:16px 20px;margin-bottom:22px}.review h2,.review h3{color:#a52323}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1px solid #ccd8e3;border-radius:9px;padding:15px;background:white}.card p{color:#43586a}code{font-family:Consolas,"Malgun Gothic",monospace;font-size:13px;overflow-wrap:anywhere}footer{margin-top:20px;border-top:1px solid #ccd8e3;padding-top:12px;font-size:13px;color:#4b5f70}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}@media(max-width:500px){main{padding:16px}.grid{grid-template-columns:1fr}h1{font-size:24px}}
+</style>
+</head>
+<body><main>
+<header><p class="stamp">SQLPVI · 기획서.md 정리 · 2026-11-05</p><h1>기획서를 고치며 대신 고른 것</h1><p>결과가 달라지는 선택만 모았어요. 프로그램 기능을 새로 만든 작업은 아니에요.</p></header>
+<section class="review"><h2>먼저 볼 범위와 기준</h2><div class="two">
+<article data-review="1"><h3>원래 계획의 미완료 항목 유지</h3><p>다른 DB의 실제 측정, SQL 고쳐 쓰기, 인덱스 추천 등은 아직 없어요. 계획에서 지우지 않고 빈 체크로 남겼어요. 앞으로 만들 범위를 볼 때 확인할 부분이에요.</p></article>
+<article data-review="2"><h3>작업 계약의 위치 유지</h3><p>새 <code>기획서.md</code>는 지금 상태를 담은 설명서로 정했어요. 작업의 기준 파일인 <code>.project/plan.md</code>와 기존 규칙은 바꾸지 않았어요.</p></article>
+</div></section>
+<section><h2>따로 묻지 않고 고른 작성 방법</h2><div class="grid">
+<article class="card" data-decision="1"><h3>20개 절과 Mermaid 그림 유지</h3><p>주신 큰 항목 20개를 남겼어요. 요청하신 대로 그림 4개는 Mermaid 원문으로 넣고 별도 이미지 파일은 두지 않았어요.</p></article>
+<article class="card" data-decision="2"><h3>코드에 맞춘 이름·버전</h3><p>지금 쓰는 <code>--vendor</code>와 Python 3.13.15로 적었어요. 예전 이름을 쓰게 하려고 프로그램을 바꾸지는 않았어요.</p></article>
+<article class="card" data-decision="3"><h3>없는 기능도 보이는 기록</h3><p>문장 종류 전용 칸과 원본 계획 전체 보관도 아직 없다고 적었어요. 일부 값만 보관하는 것을 전체 보관이라 부르지 않았어요.</p></article>
+<article class="card" data-decision="4"><h3>옛 시험과 이번 확인 분리</h3><p>258개 통과는 이전 실행 기록이에요. 이번에는 링크·명령을 살피고, DB에 붙지 않는 HTML·JSON 예제만 실행했어요.</p></article>
+<article class="card" data-decision="5"><h3>설치된 환경의 예제 검사</h3><p>설치 오류가 남아 있어 <code>--no-sync</code>를 썼어요. 자료 보관함에는 연결하지 않았고 SQL 원문도 그대로 남겼어요.</p></article>
+<article class="card" data-decision="6"><h3>새 문서의 찾는 길 추가</h3><p>요청하신 이름으로 프로젝트 맨 위에 저장하고 README에 길을 달았어요. 부품 목록·Lock·DB·Git은 바꾸지 않았어요.</p></article>
+</div></section>
+<footer><p>다시 살핀 누락: 원본 전체 보관·독립 문장 종류 필드·실제 Agent 호출의 미완료 표시. 문서 내용 확인과 프로그램 전체 재검사의 구분.</p></footer>
+</main></body></html>
