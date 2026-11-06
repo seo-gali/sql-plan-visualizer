@@ -105,6 +105,7 @@ Fixture 추가: `fixtures/sql/hash-spill.sql`. 삭제 파일·신규 의존성·
 
 코드 개선 당시 미해결: Windows uv 신규 설치 권한 오류, Mermaid 실제 렌더링, Claude Code 실제 호출.
 후속 확인 당시 문서 그림 10개의 실제 렌더링·SVG 연결 완료. 이후 사용자 요청에 따른 별도 SVG 삭제와 Markdown Mermaid 직접 표시로 전환.
+현재 경위 HTML의 작업 흐름·문서 도표는 HTML/CSS로 직접 작성. SVG 파일·인라인 SVG·이미지 데이터 없이 표시.
 uv 신규 설치는 미완료.
 시도별 명령·결과·경위: [문서 첫 화면](index.html).
 Git 저장소·Remote 부재에 따른 Push·PR 미수행.
