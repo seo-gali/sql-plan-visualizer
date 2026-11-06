@@ -3,16 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'sha256-qJzeX9ZmzbJapPkyjEt1x/uv5OFGJEZi01jSWzLUFS4='; base-uri 'none'; form-action 'none'">
 <link rel="icon" href="data:,">
-<title>SQLPVI 작업 경위와 현재 상태 · 2026-11-05</title>
+<title>SQLPVI 프로젝트 문서</title>
 <style>
-:root{color-scheme:light;--ink:#172b40;--muted:#4b5f70;--line:#ccd8e3;--blue:#125789;--red:#a52323;--red-bg:#fff1ef;--green:#17684c;--amber:#82510b}
-*{box-sizing:border-box}html{scroll-padding-top:24px}body{margin:0;background:#edf2f7;color:var(--ink);font:16px/1.75 "Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:32px 24px 64px}h1,h2,h3{line-height:1.4;letter-spacing:-.025em}h1{font-size:34px;margin:4px 0 14px}h2{font-size:25px;margin:0 0 20px}h3{font-size:19px;margin:22px 0 10px}p{margin:10px 0}a{color:var(--blue);text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #135d91;outline-offset:4px}.eyebrow{font-size:13px;letter-spacing:.06em;font-weight:700;color:var(--muted)}.lead{font-size:18px;max-width:920px}.muted,.note{color:var(--muted)}.note{font-size:14px}.path{overflow-wrap:anywhere}code{font:14px/1.6 Consolas,"Malgun Gothic",monospace;overflow-wrap:anywhere;background:#eaf0f5;padding:2px 5px;border-radius:4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#10263b;color:#eaf4fb;padding:16px 18px;border-radius:8px;font:13px/1.7 Consolas,"Malgun Gothic",monospace}pre code{padding:0;color:inherit;background:none;font:inherit}section{margin-top:30px;background:white;border:1px solid var(--line);border-radius:12px;padding:28px}.attention{border:1px solid #dda7a0;border-left:6px solid var(--red);background:var(--red-bg);padding:18px 22px;border-radius:10px;margin:24px 0}.attention h2{font-size:21px;margin-bottom:12px;color:var(--red)}.attention p{margin:8px 0}.status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}.status{background:white;border:1px solid var(--line);border-radius:9px;padding:16px 18px}.status strong{display:block;font-size:20px;line-height:1.5}.good{color:var(--green)}.bad{color:var(--red)}.pending{color:var(--amber)}nav{background:#e3ecf4;border:1px solid var(--line);padding:18px 22px;border-radius:10px}nav ol{display:grid;grid-template-columns:1fr 1fr;gap:5px 24px;margin:0;padding-left:24px}ul,ol{padding-left:24px}li+li{margin-top:6px}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:15px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th{background:#e8f0f6;font-weight:800}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fafc}.wide{min-width:800px}.label{display:inline-block;padding:1px 9px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}.pass{background:#e4f3eb;color:var(--green)}.fail{background:#fde8e5;color:var(--red)}.wait{background:#fff0d5;color:var(--amber)}.quote{border-left:4px solid #90a7bb;margin:16px 0;padding:2px 18px;background:#f5f8fb}figure{margin:22px 0}.diagram{overflow:auto;background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:16px}figcaption{font-size:14px;color:var(--muted);margin-top:8px}.diagram-gallery figure{border-top:1px solid var(--line);padding-top:20px}.diagram-gallery .diagram{background:white}.diagram-gallery h3{margin-top:0}details{margin:18px 0;border:1px solid var(--line);border-radius:8px;padding:12px 16px}summary{cursor:pointer;font-weight:700}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.box{padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:#f8fafc}.box h3{margin-top:0}.change-files{columns:2;column-gap:30px}.change-files li{break-inside:avoid;margin:0 0 8px}.timeline td:first-child{width:52px;font-weight:800}.small{font-size:14px}footer{font-size:14px;color:var(--muted);margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}@media(max-width:760px){main{padding:22px 14px 44px}h1{font-size:27px}h2{font-size:22px}section{padding:20px 16px}.status-grid,.split{grid-template-columns:1fr}nav ol{grid-template-columns:1fr}.change-files{columns:1}th,td{padding:10px}.lead{font-size:16px}}@media print{body{background:white;font-size:11pt}main{max-width:none;padding:0}section{break-inside:auto;border:0;padding:12px 0;margin-top:18px}nav{display:none}.table-wrap{overflow:visible}.wide{min-width:0}a{color:inherit}pre{background:#f1f1f1;color:black}h2,h3{break-after:avoid}}
-
+:root{color-scheme:light;--ink:#172b40;--muted:#4b5f70;--line:#ccd8e3;--blue:#125789;--red:#a52323;--green:#17684c;--amber:#82510b}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f6fa;color:var(--ink);font:16px/1.85 "Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;word-break:keep-all}
+main{max-width:1180px;margin:auto;padding:24px 24px 48px;min-width:0}
+h1,h2,h3,h4{line-height:1.5;letter-spacing:-.025em}
+.page-title{margin:0 0 18px;font-size:30px}h2{margin:0 0 16px;font-size:28px}h3{font-size:21px;margin:0 0 16px}h4{font-size:16px;margin:0 0 12px}
+p{margin:0 0 14px;max-width:72ch;overflow-wrap:anywhere}p:last-child{margin-bottom:0}
+a{color:var(--blue);text-underline-offset:4px}
+a:focus-visible,button:focus-visible,summary:focus-visible,.doc-panel:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+button{font:inherit;cursor:pointer}button:disabled{cursor:default;color:#637383;background:#edf2f7}
+[hidden]{display:none!important}
+.skip-link{position:absolute;left:24px;top:-100px;z-index:5;background:white;padding:10px 16px}.skip-link:focus{top:8px}
+.topic-nav{position:sticky;top:12px;z-index:2;padding:6px;background:#e5edf5;border:1px solid #c7d5e2;border-radius:12px}
+.tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.tabs a{display:flex;align-items:center;gap:8px;min-height:46px;padding:9px 14px;border:2px solid transparent;border-radius:7px;color:#43586a;font-weight:700;text-decoration:none;white-space:nowrap}
+.tabs a span{font:12px/1.4 Consolas,monospace;color:#4b6379}
+.tabs a:hover{background:#f6f9fc}.tabs a[aria-selected="true"]{background:white;border-color:var(--blue);color:var(--blue)}
+.tabs a[aria-selected="true"] span{color:var(--blue)}
+.doc-panel{margin-top:20px;padding:28px 36px;background:white;border:1px solid var(--line);border-radius:12px;scroll-margin-top:140px}
+.section-intro,.note,figcaption{font-size:14px;color:var(--muted)}
+.step{padding:28px 0;border-top:1px solid #e1e8ef}.step:first-of-type{border-top:0;padding-top:12px}.step:last-child{padding-bottom:0}
+.step-label{display:block;margin-bottom:6px;font:700 12px/1.5 Consolas,monospace;letter-spacing:.09em;color:var(--blue)}
+.takeaway{font-weight:700}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0}
+.box{padding:18px 20px;border:1px solid var(--line);border-radius:8px;background:#f8fafc}
+.box p{font-size:15px}.box p+p{margin-top:12px}
+code{font:14px/1.7 Consolas,"Malgun Gothic",monospace;overflow-wrap:anywhere;background:#edf2f7;padding:2px 5px;border-radius:4px}
+pre{margin:18px 0;white-space:pre-wrap;overflow-wrap:anywhere;background:#10263b;color:#eaf4fb;padding:16px 18px;border-radius:8px;font:13px/1.8 Consolas,"Malgun Gothic",monospace}
+pre code{padding:0;background:none;color:inherit;font:inherit}
+details{margin:16px 0 0;border:1px solid var(--line);border-radius:8px;background:#fbfcfe;min-width:0}
+summary{cursor:pointer;padding:14px 18px;font-size:15px;font-weight:700;overflow-wrap:anywhere}
+details[open]>summary{border-bottom:1px solid var(--line);margin-bottom:18px}
+details>:not(summary){margin-left:18px;margin-right:18px}details>:last-child{margin-bottom:18px}
+details p{font-size:15px}details>details{margin-bottom:18px}
+.event{padding:18px 0;border-top:1px solid var(--line)}.event:first-of-type{padding-top:0;border-top:0}.event p{font-size:15px}
+ul,ol{padding-left:24px}li+li{margin-top:12px}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:18px 0;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.9}th,td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+th{background:#edf2f7;font-weight:700}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fafc}.wide{min-width:760px}
+.label{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;white-space:nowrap}
+.pass{background:#e4f3eb;color:var(--green)}.fail{background:#fde8e5;color:var(--red)}.wait{background:#fff0d5;color:var(--amber)}
+.change-files{columns:2;column-gap:28px}.change-files li{break-inside:avoid;margin:0 0 12px}
+figure{margin:20px 0}.diagram{overflow:auto;background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:16px}figcaption{margin-top:12px}
+.panel-navigation{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px}
+.panel-navigation button{min-height:46px;padding:8px 18px;border:1px solid #b7cadb;border-radius:8px;background:white;color:var(--blue);font-size:14px;font-weight:700}
+.panel-navigation button:disabled{color:#637383;background:#edf2f7}.panel-navigation p{margin:0;color:var(--muted);font-size:13px;text-align:center}
+footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+@media(max-width:760px){main{padding:12px 12px 32px}.topic-nav{top:0;border-radius:8px}.tabs{display:flex;overflow-x:auto;gap:4px;padding:2px}.tabs a{flex:0 0 auto;min-height:44px;padding:8px 12px}.doc-panel{margin-top:14px;padding:22px 18px;scroll-margin-top:80px}h2{font-size:24px}h3{font-size:19px}.step{padding:24px 0}.split{grid-template-columns:1fr}.change-files{columns:1}.panel-navigation{gap:8px}.panel-navigation button{padding:8px 12px}.panel-navigation p{max-width:120px}th,td{padding:12px}.diagram{padding:12px}}
+@media print{body{background:white;font-size:11pt}main{max-width:none;padding:0}.topic-nav,.panel-navigation,.skip-link{display:none!important}.doc-panel,.doc-panel[hidden]{display:block!important;border:0;padding:16px 0;margin-top:0}.step{break-inside:auto}.wide{min-width:0}.table-wrap{overflow:visible}details{border:0}summary{padding-left:0}details::details-content{content-visibility:visible;display:block}a{color:inherit}pre{background:#f1f1f1;color:black}h2,h3,h4{break-after:avoid}}
 .flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:28px}
 .flow>li{position:relative;min-width:0;margin:0}
-.flow>li:not(:last-child)::after{content:"↓";position:absolute;bottom:-29px;left:50%;transform:translateX(-50%);font-size:22px;font-weight:700;line-height:28px;color:#48677e}
+.flow>li:not(:last-child)::after{content:"↓" / "";position:absolute;bottom:-29px;left:50%;transform:translateX(-50%);font-size:22px;font-weight:700;line-height:28px;color:#48677e}
 .flow-node{min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:14px 16px;border:1px solid #9eb8cd;border-radius:8px;background:#e8f0f7;text-align:center;overflow-wrap:anywhere}
 .flow-node strong{font-size:15px;line-height:1.6}.flow-node span{font-size:14px;line-height:1.7;color:#43586a}
 .flow-node.decision{background:#fff5df;border-color:#c2a165;border-style:dashed}
@@ -21,57 +66,52 @@
 .flow-label{margin:0 0 12px;font-size:13px;font-weight:800;text-align:center;color:#125789;overflow-wrap:anywhere}
 .flow-note{padding:14px;border:1px dashed #a5bacb;border-radius:6px;text-align:center;font-size:14px;color:#43586a}
 .history-flow>li:last-child .flow-node{background:#fff0ed;border-color:#c87870}
-@media(min-width:1000px){.flow-row{flex-direction:row;gap:28px}.flow-row>li{flex:1;display:flex}.flow-row .flow-node{width:100%}.flow-row>li:not(:last-child)::after{content:"→";left:auto;right:-24px;top:50%;bottom:auto;transform:translateY(-50%)}
+@media(min-width:1000px){.flow-row{flex-direction:row;gap:28px}.flow-row>li{flex:1;display:flex}.flow-row .flow-node{width:100%}.flow-row>li:not(:last-child)::after{content:"→" / "";left:auto;right:-24px;top:50%;bottom:auto;transform:translateY(-50%)}
 .history-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px 28px}.history-flow .flow-node{height:100%;min-height:138px}.history-flow>li:nth-child(5){grid-column:4;grid-row:2}.history-flow>li:nth-child(6){grid-column:3;grid-row:2}.history-flow>li:nth-child(7){grid-column:2;grid-row:2}.history-flow>li:nth-child(8){grid-column:1;grid-row:2}
-.history-flow>li:nth-child(-n+3)::after{content:"→";left:auto;right:-24px;top:50%;bottom:auto;transform:translateY(-50%)}.history-flow>li:nth-child(4)::after{bottom:-33px}.history-flow>li:nth-child(n+5):not(:last-child)::after{content:"←";left:-24px;top:50%;bottom:auto;transform:translateY(-50%)}}
+.history-flow>li:nth-child(-n+3)::after{content:"→" / "";left:auto;right:-24px;top:50%;bottom:auto;transform:translateY(-50%)}.history-flow>li:nth-child(4)::after{bottom:-33px}.history-flow>li:nth-child(n+5):not(:last-child)::after{content:"←" / "";left:-24px;top:50%;bottom:auto;transform:translateY(-50%)}}
 @media(max-width:760px){.flow-branches{grid-template-columns:1fr}.flow-node{padding:12px}.flow-branch{padding:12px}}
-@media print{.flow-row{flex-direction:column}.flow-branches{grid-template-columns:1fr}.history-flow{display:flex}.flow-node{break-inside:avoid}.flow>li:not(:last-child)::after,.history-flow>li:not(:last-child)::after{content:"↓";left:50%;right:auto;top:auto;bottom:-29px;transform:translateX(-50%)}}
+@media print{.flow-row{flex-direction:column}.flow-branches{grid-template-columns:1fr}.history-flow{display:flex}.flow-node{break-inside:avoid}.flow>li:not(:last-child)::after,.history-flow>li:not(:last-child)::after{content:"↓" / "";left:50%;right:auto;top:auto;bottom:-29px;transform:translateX(-50%)}}
 
 </style>
 </head>
 <body>
+<a class="skip-link" href="#purpose">본문으로 이동</a>
 <main>
-<header>
-<div class="eyebrow">SQLPVI · 검토용 작업 기록 · 2026-11-05</div>
-<h1>무엇을 바꿨고, 어디까지 확인했는가</h1>
-<p class="lead">사용자 요청 → 제가 선택한 작업 → 실제 변경 → 검사 결과 → 남은 문제의 순서로 정리한 기록. 성공한 검사와 실패한 설치의 분리. 아래 명령문은 경위를 확인하기 위한 기록이며, 현재 추가 실행 요청 없음.</p>
-<p class="path"><strong>작업 프로젝트:</strong> <code>D:\01_Programming\08_AI\Agent\sql-plan-visualizer</code></p>
-<p class="note">근거: 대화에 남은 사용자 실행 결과, 제가 확인한 도구 실행 결과, 현재 코드, 저장된 Phase 완료 문서. 과거 문서만 확인한 항목은 새 실행으로 표시하지 않음.</p>
-</header>
+<h1 class="page-title">SQLPVI 프로젝트 문서</h1>
+<nav class="topic-nav" aria-label="문서 주제 선택"><div class="tabs">
+<a id="tab-purpose" href="#purpose" data-title="도구 소개"><span>01</span>도구 소개</a>
+<a id="tab-history" href="#history" data-title="작업 경위"><span>02</span>작업 경위</a>
+<a id="tab-changes" href="#changes" data-title="코드 개선"><span>03</span>코드 개선</a>
+<a id="tab-database" href="#database" data-title="DB 준비"><span>04</span>DB 준비</a>
+<a id="tab-commands" href="#commands" data-title="uv 명령"><span>05</span>uv 명령</a>
+<a id="tab-install" href="#install" data-title="설치 기록"><span>06</span>설치 기록</a>
+<a id="tab-verification" href="#verification" data-title="검증 결과"><span>07</span>검증 결과</a>
+<a id="tab-files" href="#files" data-title="변경 파일"><span>08</span>변경 파일</a>
+<a id="tab-pictures" href="#pictures" data-title="흐름도"><span>09</span>흐름도</a>
+<a id="tab-remaining" href="#remaining" data-title="남은 일"><span>10</span>남은 일</a>
+</div></nav>
 
-<div class="attention" role="note">
-<h2>먼저 확인할 사실</h2>
-<p><strong>uv 신규 설치 복구: 아직 미완료.</strong> 기존 캐시의 파일 접근 오류 재현. 새 캐시에 필요한 다운로드는 이 셸에서 차단. 정상적인 새 환경 설치를 끝냈다는 근거 없음.</p>
-<p><strong>잘못된 폴더에서 실행된 안내 명령 1건.</strong> 제가 첫 안내에 대상 프로젝트 경로를 넣지 않았고, 사용자가 올린 결과의 위치는 <code>boiler-ops-agent</code>. 해당 결과를 SQLPVI 복구 성공으로 판단하지 않음.</p>
-<p><strong>사용자가 각각 지정하지 않은 코드 개선 3건.</strong> “우리 코드 고치기” 요청을 제가 출력 폴더·SQL Server 힌트·해시 추천의 개선으로 구체화. 개별 기능을 사용자에게 선택받은 것은 아님. 구체적 범위와 검증 결과는 아래 기록.</p>
-<p><strong>추가 설치보다 경위 검토를 우선한 상태.</strong> 사용자의 “한번 체크” 요청에 따른 현재 기록 작성.</p>
+<section id="purpose" class="doc-panel" aria-labelledby="heading-purpose">
+<h2 id="heading-purpose">도구 소개</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>SQL 구조와 실행 계획 확인</h3>
+
+<p class="takeaway">SQL 파일을 읽고, 자료를 찾는 구조를 그림으로 확인하는 도구.</p>
+<p>DB는 자료 보관함. SQL은 자료를 찾는 명령.</p>
+<p>실행 계획은 DB가 그 명령을 처리하는 방법의 기록.</p>
+<p>SQLPVI의 역할은 SQL 구조와 실제 DB 계획의 연결. 최종 판단과 적용은 사용자 몫.</p>
+
+</div><div class="step"><h3><span class="step-label">STEP 02</span>분석 방식 선택</h3>
+
+<div class="split">
+<div class="box"><h4>파일 분석</h4><p>SQL 파일만 읽는 정적 분석.</p><p>AST·참조·SQL Flow의 HTML·JSON 출력.</p></div>
+<div class="box"><h4>DB 분석</h4><p>명시적인 옵션 사용 시 DB 예상 계획 조회.</p><p>PostgreSQL의 별도 Runtime 옵션 사용 시 실제 조회 측정. 근거 충족 시 점검 후보 표시.</p></div>
 </div>
+<p class="note">일반 DB 질문 비서·MCP 서버·개인정보 자동 가림·SSH 통로는 현재 미구현. 쓰기 허용 스위치와 추천 SQL 자동 적용도 미제공.</p>
 
-<div class="status-grid" aria-label="현재 확인 상태">
-<div class="status"><span class="label pass">실제 검사 통과</span><strong class="good">전체 258개</strong><p class="small">PostgreSQL·MariaDB·SQL Server 통합 검사 포함. 2026-11-05 실행, Skip 없음.</p></div>
-<div class="status"><span class="label fail">복구 미완료</span><strong class="bad">uv 신규 설치</strong><p class="small">기존 환경의 실행 성공과 새 환경의 설치 성공은 별도 항목.</p></div>
-<div class="status"><span class="label pass">HTML/CSS 직접 표시</span><strong class="good">문서 흐름도 10개</strong><p class="small">상자·분기·화살표를 HTML/CSS로 작성. 별도 이미지·실행 도구 없이 브라우저에서 표시. Markdown의 Mermaid 유지.</p></div>
-</div>
-
-<nav aria-label="기록 목차"><ol>
-<li><a href="#purpose">도구의 목적과 작업 흐름도</a></li>
-<li><a href="#history">요청과 실행의 전체 경위</a></li>
-<li><a href="#changes">코드 개선 3건의 정확한 범위</a></li>
-<li><a href="#database">DB 준비를 반복 요청한 이유</a></li>
-<li><a href="#commands">uv 명령의 뜻과 영향 범위</a></li>
-<li><a href="#install">설치 시도별 실패·미완료 기록</a></li>
-<li><a href="#verification">검사 결과와 과거 기록의 구분</a></li>
-<li><a href="#files">변경 파일·판단·승인 경계</a></li>
-<li><a href="#pictures">문서에 넣은 실제 그림 10개</a></li>
-<li><a href="#remaining">현재 남은 일과 확인 근거</a></li>
-</ol></nav>
-
-<section id="purpose">
-<h2>1. 도구의 목적과 작업 흐름도</h2>
-<p><strong>SQLPVI의 목적: SQL 파일의 구조와 DB 실행 계획을 그림·보고서로 확인.</strong> DB는 자료 보관함, SQL은 자료를 찾는 명령. 실행 계획은 DB가 그 명령을 처리하려는 방법의 기록.</p>
-<div class="split"><div class="box"><h3>현재 가능한 일</h3><p>파일만 읽는 구조 분석. DB에 연결한 예상 계획 조회. 사용자가 별도 옵션을 준 PostgreSQL 조회의 실제 측정. 근거가 있는 점검 후보의 HTML·JSON 표시.</p></div><div class="box"><h3>현재 제품에 없는 일</h3><p>자연어 질문을 받는 일반 DB 비서, MCP 서버, 개인정보 자동 가림, SSH 접속 통로, 쓰기 허용 스위치, 추천 SQL 자동 적용.</p></div></div>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>전체 흐름과 비교 확인</h3>
+<details><summary>지금까지의 작업 흐름 8단계</summary>
 <figure><div class="diagram" role="group" aria-label="지금까지의 작업 흐름"><ol class="flow history-flow"><li><div class="flow-node"><strong>① 기존 작업 확인</strong><span>Phase 0~10의 범위와 기록 확인</span></div></li><li><div class="flow-node"><strong>② 격리 DB 준비</strong><span>드라이버·컨테이너 준비 / 사용자 실행 지원</span></div></li><li><div class="flow-node"><strong>③ SQL Server 연결 수정</strong><span>51433 충돌 확인 / mssql · 14330 사용</span></div></li><li><div class="flow-node"><strong>④ Phase 검증</strong><span>당시 전체 211개 통과 / 2026-11-04 기록</span></div></li><li><div class="flow-node"><strong>⑤ 문서·선택 기록</strong><span>문서 16개 정리 / 선택 HTML의 위치 이동</span></div></li><li><div class="flow-node"><strong>⑥ 코드 개선 3건</strong><span>출력 폴더·힌트·해시 / 전체 258개 통과</span></div></li><li><div class="flow-node"><strong>⑦ 남은 문제 확인</strong><span>uv 설치 복구 미완료 / 문서 그림 확인</span></div></li><li><div class="flow-node"><strong>⑧ 경위 검토 기록</strong><span>명령·변경·근거·실패의 구분과 기록 작성</span></div></li></ol></div><figcaption>번호 순서로 이어지는 작업 흐름. 넓은 화면의 위 줄은 왼쪽에서 오른쪽, 아래 줄은 오른쪽에서 왼쪽 순서. 좁은 화면은 위에서 아래 순서.</figcaption></figure>
-<h3>주신 MCP 글과의 관계</h3>
+</details><details><summary>사용자가 제공한 MCP 글과의 차이</summary>
 <div class="table-wrap"><table><thead><tr><th>구분</th><th>주신 글의 mcp-server-mysql</th><th>현재 SQLPVI</th></tr></thead><tbody>
 <tr><td>주목적</td><td>AI의 DB 구조 확인과 일반 조회</td><td>SQL 파일의 구조·참조·실행 계획 시각화</td></tr>
 <tr><td>사용 방식</td><td>MCP 연결 도구</td><td>CLI 명령과 로컬 Skill</td></tr>
@@ -79,40 +119,70 @@
 <tr><td>공통점</td><td colspan="2">읽기 중심 접근과 DB 권한 제한의 중요성</td></tr>
 <tr><td>개인정보 가림·SSH</td><td>글에서 소개한 기능</td><td>미구현</td></tr>
 </tbody></table></div><p class="note">비교 기준은 사용자가 제공한 글. 이 표에서 외부 도구의 최신 전체 기능·별 개수 재평가 없음.</p>
+
+</details>
+</div>
 </section>
 
-<section id="history">
-<h2>2. 요청과 실행의 전체 경위</h2>
-<p>사용자의 요청, 제가 한 일, 실제 결과를 같은 행에 배치. 성공과 무관하게 실패·재요청의 경위 포함.</p>
-<div class="table-wrap"><table class="wide timeline"><thead><tr><th>순서</th><th>요청·상황</th><th>작업·안내</th><th>확인 결과·남은 한계</th></tr></thead><tbody>
-<tr><td>01</td><td>기존 작업 확인과 계속 진행 요청</td><td>프로젝트 계획·단계별 구현·검사 상태 확인 및 후속 작업 진행</td><td>단계별 완료 내용은 저장된 Phase 문서로 추적. 현재 사용자 대화에 없는 과거 세부 실행을 새로 지어내지 않음.</td></tr>
-<tr><td>02</td><td>셸의 PyPI·DockSlate 접근 제한</td><td>사용자에게 일반 PowerShell의 패키지·테스트 DB 준비 명령 안내</td><td>사용자가 DockSlate 실행 및 PostgreSQL·MariaDB Healthy 결과 제공.</td></tr>
-<tr><td>03</td><td><code>uv sync --locked</code> 실패</td><td>기존 설치 환경과 캐시를 사용해 검사를 계속하는 경로 확보</td><td><code>setuptools 84.2.1 / entry_points.txt / os error 5</code>. 신규 설치 문제가 해결된 것으로 처리하지 않음.</td></tr>
-<tr><td>04</td><td>SQL Server 지원을 위한 드라이버·Lock 갱신 승인</td><td><code>pymssql==2.4.6</code> 사용. 사용자 실행으로 Lock 갱신과 드라이버 설치</td><td>패키지명이 별도 줄로 실행되어 실패한 명령 뒤, 한 줄 설치 명령으로 성공. Lock의 전체 패키지 수 16개.</td></tr>
-<tr><td>05</td><td>SQL Server 컨테이너 Healthy, 호스트 접속 실패</td><td>상태·로그·재시작 결과와 Windows 포트 예약 범위 확인</td><td>51433이 예약 구간 51356~51455와 충돌. 컨테이너 내부 Healthy와 Windows 포트 접근 가능성은 별도 상태.</td></tr>
-<tr><td>06</td><td>예약 포트를 피한 연결 필요</td><td>Compose 서비스 <code>mssql</code>, 포트 <code>14330</code> 사용. 기존 <code>sqlserver</code> 컨테이너 보존</td><td>사용자가 새 컨테이너·init 실행. 새 DB의 customers 500행, orders 10000행 결과 제공. 기존 컨테이너 삭제 없음.</td></tr>
-<tr><td>07</td><td>실제 다중 DB 검증과 추천 단계 진행</td><td>SQL Server 미실행 계획 수집·권한·Timeout·연결 정리, PostgreSQL 디스크 정렬 추천 검증</td><td>2026-11-04 Phase 10 시점: 전체 211 passed, Skip 없음. Git 저장소·Remote 부재로 Git/PR 미완료.</td></tr>
-<tr><td>08</td><td>MCP 글과 우리 작업의 차이를 완료 뒤 구분해 달라는 요청</td><td>일반 DB 조회 비서와 SQL 분석 도구의 목적 차이 기록</td><td>MCP·개인정보 가림·SSH 기능을 새로 추가하는 작업으로 해석하지 않음.</td></tr>
-<tr><td>09</td><td>문서 수정, 그림 추가, 짧은 명사형 문장 요청</td><td>README·기획서·운영 규칙·화면 설계·Phase 지침 등 16개 문서 정리. 당시 Mermaid 9개 추가</td><td>과거 시험 수치·날짜 보존. 비어 있던 완료 기준과 체크의 재구성은 제 판단으로 진행. 당시 Mermaid 실제 렌더링은 미검증.</td></tr>
-<tr><td>10</td><td>완료 전 누락 재검토 및 대신 내린 선택의 HTML 기록 요청</td><td>출력 폴더 준비 안내·HTML 특수문자 검사 누락 수정. 선택 기록 작성</td><td>사용자의 초기 저장소 밖 요청에 따라 Temp 사용. 이후 사용자 이동 지시로 프로젝트 <code>work-records</code>에 이동. 이전 Temp 파일 제거·이동 전후 내용 일치 확인.</td></tr>
-<tr><td>11</td><td>“참고해서 우리쪽 코드 고치면 안돼?” 요청</td><td>제가 출력 폴더 자동 생성·SQL Server 힌트 일부 허용·해시 추천 추가를 작업 범위로 선택</td><td>사용자가 세 항목을 각각 지정한 것은 아님. 이 선택에 따른 코드 변경·검사의 내용은 다음 절.</td></tr>
-<tr><td>12</td><td>실제 DB 검사를 위한 포트 응답 없음</td><td>DockSlate 실행과 DB 컨테이너 시작의 차이 설명. 세 컨테이너 시작 명령 안내</td><td>사용자가 컨테이너 네 개의 실행 화면 제공. 이후 55432·53306·14330 응답 확인. 네 번째는 보존한 예전 SQL Server.</td></tr>
-<tr><td>13</td><td>코드 개선 전후 검증</td><td>회귀 검사 추가 → 변경 전 실패 확인 → 구현 → 실제 DB 포함 전체 검사</td><td>변경 전 9 failed / 102 passed. 같은 검사 변경 후 111 passed. 전체 258 passed in 18.89s, Skip 없음.</td></tr>
-<tr><td>14</td><td>“uv 신규 설치 권한 오류, Mermaid 실제 표시 해” 요청</td><td>별도 새 가상환경의 설치 시도와 프로젝트 Wheel 빌드로 오류 재현</td><td>캐시 접근 오류와 PyPI 접속 제한이 모두 확인됨. 기존 환경 실행 성공으로 새 설치 완료를 대신하지 않음.</td></tr>
-<tr><td>15</td><td>Mermaid 실제 표시 확인</td><td>공개 Mermaid 12.3.0으로 당시 10개 렌더링. SVG 생성·문서 연결·원문 보존</td><td>당시 10개 렌더링 성공. 이후 별도 SVG 삭제와 Markdown Mermaid 전환, HTML/CSS 직접 표시의 후속 기록으로 구분.</td></tr>
-<tr><td>16</td><td>기존 캐시 실패와 셸 다운로드 제한</td><td>새 캐시와 복사 방식으로 일반 PowerShell 설치 요청</td><td>첫 명령에 대상 경로가 없어 현재 PowerShell 폴더에 따라 다른 프로젝트에 적용될 수 있었음.</td></tr>
-<tr><td>17</td><td>사용자 실행 결과의 경로가 <code>boiler-ops-agent</code></td><td>해당 결과를 SQLPVI 성공으로 사용하지 않고, <code>--directory</code>를 포함한 수정 명령 안내</td><td>사용자 출력: 24 packages / Checked 22 packages. SQLPVI의 16 packages와 다른 프로젝트 결과. 설치·삭제 표시가 없는 출력이나, 그 프로젝트 전체 상태를 별도로 검사한 것은 아님.</td></tr>
-<tr><td>18</td><td>“왜 자꾸 시키나”, “이상한 것 같다”, “한번 체크” 요청</td><td>추가 설치 진행보다 경위 검토 우선. 이 HTML 작성</td><td>경로를 넣은 수정 명령의 SQLPVI 실행 결과는 아직 없음. 새 캐시 설치 복구는 미완료.</td></tr>
-<tr><td>19</td><td>검토 HTML을 docs/index로 보관하고 향후 Git에서 확인할 수 있게 해 달라는 요청</td><td>본문 보존 후 <code>docs/index.html</code>로 이동. 선택 기록도 docs로 이동. 샘플 보고서의 docs/examples 보관과 내부 상대 링크 정리.</td><td>로컬 문서 준비. 실제 GitHub Pages 설정·Push·웹 게시 미수행. 이후 게시 폴더 <code>/docs</code> 선택 가능.</td></tr>
-<tr><td>20</td><td>제공한 기획서를 현재 프로젝트에 맞춰 기획서.md로 작성 요청</td><td>20개 절 유지. 실제 CLI·모델·버전·지원 범위 반영. 구현·미구현·미검증 항목 분리.</td><td>기존 계약 원본 유지. 정적 CLI의 HTML·JSON 예제 확인. 전체 DB 검사의 재실행 없음.</td></tr>
-<tr><td>21</td><td>docs/diagrams 내용 삭제와 기획서 그림의 Mermaid 전환 요청</td><td>별도 SVG 파일 10개 삭제. 기획서의 그림 4개와 기존 Markdown 그림 10개를 Mermaid 직접 표시로 전환. 삭제 파일로 향하던 링크 제거.</td><td>2026-11-06 후속 확인: 기획서 Mermaid 4개 실제 렌더링 성공, Console Error/Warning 없음. 이 경위 HTML의 내장 그림은 별도 파일 없이 표시 가능.</td></tr>
-<tr><td>22</td><td>HTML도 그림 파일 대신 코드로 직접 그려 달라는 요청</td><td>이 문서의 전체 작업 흐름 1개와 문서 흐름도 10개를 HTML/CSS의 상자·분기·화살표로 작성. 인라인 SVG와 SVG 이미지 데이터 제거.</td><td>Markdown은 Mermaid 유지. 문서 HTML은 그림 파일·Mermaid 실행 도구·외부 라이브러리 없이 표시. 제품 SQLPVI의 실행 코드 변경 없음.</td></tr>
-</tbody></table></div>
+<section id="history" class="doc-panel" aria-labelledby="heading-history">
+<h2 id="heading-history">작업 경위</h2><p class="section-intro">한 단계의 결과 확인 후 다음 단계로 이동. 원래 요청·작업·실패 기록은 각 단계의 세부 내용에 보존.</p>
+<div class="step"><h3><span class="step-label">STEP 01</span>기존 작업과 실행 환경 확인</h3>
+<p>계획·Phase 기록 확인 후 기존 환경에서 검사 진행. 새 설치의 파일 접근 오류는 별도 미해결 항목으로 보존.</p><details><summary>01~03 요청·진행·결과</summary>
+<article class="event"><h4>01. 기존 작업 확인과 계속 진행 요청</h4><p><strong>진행:</strong> 프로젝트 계획·단계별 구현·검사 상태 확인 및 후속 작업 진행</p><p><strong>결과:</strong> 단계별 완료 내용은 저장된 Phase 문서로 추적. 현재 사용자 대화에 없는 과거 세부 실행을 새로 지어내지 않음.</p></article>
+<article class="event"><h4>02. 셸의 PyPI·DockSlate 접근 제한</h4><p><strong>진행:</strong> 사용자에게 일반 PowerShell의 패키지·테스트 DB 준비 명령 안내</p><p><strong>결과:</strong> 사용자가 DockSlate 실행 및 PostgreSQL·MariaDB Healthy 결과 제공.</p></article>
+<article class="event"><h4>03. <code>uv sync --locked</code> 실패</h4><p><strong>진행:</strong> 기존 설치 환경과 캐시를 사용해 검사를 계속하는 경로 확보</p><p><strong>결과:</strong> <code>setuptools 84.2.1 / entry_points.txt / os error 5</code>. 신규 설치 문제가 해결된 것으로 처리하지 않음.</p></article>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>SQL Server 연결과 Phase 검증</h3>
+<p>드라이버 설치 뒤 포트 충돌 해결. 당시 Phase 10의 전체 211개 검사 통과.</p><details><summary>04~07 요청·진행·결과</summary>
+<article class="event"><h4>04. SQL Server 지원을 위한 드라이버·Lock 갱신 승인</h4><p><strong>진행:</strong> <code>pymssql==2.4.6</code> 사용. 사용자 실행으로 Lock 갱신과 드라이버 설치</p><p><strong>결과:</strong> 패키지명이 별도 줄로 실행되어 실패한 명령 뒤, 한 줄 설치 명령으로 성공. Lock의 전체 패키지 수 16개.</p></article>
+<article class="event"><h4>05. SQL Server 컨테이너 Healthy, 호스트 접속 실패</h4><p><strong>진행:</strong> 상태·로그·재시작 결과와 Windows 포트 예약 범위 확인</p><p><strong>결과:</strong> 51433이 예약 구간 51356~51455와 충돌. 컨테이너 내부 Healthy와 Windows 포트 접근 가능성은 별도 상태.</p></article>
+<article class="event"><h4>06. 예약 포트를 피한 연결 필요</h4><p><strong>진행:</strong> Compose 서비스 <code>mssql</code>, 포트 <code>14330</code> 사용. 기존 <code>sqlserver</code> 컨테이너 보존</p><p><strong>결과:</strong> 사용자가 새 컨테이너·init 실행. 새 DB의 customers 500행, orders 10000행 결과 제공. 기존 컨테이너 삭제 없음.</p></article>
+<article class="event"><h4>07. 실제 다중 DB 검증과 추천 단계 진행</h4><p><strong>진행:</strong> SQL Server 미실행 계획 수집·권한·Timeout·연결 정리, PostgreSQL 디스크 정렬 추천 검증</p><p><strong>결과:</strong> 2026-11-04 Phase 10 시점: 전체 211 passed, Skip 없음. 당시 Git 저장소·Remote 부재로 Git/PR 미완료.</p></article>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>목적 비교와 문서 정리</h3>
+<p>MCP 글과 SQLPVI의 범위 비교. 문서·그림·대신 내린 선택의 기록 정리.</p><details><summary>08~10 요청·진행·결과</summary>
+<article class="event"><h4>08. MCP 글과 우리 작업의 차이를 완료 뒤 구분해 달라는 요청</h4><p><strong>진행:</strong> 일반 DB 조회 비서와 SQL 분석 도구의 목적 차이 기록</p><p><strong>결과:</strong> MCP·개인정보 가림·SSH 기능을 새로 추가하는 작업으로 해석하지 않음.</p></article>
+<article class="event"><h4>09. 문서 수정, 그림 추가, 짧은 명사형 문장 요청</h4><p><strong>진행:</strong> README·기획서·운영 규칙·화면 설계·Phase 지침 등 16개 문서 정리. 당시 Mermaid 9개 추가</p><p><strong>결과:</strong> 과거 시험 수치·날짜 보존. 비어 있던 완료 기준과 체크의 재구성은 제 판단으로 진행. 당시 Mermaid 실제 렌더링은 미검증.</p></article>
+<article class="event"><h4>10. 완료 전 누락 재검토 및 대신 내린 선택의 HTML 기록 요청</h4><p><strong>진행:</strong> 출력 폴더 준비 안내·HTML 특수문자 검사 누락 수정. 선택 기록 작성</p><p><strong>결과:</strong> 사용자의 초기 저장소 밖 요청에 따라 Temp 사용. 이후 사용자 이동 지시로 프로젝트 <code>work-records</code>에 이동. 이전 Temp 파일 제거·이동 전후 내용 일치 확인.</p></article>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 04</span>코드 개선과 실제 DB 검사</h3>
+<p>출력 폴더·Table Hint·해시 추천의 세 항목 개선. 2026-11-05 전체 258개 검사 통과.</p><details><summary>11~13 요청·진행·결과</summary>
+<article class="event"><h4>11. “참고해서 우리쪽 코드 고치면 안돼?” 요청</h4><p><strong>진행:</strong> 제가 출력 폴더 자동 생성·SQL Server 힌트 일부 허용·해시 추천 추가를 작업 범위로 선택</p><p><strong>결과:</strong> 사용자가 세 항목을 각각 지정한 것은 아님. 이 선택에 따른 코드 변경·검사의 내용은 다음 절.</p></article>
+<article class="event"><h4>12. 실제 DB 검사를 위한 포트 응답 없음</h4><p><strong>진행:</strong> DockSlate 실행과 DB 컨테이너 시작의 차이 설명. 세 컨테이너 시작 명령 안내</p><p><strong>결과:</strong> 사용자가 컨테이너 네 개의 실행 화면 제공. 이후 55432·53306·14330 응답 확인. 네 번째는 보존한 예전 SQL Server.</p></article>
+<article class="event"><h4>13. 코드 개선 전후 검증</h4><p><strong>진행:</strong> 회귀 검사 추가 → 변경 전 실패 확인 → 구현 → 실제 DB 포함 전체 검사</p><p><strong>결과:</strong> 변경 전 9 failed / 102 passed. 같은 검사 변경 후 111 passed. 전체 258 passed in 18.89s, Skip 없음.</p></article>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 05</span>설치 실패와 안내 경로 재검토</h3>
+<p>새 설치 오류 재현. 다른 프로젝트에서 실행된 결과의 분리와 안내 명령의 대상 경로 수정.</p><details><summary>14~18 요청·진행·결과</summary>
+<article class="event"><h4>14. “uv 신규 설치 권한 오류, Mermaid 실제 표시 해” 요청</h4><p><strong>진행:</strong> 별도 새 가상환경의 설치 시도와 프로젝트 Wheel 빌드로 오류 재현</p><p><strong>결과:</strong> 캐시 접근 오류와 PyPI 접속 제한이 모두 확인됨. 기존 환경 실행 성공으로 새 설치 완료를 대신하지 않음.</p></article>
+<article class="event"><h4>15. Mermaid 실제 표시 확인</h4><p><strong>진행:</strong> 공개 Mermaid 12.3.0으로 당시 10개 렌더링. SVG 생성·문서 연결·원문 보존</p><p><strong>결과:</strong> 당시 10개 렌더링 성공. 이후 별도 SVG 삭제와 Markdown Mermaid 전환, HTML/CSS 직접 표시의 후속 기록으로 구분.</p></article>
+<article class="event"><h4>16. 기존 캐시 실패와 셸 다운로드 제한</h4><p><strong>진행:</strong> 새 캐시와 복사 방식으로 일반 PowerShell 설치 요청</p><p><strong>결과:</strong> 첫 명령에 대상 경로가 없어 현재 PowerShell 폴더에 따라 다른 프로젝트에 적용될 수 있었음.</p></article>
+<article class="event"><h4>17. 사용자 실행 결과의 경로가 <code>boiler-ops-agent</code></h4><p><strong>진행:</strong> 해당 결과를 SQLPVI 성공으로 사용하지 않고, <code>--directory</code>를 포함한 수정 명령 안내</p><p><strong>결과:</strong> 사용자 출력: 24 packages / Checked 22 packages. SQLPVI의 16 packages와 다른 프로젝트 결과. 설치·삭제 표시가 없는 출력이나, 그 프로젝트 전체 상태를 별도로 검사한 것은 아님.</p></article>
+<article class="event"><h4>18. “왜 자꾸 시키나”, “이상한 것 같다”, “한번 체크” 요청</h4><p><strong>진행:</strong> 추가 설치 진행보다 경위 검토 우선. 이 HTML 작성</p><p><strong>결과:</strong> 경로를 넣은 수정 명령의 SQLPVI 실행 결과는 아직 없음. 새 캐시 설치 복구는 미완료.</p></article>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 06</span>문서 위치와 그림 표시 방식 정리</h3>
+<p>docs/index.html 배치와 기획서 작성. 별도 SVG 삭제 후 Markdown Mermaid·HTML/CSS 직접 표시로 전환.</p><details><summary>19~22 요청·진행·결과</summary>
+<article class="event"><h4>19. 검토 HTML을 docs/index로 보관하고 향후 Git에서 확인할 수 있게 해 달라는 요청</h4><p><strong>진행:</strong> 본문 보존 후 <code>docs/index.html</code>로 이동. 선택 기록도 docs로 이동. 샘플 보고서의 docs/examples 보관과 내부 상대 링크 정리.</p><p><strong>결과:</strong> 당시 로컬 문서 준비까지 수행. 당시 GitHub Pages 설정·Push·웹 게시 미수행. 이후 게시 폴더 <code>/docs</code> 선택 가능.</p></article>
+<article class="event"><h4>20. 제공한 기획서를 현재 프로젝트에 맞춰 기획서.md로 작성 요청</h4><p><strong>진행:</strong> 20개 절 유지. 실제 CLI·모델·버전·지원 범위 반영. 구현·미구현·미검증 항목 분리.</p><p><strong>결과:</strong> 기존 계약 원본 유지. 정적 CLI의 HTML·JSON 예제 확인. 전체 DB 검사의 재실행 없음.</p></article>
+<article class="event"><h4>21. docs/diagrams 내용 삭제와 기획서 그림의 Mermaid 전환 요청</h4><p><strong>진행:</strong> 별도 SVG 파일 10개 삭제. 기획서의 그림 4개와 기존 Markdown 그림 10개를 Mermaid 직접 표시로 전환. 삭제 파일로 향하던 링크 제거.</p><p><strong>결과:</strong> 2026-11-06 후속 확인: 기획서 Mermaid 4개 실제 렌더링 성공, Console Error/Warning 없음. 이 경위 HTML의 내장 그림은 별도 파일 없이 표시 가능.</p></article>
+<article class="event"><h4>22. HTML도 그림 파일 대신 코드로 직접 그려 달라는 요청</h4><p><strong>진행:</strong> 이 문서의 전체 작업 흐름 1개와 문서 흐름도 10개를 HTML/CSS의 상자·분기·화살표로 작성. 인라인 SVG와 SVG 이미지 데이터 제거.</p><p><strong>결과:</strong> Markdown은 Mermaid 유지. 문서 HTML은 그림 파일·Mermaid 실행 도구·외부 라이브러리 없이 표시. 제품 SQLPVI의 실행 코드 변경 없음.</p></article>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 07</span>Git 반영과 공개 문서 연결</h3>
+
+<p>사용자 실행 결과: <code>master</code>의 <code>2b3fdf7</code> 커밋·Push 완료.</p>
+<p>공개 문서 주소: <a href="https://seo-gali.github.io/sql-plan-visualizer/">SQLPVI GitHub Pages</a>. 이번 변경은 로컬 문서 수정이며, 공개 페이지의 갱신은 후속 Push·배포 이후.</p>
+
+</div>
 </section>
 
-<section id="changes">
-<h2>3. 코드 개선 3건의 정확한 범위</h2>
-<h3>3-1. 출력 폴더 자동 생성</h3>
+<section id="changes" class="doc-panel" aria-labelledby="heading-changes">
+<h2 id="heading-changes">코드 개선</h2><p class="section-intro">포괄적인 코드 개선 요청을 세 항목으로 구체화한 기록. 각 항목의 적용 조건과 검사 결과를 함께 보존.</p>
+<div class="step"><h3><span class="step-label">STEP 01</span>출력 폴더 자동 생성</h3>
+
+<p><strong>이전:</strong> 결과 폴더가 없으면 HTML·JSON 저장 실패.</p>
+<p><strong>변경:</strong> 분석과 보고서 생성에 성공한 뒤 부모 폴더 생성.</p>
+<p>분석 실패 시 폴더 미생성. SQL 원본과 같은 파일·Hardlink로의 출력 거부 유지.</p>
+<details><summary>실제 코드와 보존 검사</summary>
+
 <p><strong>문제:</strong> 결과를 넣을 폴더가 없으면 HTML·JSON 저장 실패. <strong>변경:</strong> 분석과 보고서 생성 성공 뒤 부모 폴더 생성.</p>
 <p><code>src/sqlpvi/cli.py</code>의 실제 추가 코드:</p>
 <pre><code>output.parent.mkdir(parents=True, exist_ok=True)
@@ -120,7 +190,14 @@ output.write_text(result, encoding="utf-8")</code></pre>
 <p>이미 존재하는 폴더의 유지. SQL 입력 파일과 같은 파일로의 출력 거부 유지. Hardlink로 같은 파일을 가리키는 경우도 거부. 잘못된 SQL은 새 출력 폴더를 만들기 전에 실패.</p>
 <p class="note">검사: HTML·JSON의 중첩 폴더 생성, 부모 위치가 폴더가 아닌 파일일 때 원문 보존, 잘못된 SQL의 폴더 미생성, 기존 Hardlink 보호.</p>
 
-<h3>3-2. SQL Server Table Hint 일부 허용</h3>
+
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>SQL Server의 Table Hint 4종 허용</h3>
+
+<p>Hint는 표를 읽는 방법에 관한 특별 지시. 인자 없는 <code>NOLOCK</code>·<code>READUNCOMMITTED</code>·<code>FORCESEEK</code>·<code>FORCESCAN</code>만 허용.</p>
+<p>SQL Server의 수집 범위는 예상 계획. 잠금 강제·알 수 없는 Hint·인자 있는 Hint의 차단 유지.</p>
+<details><summary>허용 범위·차단 조건·실제 DB 검사</summary>
+
 <p>Hint는 SQL에 붙이는 특별 지시. 이전에는 종류와 무관하게 전부 차단. 현재는 <strong>인자 없는 아래 네 이름만 허용</strong>.</p>
 <div class="table-wrap"><table><thead><tr><th>허용 이름</th><th>뜻과 적용 범위</th></tr></thead><tbody>
 <tr><td><code>NOLOCK</code>, <code>READUNCOMMITTED</code></td><td>읽는 방법에 관한 지시. 실제 조회에서 일관된 결과·잠금 부재를 보장하는 이름이 아님. SQLPVI의 SQL Server 모드에서는 조회 실행 없이 계획만 수집.</td></tr>
@@ -130,7 +207,15 @@ output.write_text(result, encoding="utf-8")</code></pre>
 <p>변경 지점: <code>src/sqlpvi/db/safety.py</code>. SQL Server의 <code>SHOWPLAN_XML</code> 경계 유지. 쓰기 허용 옵션 추가 없음.</p>
 <p class="note">검사: 드라이버를 부르기 전 금지 SQL 거부, 허용 Hint의 SHOWPLAN 전달, 실제 SQL Server에서 허용 네 종류의 예상 계획 수집과 Actual Rows 없음 확인.</p>
 
-<h3>3-3. PostgreSQL 해시 임시 파일 점검 추가</h3>
+
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>PostgreSQL의 해시 임시 파일 점검</h3>
+
+<p>해시는 자료를 묶고 짝을 찾는 처리 방식. 메모리가 부족하면 여러 배치와 임시 파일 사용 가능.</p>
+<p>실제 Runtime 계획에 충분한 근거가 있을 때 점검 후보 표시. 기존 정렬 점검과 새 해시 점검의 두 종류 제공.</p>
+<p>추천 생성은 이미 수집한 계획의 해석. 추가 DB 실행과 설정 자동 변경 없음.</p>
+<details><summary>추천 조건·실측 수치·샘플 보고서</summary>
+
 <p>해시는 자료를 묶어 서로 맞춰 보는 작업의 한 방법. 메모리만으로 처리하기 어려우면 일을 나누고 임시 파일을 사용할 수 있음. 현재 추천은 기존 정렬 점검과 새 해시 점검의 두 종류.</p>
 <div class="table-wrap"><table><thead><tr><th>검사 조건</th><th>정확한 내용</th></tr></thead><tbody>
 <tr><td>공통 출처</td><td>실제 PostgreSQL 계획, <code>DATABASE</code>, <code>RUNTIME</code>. Column 참조의 확정 상태.</td></tr>
@@ -143,51 +228,99 @@ output.write_text(result, encoding="utf-8")</code></pre>
 <p>변경 지점: <code>src/sqlpvi/recommend.py</code>, 한국어 표시의 <code>src/sqlpvi/assets/report.js</code>. 시험 SQL: <code>fixtures/sql/hash-spill.sql</code>.</p>
 <p>실제 생성 결과: <a href="examples/hash-spill.html">실측 해시 추천 보고서</a>. 이 실행의 관측값은 Hash Batches=8, Temp Written Blocks=31, Actual Rows=10000, Loops=1. 모든 환경의 고정 정답값으로 사용하지 않는 수치.</p>
 <p class="note">실제 시험: 해당 테스트 세션에서만 work_mem 64kB·8MB 비교와 Merge/Nested Loop Join 비활성화. 앞의 조건에서 해시 후보 생성, 뒤에서 미생성. 제품이 DB 설정을 자동 변경하는 기능 추가 없음.</p>
+
+</details>
+</div>
 </section>
 
-<section id="database">
-<h2>4. DB 준비를 반복 요청한 이유와 실제 영향</h2>
-<p>DockSlate 앱은 컨테이너를 관리하는 화면. 컨테이너는 DB 서버를 담은 실행 상자. 앱 실행만으로 해당 상자 세 개의 실행이 보장되는 것은 아님.</p>
+<section id="database" class="doc-panel" aria-labelledby="heading-database">
+<h2 id="heading-database">DB 준비</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>관리 앱과 DB 실행 상태 구분</h3>
+
+<p>DockSlate는 컨테이너를 관리하는 화면. 컨테이너는 DB 서버를 담은 실행 상자.</p>
+<p>당시 반복 확인의 대상은 세 DB 서버와 Windows 접속 포트. 앱 실행·컨테이너 Healthy·호스트 연결은 각각 별도 확인 항목.</p>
+<details><summary>DB별 포트와 검사 목적</summary>
 <div class="table-wrap"><table><thead><tr><th>대상</th><th>현재 분석용 포트</th><th>준비 이유</th></tr></thead><tbody>
 <tr><td>PostgreSQL</td><td><code>127.0.0.1:55432</code></td><td>예상 계획·Catalog·실제 측정·정렬/해시 추천의 검사</td></tr>
 <tr><td>MariaDB</td><td><code>127.0.0.1:53306</code></td><td>EXPLAIN JSON 변환·계정 권한·회귀 검사</td></tr>
 <tr><td>새 SQL Server, <code>mssql</code></td><td><code>127.0.0.1:14330</code></td><td>SHOWPLAN XML·Hint·권한·Timeout·연결 복구 검사</td></tr>
 <tr><td>옛 SQL Server, <code>sqlserver</code></td><td>이전 설정 <code>51433</code></td><td>삭제 없이 기존 DB 보존. 현재 분석 연결 대상으로 사용하지 않음. 사용자의 마지막 화면에서는 실행 중.</td></tr>
 </tbody></table></div>
-<h3>안내했던 명령의 목적</h3>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>안내했던 명령의 영향 확인</h3>
+
+<p>첫 명령의 목적은 DB 세 서비스 준비와 정상 상태 대기. 둘째 명령의 목적은 SQL Server 시험용 DB·표·계정 준비.</p>
+<details><summary>당시 안내 명령과 생성 범위</summary>
+
 <pre><code>docker compose up -d --wait postgres mariadb mssql
 docker compose run --rm sqlserver-init</code></pre>
-<p>첫 줄: <code>compose.yaml</code>의 DB 세 서비스를 준비하고 정상 상태까지 대기. 없는 이미지 다운로드·컨테이너 생성 가능. 기존 DB 데이터 삭제·초기화 명령은 아님.</p>
-<p>둘째 줄: SQL Server의 시험용 DB·표·계정이 없으면 생성. 시험용 계정의 <code>GRANT</code> 권한 부여 재적용 가능. “모든 경우 읽기만 하는 명령”은 아님. <code>--rm</code>은 작업을 수행한 일회성 init 컨테이너 정리이며, DB 서버·Volume 삭제 옵션은 아님.</p>
-<p>예전 컨테이너 삭제를 피하기 위해 <code>--remove-orphans</code> 사용 안내 없음. 예약 포트 회피 과정에서 Windows 전역 포트 설정 변경 없음.</p>
-<h3>실제 DB 검사에 포함된 동작</h3>
-<p>대상은 loopback에 묶인 합성 자료의 격리 시험 DB. 운영 DB 연결 작업 없음. 공개 시험용 암호와 조회 전용 계정 사용.</p>
-<p>보호 확인용 시험에는 거부되어야 할 <code>UPDATE</code> 시도와 잠금 Timeout을 재현하기 위한 일시적 <code>ALTER TABLE</code> 트랜잭션도 포함. 해당 잠금 시험은 <code>finally</code>의 Rollback. 실측 전후 orders 행 수·합계·public Index 정의의 동일성 검사 통과.</p>
-<p class="note">반복이 길어진 이유: 셸의 DockSlate 실행 제한, 컨테이너 내부 정상 여부와 호스트 포트 문제의 분리, 처음 사용한 포트의 Windows 예약 충돌. Health 확인만으로 호스트 연결이 가능하다고 판단할 수 없었음.</p>
+<p>첫 줄: 없는 이미지의 다운로드와 컨테이너 생성 가능. 기존 데이터 삭제·초기화 명령은 아님.</p>
+<p>둘째 줄: 없는 시험 DB·표·계정 생성. 시험 계정의 <code>GRANT</code> 권한 부여 재적용 가능.</p>
+<p><code>--rm</code>의 대상은 일회성 init 컨테이너. DB 서버·Volume 삭제 옵션과 구분.</p>
+<p>기존 컨테이너 보존을 위해 <code>--remove-orphans</code> 안내 없음. Windows 예약 포트의 전역 설정 변경 없음.</p>
+
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>실제 검사와 보호 범위 확인</h3>
+
+<p>검사 대상은 loopback의 합성 자료·공개 시험 계정. 운영 DB 연결 없음.</p>
+<p>실측 전후 <code>orders</code> 행 수·합계·public Index 정의의 동일성 검사 통과.</p>
+<details><summary>거부·잠금 검사에서 실제 시도한 동작</summary>
+
+<p>권한 보호 검사: 거부되어야 하는 <code>UPDATE</code> 시도 포함.</p>
+<p>잠금 Timeout 검사: 일시적 <code>ALTER TABLE</code> 트랜잭션 포함. <code>finally</code>에서 Rollback.</p>
+<p>반복 요청의 원인: 당시 셸의 DockSlate 실행 제한, 호스트 포트 연결 실패, 51433의 Windows 예약 충돌.</p>
+
+</details>
+</div>
 </section>
 
-<section id="commands">
-<h2>5. uv 명령의 뜻과 영향 범위</h2>
-<p><strong>uv는 Python 실행 환경과 필요한 부품을 관리하는 도구.</strong> 이번 명령은 DB 조회 명령이 아니라, 프로젝트 실행에 필요한 패키지를 설치·확인하는 명령.</p>
-<pre><code>uv --cache-dir artifacts/uv-cache sync --locked --link-mode copy</code></pre>
-<div class="table-wrap"><table><thead><tr><th>부분</th><th>쉬운 뜻</th><th>정확한 영향</th></tr></thead><tbody>
+<section id="commands" class="doc-panel" aria-labelledby="heading-commands">
+<h2 id="heading-commands">uv 명령</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>설치 명령의 대상 이해</h3>
+
+<p>uv는 Python 환경과 필요한 패키지를 관리하는 도구. 해당 명령의 목적은 프로젝트의 설치 환경 맞추기.</p>
+<p><code>sync</code>는 가상환경의 패키지 설치·교체·제거 가능. <code>--locked</code>의 보호 대상은 버전 목록이며, 설치 상태는 변경 가능.</p>
+<details><summary>당시 안내 명령과 옵션별 영향</summary>
+<pre><code>uv --cache-dir artifacts/uv-cache sync --locked --link-mode copy</code></pre><div class="table-wrap"><table><thead><tr><th>부분</th><th>쉬운 뜻</th><th>정확한 영향</th></tr></thead><tbody>
 <tr><td><code>uv</code></td><td>Python 부품 관리 도구 실행</td><td>명령을 실행한 프로젝트의 설정을 찾는 동작</td></tr>
 <tr><td><code>--cache-dir artifacts/uv-cache</code></td><td>부품을 받아 두는 별도 창고 선택</td><td>현재 작업 위치를 기준으로 한 상대 경로. 문제가 난 옛 <code>.uv-cache</code>를 삭제하는 옵션이 아님.</td></tr>
 <tr><td><code>sync</code></td><td>프로젝트가 정한 부품 목록에 환경을 맞추기</td><td><code>.venv</code> 패키지 설치·교체·목록에 없는 패키지 제거 가능. 설치 상태를 바꿀 수 있는 명령.</td></tr>
 <tr><td><code>--locked</code></td><td>정해 둔 버전 목록의 변경 방지</td><td>Lock 갱신이 필요하면 실패. 설치 자체를 읽기 전용으로 만드는 옵션은 아님.</td></tr>
 <tr><td><code>--link-mode copy</code></td><td>캐시 파일과 연결하는 대신 파일 복사</td><td>파일 공유 방식의 선택. Windows 권한을 높이거나 해제하는 옵션이 아님. 기존 캐시를 이용한 복사 방식 빌드도 실제 실패했으므로, 이 옵션만으로 해결을 보장할 수 없음.</td></tr>
 </tbody></table></div>
-<h3>왜 다른 프로젝트에서 실행된 결과가 생겼나</h3>
-<p>첫 안내에 <code>--directory</code> 또는 명시적인 폴더 이동이 없었음. 따라서 사용자의 현재 PowerShell 위치가 실행 대상을 결정. 제가 이 점을 처음부터 명시하지 않은 것이 문제.</p>
-<div class="split"><div class="box"><h3>의도한 위치</h3><p class="path"><code>...\Agent\sql-plan-visualizer</code></p><p>SQLPVI의 pyproject·Lock·가상환경을 대상으로 실행. 현재 Lock 해석 결과 16 packages.</p></div><div class="box"><h3>사용자가 올린 실제 위치</h3><p class="path"><code>...\Agent\boiler-ops-agent</code></p><p>그 프로젝트에서 실행. 사용자 출력은 24 packages / Checked 22 packages. SQLPVI 설치 검증 근거로 사용 불가.</p></div></div>
-<p>이후 안내한 수정 명령은 대상 폴더를 먼저 선택하는 <code>--directory</code> 포함. <strong>아래는 수정 안내의 기록. SQLPVI에서 실행됐다는 결과는 아직 없음.</strong></p>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>잘못된 폴더의 실행 결과 분리</h3>
+
+<p>첫 안내의 누락: <code>--directory</code> 또는 명시적인 폴더 이동. 그 결과, PowerShell의 현재 폴더가 실행 대상 결정.</p>
+<div class="split"><div class="box"><h4>의도한 대상</h4><p><code>sql-plan-visualizer</code></p><p>당시 SQLPVI Lock 해석 결과: 16 packages.</p></div><div class="box"><h4>사용자가 올린 실제 대상</h4><p><code>boiler-ops-agent</code></p><p>사용자 출력: 24 packages / Checked 22 packages.</p></div></div>
+<p>다른 프로젝트의 결과를 SQLPVI 설치 성공 근거로 사용하지 않음. 해당 프로젝트 전체 상태는 별도 미검사.</p>
+
+</div><div class="step"><h3><span class="step-label">STEP 03</span>대상 경로를 명시한 수정 안내</h3>
+
+<p>수정안은 SQLPVI 폴더를 <code>--directory</code>로 지정. 이 명령의 SQLPVI 설치 성공 결과는 당시 미확보.</p>
+<details><summary>수정 안내 명령 기록</summary>
+
 <pre><code>uv --directory D:/01_Programming/08_AI/Agent/sql-plan-visualizer --cache-dir artifacts/uv-cache sync --locked --link-mode copy</code></pre>
-<p>명령에서 DB 주소·SQL·파일 삭제·권한 변경·전역 설정 변경 지정 없음. 다만 해당 프로젝트의 가상환경을 맞추는 설치 명령이므로, 영향 범위를 “아무것도 바꾸지 않음”으로 설명하면 부정확.</p>
+<p>DB 주소·SQL 실행·파일 삭제·권한 변경·전역 설정 변경 지정 없음.</p>
+<p>해당 프로젝트의 가상환경을 맞추는 설치 명령. 영향 범위를 읽기 전용으로 설명할 수 없는 동작.</p>
+
+</details>
+</div>
 </section>
 
-<section id="install">
-<h2>6. 신규 설치 복구 시도별 기록</h2>
-<p>기존 개발용 <code>.venv</code>를 설치 시험으로 교체하지 않기 위해, 제가 시도한 두 sync의 대상은 별도 <code>artifacts/install-original-cache-20261105/.venv</code>. 현재 그 경로에 Python 실행 파일 생성은 확인됐지만, 필요한 패키지 전체 설치 완료는 아님.</p>
+<section id="install" class="doc-panel" aria-labelledby="heading-install">
+<h2 id="heading-install">설치 기록</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>실행 성공과 새 설치 성공 구분</h3>
+
+<p class="takeaway">2026-11-05 확인 상태: 기존 환경의 실행·검사 성공. 새 환경의 전체 설치 성공은 미확인.</p>
+<p>설치 시험의 별도 대상: <code>artifacts/install-original-cache-20261105/.venv</code>.</p>
+<p>해당 경로의 Python 실행 파일 생성까지 확인. 필요한 패키지 전체 설치는 미완료.</p>
+
+</div><div class="step"><h3><span class="step-label">STEP 02</span>각 시도의 오류 확인</h3>
+
+<p>기존 캐시의 파일 접근 오류와 새 패키지 다운로드의 소켓 접근 거부를 각각 확인.</p>
+<p>다른 프로젝트의 설치 출력은 SQLPVI 복구 성공 근거에서 제외.</p>
+<details><summary>설치·빌드 시도 7건의 결과</summary>
 <div class="table-wrap"><table class="wide"><thead><tr><th>시도</th><th>실행 주체·대상</th><th>결과</th><th>이 결과로 알 수 있는 것</th></tr></thead><tbody>
 <tr><td>캐시 파일 읽기</td><td>제가 기존 setuptools의 entry_points.txt·파일 속성·ACL 조회</td><td>일반 파일 읽기 성공. ACL 변경 없음.</td><td>파일 읽기 성공만으로 uv 설치 성공 판단 불가.</td></tr>
 <tr><td>새 환경, Offline sync</td><td>제가 별도 가상환경과 기존 <code>.uv-cache</code> 사용</td><td><span class="label fail">exit 1</span> tzdata 2026.6의 캐시 부족</td><td>기존 캐시만으로 전체 새 설치 불가.</td></tr>
@@ -197,7 +330,7 @@ docker compose run --rm sqlserver-init</code></pre>
 <tr><td>새 캐시로 일반 PowerShell sync 안내</td><td>사용자 실행. 실제 위치는 boiler-ops-agent</td><td>사용자 출력상 Resolved 24 / Checked 22</td><td>다른 프로젝트 결과. 출력에 설치·삭제 표시 없음. 그 프로젝트 전체 상태는 별도 미검사.</td></tr>
 <tr><td>프로젝트 경로를 넣은 수정 안내</td><td>SQLPVI 대상의 <code>--directory</code> 명령 제시</td><td><span class="label wait">실행 결과 미제공</span></td><td>이 명령의 SQLPVI 성공을 주장할 수 없음. 기록 작성 전 SQLPVI의 새 캐시 경로도 미생성.</td></tr>
 </tbody></table></div>
-<details><summary>제가 실제 사용한 설치·빌드 명령과 핵심 출력</summary>
+</details><details><summary>제가 실제 사용한 설치·빌드 명령과 핵심 출력</summary>
 <p class="note">첫 두 sync의 공통 대상 설정: <code>UV_PROJECT_ENVIRONMENT=artifacts/install-original-cache-20261105/.venv</code>. 작업 셸 한 번의 실행 범위 설정이며 전역 환경 변수 저장 없음.</p>
 <pre><code>uv --cache-dir .uv-cache --offline sync --locked
 → Failed to download tzdata==2026.6: requested data wasn't found in the cache
@@ -212,12 +345,24 @@ uv --cache-dir .uv-cache --offline build --wheel --link-mode copy --out-dir arti
 → Failed to copy setuptools/launcher manifest.xml / os error 5</code></pre>
 <p>Wheel은 Python 프로젝트를 설치 가능한 파일로 묶은 결과물. 이번 두 빌드 모두 실패. 성공한 Wheel 산출물이 있다고 기록하지 않음.</p>
 </details>
-<p><strong>진단의 한계:</strong> 파일 읽기와 uv의 설치·복사 결과가 다르다는 사실까지 확인. 어떤 보안 프로그램·권한·파일 잠금이 최종 원인인지 확정하지 못함. Windows ACL·보안 정책 변경, 관리자 권한 우회, 기존 캐시 강제 삭제, setuptools 버전 교체 없음.</p>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>진단의 한계 확인</h3>
+
+<p>확인된 차이: 일반 파일 읽기는 성공. uv의 설치·복사는 실패.</p>
+<p>최종 원인인 보안 프로그램·권한·파일 잠금의 특정은 미완료.</p>
+<p>Windows ACL·보안 정책 변경, 관리자 권한 우회, 기존 캐시 강제 삭제, setuptools 버전 교체는 미수행.</p>
+
+</div>
 </section>
 
-<section id="verification">
-<h2>7. 검사 결과와 과거 기록의 구분</h2>
-<h3>코드 개선에서 직접 확인한 실행</h3>
+<section id="verification" class="doc-panel" aria-labelledby="heading-verification">
+<h2 id="heading-verification">검증 결과</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>코드 개선 전후 비교</h3>
+
+<p><strong>개선 전:</strong> 관련 검사 9 failed / 102 passed, exit 1.</p>
+<p><strong>개선 후:</strong> 동일 검사 111 passed, exit 0.</p>
+<p><strong>2026-11-05 전체:</strong> 실제 DB 세 종류 포함 258 passed in 18.89s. Skip 없음, exit 0.</p>
+<p class="note">이번 문서 수정으로 전체 DB 검사를 다시 수행한 것은 아님.</p>
+<details><summary>정적 검사·Lock·화면 검사의 당시 결과</summary>
 <div class="table-wrap"><table><thead><tr><th>검사</th><th>실제 결과</th><th>해석</th></tr></thead><tbody>
 <tr><td>개선 전 관련 검사</td><td>9 failed, 102 passed, exit 1</td><td>새 출력 폴더 2건·허용 Hint 5건·해시 추천 2건의 실패 확인</td></tr>
 <tr><td>개선 후 동일 검사</td><td>111 passed, exit 0</td><td>위 9건과 기존 관련 검사 통과</td></tr>
@@ -229,12 +374,15 @@ uv --cache-dir .uv-cache --offline build --wheel --link-mode copy --out-dir arti
 <tr><td>Mermaid 그림</td><td>10개 실제 렌더링 성공·SVG 파일 10개 생성</td><td>공개 Mermaid 도구 로딩 후 로컬 렌더링. 저장된 SVG에는 script·foreignObject·image 요소 없음.</td></tr>
 <tr><td>2026-11-06 문서 HTML 전환</td><td>흐름도 11개·상자 85개의 HTML/CSS 표시</td><td>1366px·390px의 가로 넘침 없음. SVG·이미지·스크립트·외부 리소스 없음. Markdown Mermaid 유지.</td></tr>
 </tbody></table></div>
-<details><summary>258개 전체 검사에 사용한 실제 명령</summary><pre><code>$env:SQLPVI_TEST_POSTGRES_URL = 'postgresql://sqlpvi_reader@127.0.0.1:55432/sqlpvi'
+</details><details><summary>258개 전체 검사에 사용한 실제 명령</summary><pre><code>$env:SQLPVI_TEST_POSTGRES_URL = 'postgresql://sqlpvi_reader@127.0.0.1:55432/sqlpvi'
 $env:SQLPVI_TEST_MARIADB_URL = 'mariadb://sqlpvi_reader@127.0.0.1:53306/sqlpvi'
 $env:SQLPVI_TEST_SQLSERVER_URL = 'sqlserver://sqlpvi_reader:Sqlpvi-Fixture-2026!@127.0.0.1:14330/sqlpvi'
 uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pytest-code-improvements-20261105 -p no:cacheprovider --tb=short</code></pre><p class="note">위 URL은 이 프로젝트의 합성 자료·공개 시험용 계정. 해당 실행은 <a href="code-improvements-2026-11-05.md">코드 개선 기록</a>에도 보존. <code>--no-sync</code>는 기존 설치 환경 사용이며, 이 검사가 새 환경 설치 성공을 보증하지 않음.</p></details>
-<h3>저장된 2026-11-04 Phase 기록</h3>
-<p>아래 수치는 해당 단계 당시 기록. 오늘 각 단계를 별도로 다시 실행한 결과로 표현하지 않음. 누적 회귀 수치이므로 모두 더한 값을 전체 검사 수로 쓰지 않음.</p>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>Phase별 과거 기록 확인</h3>
+
+<p>Phase 수치는 2026-11-04의 단계별 기록. 해당 날짜와 누적 범위를 유지.</p>
+<p>각 수치를 더해 전체 검사 수로 계산하지 않음. 새 문서 확인 결과로 과거 실행 결과를 대체하지 않음.</p>
+<details><summary>Phase 0~10의 당시 기능·검사 수</summary>
 <div class="table-wrap"><table><thead><tr><th>단계</th><th>당시 기능·검증 범위</th><th>당시 기록</th></tr></thead><tbody>
 <tr><td><a href="phase0-feasibility.md">Phase 0</a></td><td>파싱·위치 정보·HTML 가능성</td><td>16 passed</td></tr>
 <tr><td><a href="phase1-static-analysis.md">Phase 1</a></td><td>정적 분석</td><td>42 passed</td></tr>
@@ -248,11 +396,25 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <tr><td><a href="phase9-sqlserver.md">Phase 9</a></td><td>SQL Server</td><td>185 passed in 18.67s</td></tr>
 <tr><td><a href="phase10-recommendation.md">Phase 10</a></td><td>근거 기반 디스크 정렬 점검</td><td>211 passed in 17.71s. 당시 추천 단위·통합 26 passed.</td></tr>
 </tbody></table></div>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>이번 문서의 별도 확인</h3>
+
+<p>검사 대상: 10개 탭·이전/다음 이동·주소 연결·키보드 이동·모바일 화면.</p>
+<p id="doc-check-result">2026-11-07 로컬 HTTP 검증 통과. 탭 10개·이전/다음·방향키·Home/End·뒤로/앞으로·직접 주소와 새로고침의 정상 동작 확인.</p>
+<p>320·390·768·1366px 화면에서 모든 탭의 세부 내용을 펼친 상태로 확인. 본문의 가로 넘침 없음.</p>
+<p>JavaScript 미사용 환경의 전체 본문·목차 이동 확인. 원래 경위 22건·흐름도 11개·상자 85개 보존과 링크 29개·실행 코드의 CSP 해시 검사 통과.</p>
+<p class="note">외부 리소스 요청 없음. 이번 수정의 공개 사이트 반영·전체 DB 재검사는 미수행.</p>
+
+</div>
 </section>
 
-<section id="files">
-<h2>8. 변경 파일·판단·승인 경계</h2>
-<h3>코드 개선 3건의 파일</h3>
+<section id="files" class="doc-panel" aria-labelledby="heading-files">
+<h2 id="heading-files">변경 파일과 선택</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>코드 개선의 파일 확인</h3>
+
+<p>출력 폴더·Hint·해시 추천의 구현과 해당 검사 파일 변경.</p>
+<p>해당 개선의 파일 삭제·신규 Python 의존성·버전·Lock 변경 없음. 앞선 SQL Server 드라이버 도입과 구분.</p>
+<details><summary>코드·검사·Fixture 파일 10개</summary>
 <ul class="change-files">
 <li><code>src/sqlpvi/cli.py</code>: 출력 폴더 생성</li>
 <li><code>src/sqlpvi/db/safety.py</code>: Table Hint 허용 목록</li>
@@ -265,13 +427,23 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <li><code>tests/test_recommend_integration.py</code>: 실제 해시 시험</li>
 <li><code>fixtures/sql/hash-spill.sql</code>: 시험 Query</li>
 </ul>
-<p>해당 개선에서 파일 삭제·신규 Python 의존성·버전·Lock 변경 없음. 앞선 SQL Server 지원 시점의 pymssql 도입·Lock 갱신과 구분.</p>
-<h3>문서와 그림의 파일</h3>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>문서와 도표의 이동 확인</h3>
+
+<p>문서 진입점은 <code>docs/index.html</code>. 선택 기록과 샘플 보고서는 docs 내부 상대 경로로 연결.</p>
+<p>현재 문서의 도표는 HTML/CSS 직접 표시. Markdown의 Mermaid 유지.</p>
+<details><summary>기존 문서 정리와 파일 이동 기록</summary>
+
 <p>처음 정리한 문서 16개: <code>README.md</code>, <code>AGENTS.md</code>, <code>.project/plan.md</code>, <code>design.md</code>, <code>docs/instructions/phase0~10</code>의 11개 지침, <code>docs/phase8-mariadb.md</code>.</p>
 <p>코드 개선 이후 기록: <code>docs/code-improvements-2026-11-05.md</code> 추가. README·기획서·Phase 10 지침·완료 기록·선택 HTML 갱신. 과거 수치의 보존.</p>
 <p>이전 그림 표시 작업: Markdown 6개에 별도 SVG 10개 연결. 이후 사용자 요청에 따라 외부 SVG 삭제와 Markdown Mermaid로 전환. 현재 이 HTML의 흐름도 11개는 HTML/CSS로 직접 작성. 그림 파일·인라인 SVG·이미지 데이터 없음.</p>
 <p>작업 기록: <a href="sqlpvi-decisions-2026-11-05.html">이전 한 화면 선택 기록</a>과 현재 경위 기록. 이전 선택 HTML의 Mermaid 미검증 문구는 그 시점의 상태이며, 현재 결과는 이 기록 기준.</p>
-<h3>제가 선택한 주요 기준</h3>
+
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 03</span>대신 내린 선택의 영향 확인</h3>
+
+<p>포괄적 요청을 세부 범위로 구체화한 선택의 기록. 사용자 개별 지정과 구분.</p>
+<details><summary>이전 구현·문서 작업에서 선택한 기준</summary>
 <div class="table-wrap"><table class="wide"><thead><tr><th>선택</th><th>사용자 요청·승인과의 관계</th><th>결과에 주는 영향</th></tr></thead><tbody>
 <tr><td>비어 있던 완료 기준의 재구성</td><td>문서 정리 요청을 받아 제가 기준·완료 체크 구체화</td><td>과거 기록 기반의 완료 표시. 사용자에게 기준 자체를 확인받은 것은 아님.</td></tr>
 <tr><td>코드 개선의 세 항목 선택</td><td>포괄적 코드 개선 요청을 제가 구체화</td><td>자동 폴더·Hint 네 종류·해시 추천 추가. MCP 서버 기능은 추가하지 않음.</td></tr>
@@ -288,32 +460,162 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <tr><td>새 캐시·파일 복사 설치안</td><td>설치 복구안으로 제가 선택, 일반 셸 실행 요청</td><td>기존 캐시 보존. SQLPVI 성공 결과는 미확보. 영구 <code>tool.uv</code> 설정 변경 없음.</td></tr>
 <tr><td>Temp에서 work-records로 이동</td><td>처음에는 저장소 밖 요청, 이후 사용자의 명시적 이동 지시</td><td>검토 HTML의 초기 위치는 work-records. 후속 요청에 따른 현재 위치는 <code>docs/index.html</code>.</td></tr>
 <tr><td>docs 안의 연결 파일 보관</td><td>docs/index 배치 요청에 따라 제가 관련 파일 위치 구체화</td><td>선택 HTML 이동과 합성 자료 샘플 보고서 복사. docs만 게시해도 내부 링크 이용 가능. <code>.nojekyll</code>로 별도 빌드 없는 정적 파일 제공. 삭제 요청된 외부 SVG 링크는 제거.</td></tr>
-<tr><td>기술 완료·Git 완료 분리</td><td>프로젝트 운영 규칙과 실제 환경에 따른 기록</td><td><code>.git</code> 부재 확인. 저장소 초기화·Push·PR·Merge 미수행.</td></tr>
+<tr><td>기술 완료·Git 완료 분리</td><td>프로젝트 운영 규칙과 실제 환경에 따른 기록</td><td>당시 <code>.git</code> 부재로 저장소 초기화·Push·PR·Merge 미수행. 이후 사용자 실행의 <code>2b3fdf7</code> Push 완료와 구분.</td></tr>
 </tbody></table></div>
-<p>전역 에이전트 설정·MCP 설정·Windows ACL·방화벽·예약 포트·보안 정책 변경 없음. 비밀 파일 열람·운영 DB 변경 없음. 원격 배포·Git Push 수행 없음.</p>
+</details>
+<p class="note">당시 전역 에이전트·MCP·Windows ACL·방화벽·예약 포트·보안 정책 변경 없음. 비밀 파일 열람과 운영 DB 변경 없음.</p>
+
+</div><div class="step"><h3><span class="step-label">STEP 04</span>이번 읽기 방식의 선택 확인</h3>
+
+<ul>
+<li><strong>첫 화면:</strong> 기존 소개·빨간 안내·상태 카드 영역 제거. 후속 요청의 짧은 제목 아래에 탭 배치.</li>
+<li><strong>읽는 순서:</strong> 기존 10개 주제와 순서 유지. 처음에는 첫 탭, 주소에 주제가 있으면 해당 탭 표시.</li>
+<li><strong>세부 기록:</strong> 긴 명령·오류·표·그림은 접어서 보관. 필요한 항목만 펼쳐 확인.</li>
+<li><strong>이동 방식:</strong> 이전·다음 버튼과 키보드 방향키 지원. 브라우저 뒤로 가기와 기존 주제 주소 유지.</li>
+<li><strong>날짜:</strong> 과거 검사 수치 유지. 이번 화면 확인은 별도 기록.</li>
+<li><strong>인터넷 없는 읽기:</strong> 외부 도구 없는 한 파일 구성. JavaScript 미사용 시 전체 본문과 일반 목차 제공.</li>
+</ul>
+
+</div>
 </section>
 
-<section id="pictures" class="diagram-gallery"><h2>9. 문서 흐름도 10개</h2><p>상자·분기·화살표를 HTML과 CSS로 직접 표시. 외부 그림 파일·Mermaid 실행 도구·네트워크 없이 열람 가능. Markdown의 Mermaid와 같은 내용의 흐름.</p><figure><h3>① SQL 파일 분석 흐름</h3><div class="diagram" role="group" aria-label="① SQL 파일 분석 흐름"><ol class="flow"><li><div class="flow-node"><strong>SQL 파일</strong></div></li><li><div class="flow-node"><strong>정적 구조·참조 분석</strong></div></li><li><div class="flow-node decision"><strong>DB 모드 지정</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">기본 모드</p><p class="flow-note">DB 접속 없이 공통 Report 모델로 이동</p></div><div class="flow-branch"><p class="flow-label">--database</p><ol class="flow"><li><div class="flow-node"><strong>허용 SQL·최소 권한·Timeout 검증</strong></div></li><li><div class="flow-node"><strong>Estimated 계획 또는 PostgreSQL Runtime 수집</strong></div></li><li><div class="flow-node"><strong>실측 근거 충족 시 개선 후보 추가</strong></div></li></ol></div></div></li><li><div class="flow-node"><strong>공통 Report 모델</strong></div></li><li><div class="flow-node"><strong>Standalone HTML / JSON</strong></div></li></ol></div><figcaption>출처: README 첫 그림</figcaption></figure><figure><h3>② 격리 테스트 DB 준비 흐름</h3><div class="diagram" role="group" aria-label="② 격리 테스트 DB 준비 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>Compose 서비스 기동</strong></div></li><li><div class="flow-node"><strong>DB 상태 확인</strong></div></li><li><div class="flow-node"><strong>SQL Server 생성·권한 스크립트</strong></div></li><li><div class="flow-node"><strong>조회 전용 계정 연결</strong></div></li><li><div class="flow-node"><strong>분석·통합 테스트</strong></div></li></ol></div><figcaption>출처: README 두 번째 그림</figcaption></figure><figure><h3>③ 프로젝트 문서 흐름</h3><div class="diagram" role="group" aria-label="③ 프로젝트 문서 흐름"><ol class="flow"><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">전체 계약과 단계 기준</p><ol class="flow"><li><div class="flow-node"><strong>.project/plan.md: 전체 계약</strong></div></li><li><div class="flow-node"><strong>docs/instructions: 단계별 기준</strong></div></li></ol></div><div class="flow-branch"><p class="flow-label">화면 기준</p><div class="flow-node"><strong>design.md: 화면·접근성 기준</strong></div></div><div class="flow-branch"><p class="flow-label">실행 기준</p><div class="flow-node"><strong>AGENTS.md: 실행·승인 규칙</strong></div></div></div></li><li><div class="flow-node"><strong>현재 Phase 구현·검증</strong></div></li><li><div class="flow-node"><strong>docs/phaseN: 실제 결과</strong></div></li><li><div class="flow-node"><strong>README.md: 사용 가능한 기능</strong></div></li></ol></div><figcaption>출처: AGENTS 첫 그림</figcaption></figure><figure><h3>④ 기술 검사와 Git 완료 흐름</h3><div class="diagram" role="group" aria-label="④ 기술 검사와 Git 완료 흐름"><ol class="flow"><li><div class="flow-node"><strong>기술 Gate·결과 문서 완료</strong></div></li><li><div class="flow-node decision"><strong>저장소·Remote 확보</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">미확보</p><div class="flow-node"><strong>Git / PR 미완료 기록</strong></div></div><div class="flow-branch"><p class="flow-label">확보</p><ol class="flow"><li><div class="flow-node"><strong>Phase Branch·로컬 Commit</strong></div></li><li><div class="flow-node decision"><strong>Push·PR 사전 승인</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">미승인</p><div class="flow-node"><strong>원격 작업 대기</strong></div></div><div class="flow-branch"><p class="flow-label">승인</p><ol class="flow"><li><div class="flow-node"><strong>Push·PR 생성</strong></div></li><li><div class="flow-node"><strong>사용자 검토·Merge·main 갱신</strong></div></li><li><div class="flow-node"><strong>Repository 기준 완료</strong></div></li></ol></div></div></li></ol></div></div></li></ol></div><figcaption>출처: AGENTS 두 번째 그림</figcaption></figure><figure><h3>⑤ HTML 보고서 화면 구성</h3><div class="diagram" role="group" aria-label="⑤ HTML 보고서 화면 구성"><ol class="flow"><li><div class="flow-node"><strong>파일명·Dialect·상태·언어</strong></div></li><li><div class="flow-node"><strong>Overview</strong></div></li><li><div class="flow-node"><strong>SQL Source</strong></div></li><li><div class="flow-node"><strong>References</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조와 연결된 트리</p><div class="flow-node"><strong>AST</strong></div></div><div class="flow-branch"><p class="flow-label">참조와 연결된 연산 구조</p><div class="flow-node"><strong>SQL Flow</strong></div></div></div></li><li><div class="flow-node"><strong>DB 모드: Execution Plan</strong></div></li><li><div class="flow-node"><strong>근거 확보 시: Database Metadata</strong></div></li><li><div class="flow-node"><strong>후보 확보 시: Recommendations</strong></div></li></ol></div><figcaption>출처: design</figcaption></figure><figure><h3>⑥ 분석 근거 흐름</h3><div class="diagram" role="group" aria-label="⑥ 분석 근거 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL 작성</strong></div></li><li><div class="flow-node"><strong>정적 구조 확인</strong></div></li><li><div class="flow-node"><strong>실제 DBMS 계획 조회</strong></div></li><li><div class="flow-node"><strong>Metadata·실측 근거 확인</strong></div></li><li><div class="flow-node"><strong>사람의 검증·적용 판단</strong></div></li></ol></div><figcaption>출처: 기획서 첫 그림</figcaption></figure><figure><h3>⑦ SQLPVI 구성</h3><div class="diagram" role="group" aria-label="⑦ SQLPVI 구성"><ol class="flow"><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">Agent 경유</p><div class="flow-node"><strong>Codex / Claude Code Skill</strong></div></div><div class="flow-branch"><p class="flow-label">직접 실행</p><div class="flow-node"><strong>사용자</strong></div></div></div></li><li><div class="flow-node"><strong>SQLPVI CLI</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">항상 수행: 정적 분석</p><ol class="flow"><li><div class="flow-node"><strong>SQL 파일</strong></div></li><li><div class="flow-node"><strong>Parser Adapter</strong></div></li><li><div class="flow-node"><strong>AST</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조</p><div class="flow-node"><strong>Reference Analyzer</strong></div></div><div class="flow-branch"><p class="flow-label">연산 구조</p><div class="flow-node"><strong>SQL Flow Builder</strong></div></div></div></li></ol></div><div class="flow-branch"><p class="flow-label">선택 수행: --database 지정 시</p><ol class="flow"><li><div class="flow-node decision"><strong>--database 지정</strong></div></li><li><div class="flow-node"><strong>SQL·권한·Timeout 검증</strong></div></li><li><div class="flow-node"><strong>실제 DBMS</strong></div></li><li><div class="flow-node"><strong>Vendor Raw Plan</strong></div></li><li><div class="flow-node"><strong>Vendor Adapter</strong></div></li></ol></div></div></li><li><div class="flow-node"><strong>공통 Report 모델</strong></div></li><li><div class="flow-node"><strong>확인된 근거의 후보 생성</strong></div></li><li><div class="flow-node"><strong>개선 후보를 포함한 Report</strong></div></li><li><div class="flow-node"><strong>HTML / JSON 출력</strong></div></li></ol></div><figcaption>출처: 기획서 두 번째 그림</figcaption></figure><figure><h3>⑧ 프로젝트 단계</h3><div class="diagram" role="group" aria-label="⑧ 프로젝트 단계"><ol class="flow flow-row"><li><div class="flow-node"><strong>MVP: Phase 0~3</strong></div></li><li><div class="flow-node"><strong>V1 추가: Phase 4~5</strong></div></li><li><div class="flow-node"><strong>실측: Phase 6</strong></div></li><li><div class="flow-node"><strong>다중 DBMS: Phase 7~9</strong></div></li><li><div class="flow-node"><strong>근거 기반 추천: Phase 10</strong></div></li></ol></div><figcaption>출처: 기획서 세 번째 그림</figcaption></figure><figure><h3>⑨ Phase 0 가능성 검사 흐름</h3><div class="diagram" role="group" aria-label="⑨ Phase 0 가능성 검사 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL Fixture</strong></div></li><li><div class="flow-node"><strong>PostgreSQL Parsing</strong></div></li><li><div class="flow-node"><strong>AST·Reference 추출</strong></div></li><li><div class="flow-node"><strong>Source Mapping 범위 확인</strong></div></li><li><div class="flow-node"><strong>최소 HTML·SVG 검증</strong></div></li></ol></div><figcaption>출처: Phase 0 지침</figcaption></figure><figure><h3>⑩ 출력·힌트·실측 추천 흐름</h3><div class="diagram" role="group" aria-label="⑩ 출력·힌트·실측 추천 흐름"><ol class="flow"><li><div class="flow-node"><strong>SQL 원문 보존</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">기본 정적 분석</p><p class="flow-note">DB 계획 수집 없이 출력 단계로 이동</p></div><div class="flow-branch"><p class="flow-label">DB 분석 선택</p><ol class="flow"><li><div class="flow-node"><strong>SQL·권한 검사</strong></div></li><li><div class="flow-node"><strong>실행 계획 수집</strong></div></li><li><div class="flow-node decision"><strong>PostgreSQL 실측 근거</strong></div></li><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">디스크 정렬</p><div class="flow-node"><strong>정렬 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">여러 해시 배치 + 임시 블록</p><div class="flow-node"><strong>해시 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">근거 부족·다른 모드</p><p class="flow-note">후보 없이 출력 단계로 이동</p></div></div></li></ol></div></div></li><li><div class="flow-node"><strong>새 폴더 생성 후 HTML·JSON 저장</strong></div></li></ol></div><figcaption>출처: 코드 개선 기록</figcaption></figure></section>
+<section id="pictures" class="doc-panel" aria-labelledby="heading-pictures">
+<h2 id="heading-pictures">문서 흐름도</h2><p class="section-intro">한 그림씩 펼쳐서 관계 확인. 상자·분기·화살표의 HTML/CSS 직접 표시.</p>
+<details open><summary>01. SQL 파일 분석 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="① SQL 파일 분석 흐름"><ol class="flow"><li><div class="flow-node"><strong>SQL 파일</strong></div></li><li><div class="flow-node"><strong>정적 구조·참조 분석</strong></div></li><li><div class="flow-node decision"><strong>DB 모드 지정</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">기본 모드</p><p class="flow-note">DB 접속 없이 공통 Report 모델로 이동</p></div><div class="flow-branch"><p class="flow-label">--database</p><ol class="flow"><li><div class="flow-node"><strong>허용 SQL·최소 권한·Timeout 검증</strong></div></li><li><div class="flow-node"><strong>Estimated 계획 또는 PostgreSQL Runtime 수집</strong></div></li><li><div class="flow-node"><strong>실측 근거 충족 시 개선 후보 추가</strong></div></li></ol></div></div></li><li><div class="flow-node"><strong>공통 Report 모델</strong></div></li><li><div class="flow-node"><strong>Standalone HTML / JSON</strong></div></li></ol></div><figcaption>출처: README 첫 그림</figcaption></figure>
+</details><details><summary>02. 격리 테스트 DB 준비 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="② 격리 테스트 DB 준비 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>Compose 서비스 기동</strong></div></li><li><div class="flow-node"><strong>DB 상태 확인</strong></div></li><li><div class="flow-node"><strong>SQL Server 생성·권한 스크립트</strong></div></li><li><div class="flow-node"><strong>조회 전용 계정 연결</strong></div></li><li><div class="flow-node"><strong>분석·통합 테스트</strong></div></li></ol></div><figcaption>출처: README 두 번째 그림</figcaption></figure>
+</details><details><summary>03. 프로젝트 문서 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="③ 프로젝트 문서 흐름"><ol class="flow"><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">전체 계약과 단계 기준</p><ol class="flow"><li><div class="flow-node"><strong>.project/plan.md: 전체 계약</strong></div></li><li><div class="flow-node"><strong>docs/instructions: 단계별 기준</strong></div></li></ol></div><div class="flow-branch"><p class="flow-label">화면 기준</p><div class="flow-node"><strong>design.md: 화면·접근성 기준</strong></div></div><div class="flow-branch"><p class="flow-label">실행 기준</p><div class="flow-node"><strong>AGENTS.md: 실행·승인 규칙</strong></div></div></div></li><li><div class="flow-node"><strong>현재 Phase 구현·검증</strong></div></li><li><div class="flow-node"><strong>docs/phaseN: 실제 결과</strong></div></li><li><div class="flow-node"><strong>README.md: 사용 가능한 기능</strong></div></li></ol></div><figcaption>출처: AGENTS 첫 그림</figcaption></figure>
+</details><details><summary>04. 기술 검사와 Git 완료 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="④ 기술 검사와 Git 완료 흐름"><ol class="flow"><li><div class="flow-node"><strong>기술 Gate·결과 문서 완료</strong></div></li><li><div class="flow-node decision"><strong>저장소·Remote 확보</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">미확보</p><div class="flow-node"><strong>Git / PR 미완료 기록</strong></div></div><div class="flow-branch"><p class="flow-label">확보</p><ol class="flow"><li><div class="flow-node"><strong>Phase Branch·로컬 Commit</strong></div></li><li><div class="flow-node decision"><strong>Push·PR 사전 승인</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">미승인</p><div class="flow-node"><strong>원격 작업 대기</strong></div></div><div class="flow-branch"><p class="flow-label">승인</p><ol class="flow"><li><div class="flow-node"><strong>Push·PR 생성</strong></div></li><li><div class="flow-node"><strong>사용자 검토·Merge·main 갱신</strong></div></li><li><div class="flow-node"><strong>Repository 기준 완료</strong></div></li></ol></div></div></li></ol></div></div></li></ol></div><figcaption>출처: AGENTS 두 번째 그림</figcaption></figure>
+</details><details><summary>05. HTML 보고서 화면 구성</summary>
+<figure><div class="diagram" role="group" aria-label="⑤ HTML 보고서 화면 구성"><ol class="flow"><li><div class="flow-node"><strong>파일명·Dialect·상태·언어</strong></div></li><li><div class="flow-node"><strong>Overview</strong></div></li><li><div class="flow-node"><strong>SQL Source</strong></div></li><li><div class="flow-node"><strong>References</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조와 연결된 트리</p><div class="flow-node"><strong>AST</strong></div></div><div class="flow-branch"><p class="flow-label">참조와 연결된 연산 구조</p><div class="flow-node"><strong>SQL Flow</strong></div></div></div></li><li><div class="flow-node"><strong>DB 모드: Execution Plan</strong></div></li><li><div class="flow-node"><strong>근거 확보 시: Database Metadata</strong></div></li><li><div class="flow-node"><strong>후보 확보 시: Recommendations</strong></div></li></ol></div><figcaption>출처: design</figcaption></figure>
+</details><details><summary>06. 분석 근거 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="⑥ 분석 근거 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL 작성</strong></div></li><li><div class="flow-node"><strong>정적 구조 확인</strong></div></li><li><div class="flow-node"><strong>실제 DBMS 계획 조회</strong></div></li><li><div class="flow-node"><strong>Metadata·실측 근거 확인</strong></div></li><li><div class="flow-node"><strong>사람의 검증·적용 판단</strong></div></li></ol></div><figcaption>출처: 기획서 첫 그림</figcaption></figure>
+</details><details><summary>07. SQLPVI 구성</summary>
+<figure><div class="diagram" role="group" aria-label="⑦ SQLPVI 구성"><ol class="flow"><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">Agent 경유</p><div class="flow-node"><strong>Codex / Claude Code Skill</strong></div></div><div class="flow-branch"><p class="flow-label">직접 실행</p><div class="flow-node"><strong>사용자</strong></div></div></div></li><li><div class="flow-node"><strong>SQLPVI CLI</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">항상 수행: 정적 분석</p><ol class="flow"><li><div class="flow-node"><strong>SQL 파일</strong></div></li><li><div class="flow-node"><strong>Parser Adapter</strong></div></li><li><div class="flow-node"><strong>AST</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조</p><div class="flow-node"><strong>Reference Analyzer</strong></div></div><div class="flow-branch"><p class="flow-label">연산 구조</p><div class="flow-node"><strong>SQL Flow Builder</strong></div></div></div></li></ol></div><div class="flow-branch"><p class="flow-label">선택 수행: --database 지정 시</p><ol class="flow"><li><div class="flow-node decision"><strong>--database 지정</strong></div></li><li><div class="flow-node"><strong>SQL·권한·Timeout 검증</strong></div></li><li><div class="flow-node"><strong>실제 DBMS</strong></div></li><li><div class="flow-node"><strong>Vendor Raw Plan</strong></div></li><li><div class="flow-node"><strong>Vendor Adapter</strong></div></li></ol></div></div></li><li><div class="flow-node"><strong>공통 Report 모델</strong></div></li><li><div class="flow-node"><strong>확인된 근거의 후보 생성</strong></div></li><li><div class="flow-node"><strong>개선 후보를 포함한 Report</strong></div></li><li><div class="flow-node"><strong>HTML / JSON 출력</strong></div></li></ol></div><figcaption>출처: 기획서 두 번째 그림</figcaption></figure>
+</details><details><summary>08. 프로젝트 단계</summary>
+<figure><div class="diagram" role="group" aria-label="⑧ 프로젝트 단계"><ol class="flow flow-row"><li><div class="flow-node"><strong>MVP: Phase 0~3</strong></div></li><li><div class="flow-node"><strong>V1 추가: Phase 4~5</strong></div></li><li><div class="flow-node"><strong>실측: Phase 6</strong></div></li><li><div class="flow-node"><strong>다중 DBMS: Phase 7~9</strong></div></li><li><div class="flow-node"><strong>근거 기반 추천: Phase 10</strong></div></li></ol></div><figcaption>출처: 기획서 세 번째 그림</figcaption></figure>
+</details><details><summary>09. Phase 0 가능성 검사 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="⑨ Phase 0 가능성 검사 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL Fixture</strong></div></li><li><div class="flow-node"><strong>PostgreSQL Parsing</strong></div></li><li><div class="flow-node"><strong>AST·Reference 추출</strong></div></li><li><div class="flow-node"><strong>Source Mapping 범위 확인</strong></div></li><li><div class="flow-node"><strong>최소 HTML·SVG 검증</strong></div></li></ol></div><figcaption>출처: Phase 0 지침</figcaption></figure>
+</details><details><summary>10. 출력·힌트·실측 추천 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="⑩ 출력·힌트·실측 추천 흐름"><ol class="flow"><li><div class="flow-node"><strong>SQL 원문 보존</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">기본 정적 분석</p><p class="flow-note">DB 계획 수집 없이 출력 단계로 이동</p></div><div class="flow-branch"><p class="flow-label">DB 분석 선택</p><ol class="flow"><li><div class="flow-node"><strong>SQL·권한 검사</strong></div></li><li><div class="flow-node"><strong>실행 계획 수집</strong></div></li><li><div class="flow-node decision"><strong>PostgreSQL 실측 근거</strong></div></li><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">디스크 정렬</p><div class="flow-node"><strong>정렬 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">여러 해시 배치 + 임시 블록</p><div class="flow-node"><strong>해시 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">근거 부족·다른 모드</p><p class="flow-note">후보 없이 출력 단계로 이동</p></div></div></li></ol></div></div></li><li><div class="flow-node"><strong>새 폴더 생성 후 HTML·JSON 저장</strong></div></li></ol></div><figcaption>출처: 코드 개선 기록</figcaption></figure>
+</details>
+</section>
 
-<section id="remaining">
-<h2>10. 현재 남은 일과 확인 근거</h2>
+<section id="remaining" class="doc-panel" aria-labelledby="heading-remaining">
+<h2 id="heading-remaining">남은 일</h2>
+<div class="step"><h3><span class="step-label">STEP 01</span>완료와 미확인 항목 구분</h3>
+
+<p><strong>확보한 근거:</strong> 코드 개선의 전체 검사, 문서 도표 표시, 사용자 실행의 Git Push.</p>
+<p><strong>남은 근거:</strong> SQLPVI 새 환경의 전체 설치 성공, 재구성한 완료 기준의 확인, Claude Code 실제 호출.</p>
+<details open><summary>항목별 상태와 필요한 근거</summary>
 <div class="table-wrap"><table><thead><tr><th>항목</th><th>상태</th><th>완료 판단에 필요한 근거</th></tr></thead><tbody>
 <tr><td>코드 개선 3건</td><td><span class="label pass">검사 통과</span></td><td>전체 258개와 해당 단위·실제 DB 검사 결과 확보.</td></tr>
 <tr><td>문서 그림 표시</td><td><span class="label pass">HTML/CSS 표시</span></td><td>전체 작업 흐름 1개·문서 흐름도 10개의 HTML/CSS 작성. Markdown은 Mermaid 유지. 별도 그림 파일 없음.</td></tr>
 <tr><td>uv 새 환경 설치</td><td><span class="label fail">미완료</span></td><td>SQLPVI의 새 환경에서 잠긴 버전의 전체 설치 성공과 설치된 CLI 실행의 확인 필요. 다른 프로젝트 결과로 대체 불가.</td></tr>
 <tr><td>이전 문서의 완료 기준</td><td><span class="label wait">기준 검토 필요</span></td><td>제가 재구성한 기준이 사용자가 의도한 완료 범위와 맞는지 확인 필요.</td></tr>
 <tr><td>Claude Code 실제 호출</td><td><span class="label wait">미검증</span></td><td>실제 앱 호출·Skill 재발견 화면의 증거 미확보.</td></tr>
-<tr><td>Git·PR</td><td><span class="label wait">미수행</span></td><td>저장소·Remote 부재. 새 저장소 생성이나 원격 전송 수행 없음.</td></tr>
+<tr><td>Git·PR</td><td><span class="label pass">Push 확인</span></td><td>사용자 실행의 <code>master</code> 커밋 <code>2b3fdf7</code> 원격 반영 확인. PR·Merge는 별도 절차.</td></tr>
 </tbody></table></div>
-<h3>기록을 읽을 때 구분할 말</h3>
+</details>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>용어와 원본 기록 확인</h3>
+
+<p>검사 통과·예상 계획·실측·새 설치는 서로 다른 확인 항목.</p>
+<details><summary>기록을 읽을 때 구분할 말</summary>
 <div class="table-wrap"><table><tbody><tr><th>검사 통과</th><td>해당 실행에서 검사 항목의 성공. 모든 설치·환경·사용 상황의 성공을 뜻하지 않음.</td></tr><tr><th>예상 계획</th><td>원래 조회를 실행하지 않고 얻는 처리 계획. 실제 속도 측정과 구분.</td></tr><tr><th>Runtime·실측</th><td>조회 Query를 실제 실행해 측정. SQLPVI에서는 PostgreSQL의 명시적 옵션에서만 지원.</td></tr><tr><th>새 환경 설치</th><td>기존에 깔린 부품을 이용한 실행과 별도. Lock 목록의 패키지를 새 가상환경에 완전히 설치한 상태.</td></tr><tr><th>제가 판단한 범위</th><td>사용자의 포괄적 요청을 구현 항목으로 구체화한 부분. 사용자가 그 세부 항목을 직접 지시한 것으로 표시하지 않음.</td></tr></tbody></table></div>
+</details>
+<p><a href="code-improvements-2026-11-05.md">코드 개선 원본 기록</a> · <a href="sqlpvi-decisions-2026-11-05.html">이전 선택 기록</a> · <a href="planning-decisions-2026-11-05.html">기획서 선택 기록</a></p>
+
+</div>
 </section>
 
-<footer>
-<p><strong>기록 위치:</strong> <code>docs/index.html</code>. 초기 work-records의 검토 HTML을 문서 첫 화면으로 이동. 명령 실행 단추·외부 스크립트·추적 코드 없음.</p>
-<p><strong>이 HTML의 확인 방식:</strong> 로컬 HTTP 미리보기에서 1366px·390px의 가로 넘침 없음, HTML/CSS 흐름도 11개 표시, 목차 이동과 중복 ID 없음, Console Error/Warning 없음 확인. 검증 도구의 file: 직접 접근은 차단되어 해당 방식의 실행 검증은 미수행.</p>
-<p><strong>빠뜨린 점의 최종 확인:</strong> 잘못된 프로젝트 결과의 분리, 기본 sync의 패키지 제거 가능성 명시, init의 권한 재부여와 잠금 시험의 일시적 ALTER·Rollback 기록, 기존 환경 검사와 새 설치의 분리, 제 판단으로 늘린 코드 범위의 표시.</p>
-</footer>
+<nav class="panel-navigation" aria-label="문서 단계 이동" hidden>
+<button id="previous-topic" type="button">← 이전</button>
+<p id="topic-progress" aria-live="polite" aria-atomic="true"></p>
+<button id="next-topic" type="button">다음 →</button>
+</nav>
+<footer><p>SQLPVI · 실행 기록: 2026-11-04~05 · 문서 구성 갱신: 2026-11-07</p></footer>
 </main>
+<script>
+(() => {
+  const tablist = document.querySelector(".tabs");
+  const tabs = [...tablist.querySelectorAll("a")];
+  const panels = tabs.map(tab => document.querySelector(tab.hash));
+  const navigation = document.querySelector(".panel-navigation");
+  const previous = document.getElementById("previous-topic");
+  const next = document.getElementById("next-topic");
+  const progress = document.getElementById("topic-progress");
+  let selected = 0;
+
+  tablist.setAttribute("role", "tablist");
+  tablist.setAttribute("aria-label", "문서 주제");
+  tabs.forEach((tab, index) => {
+    tab.setAttribute("role", "tab");
+    tab.setAttribute("aria-controls", panels[index].id);
+    panels[index].setAttribute("role", "tabpanel");
+    panels[index].setAttribute("aria-labelledby", tab.id);
+    panels[index].tabIndex = 0;
+  });
+
+  function activate(index) {
+    selected = index;
+    tabs.forEach((tab, position) => {
+      const active = position === index;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+      panels[position].hidden = !active;
+    });
+    previous.disabled = index === 0;
+    next.disabled = index === tabs.length - 1;
+    progress.textContent = `${index + 1} / ${tabs.length} · ${tabs[index].dataset.title}`;
+    document.querySelector(".skip-link").href = tabs[index].hash;
+  }
+
+  function navigate(index) {
+    activate(index);
+    if (location.hash !== tabs[index].hash) history.pushState(null, "", tabs[index].hash);
+    tabs[index].scrollIntoView({block: "nearest", inline: "nearest"});
+    window.scrollTo(0, 0);
+  }
+
+  function fromAddress() {
+    const index = tabs.findIndex(tab => tab.hash === location.hash);
+    activate(index < 0 ? 0 : index);
+    tabs[selected].scrollIntoView({block: "nearest", inline: "nearest"});
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", event => {
+      event.preventDefault();
+      navigate(index);
+    });
+    tab.addEventListener("keydown", event => {
+      let target;
+      if (event.key === "ArrowRight") target = (index + 1) % tabs.length;
+      else if (event.key === "ArrowLeft") target = (index + tabs.length - 1) % tabs.length;
+      else if (event.key === "Home") target = 0;
+      else if (event.key === "End") target = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      navigate(target);
+      tabs[target].focus({preventScroll: true});
+    });
+  });
+  previous.addEventListener("click", () => {
+    navigate(selected - 1);
+    panels[selected].focus({preventScroll: true});
+  });
+  next.addEventListener("click", () => {
+    navigate(selected + 1);
+    panels[selected].focus({preventScroll: true});
+  });
+  window.addEventListener("hashchange", fromAddress);
+  window.addEventListener("popstate", fromAddress);
+  navigation.hidden = false;
+  fromAddress();
+})();
+</script>
 </body>
 </html>

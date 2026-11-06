@@ -2,6 +2,8 @@
 
 SQL 파일의 구조·참조·실행 계획을 HTML로 시각화하는 분석 도구.
 
+[프로젝트 문서 보기](https://seo-gali.github.io/sql-plan-visualizer/)
+
 ## 현재 상태
 
 | 구분 | 확인 결과 |
@@ -9,7 +11,7 @@ SQL 파일의 구조·참조·실행 계획을 HTML로 시각화하는 분석 �
 | 기술 Gate | Phase 0~10 통과 |
 | 최종 전체 회귀 | 2026-11-05 기준 258 passed, Skip 없음, exit 0 |
 | 실제 DB 검증 | PostgreSQL·MariaDB·SQL Server 통합 테스트 통과 |
-| Git / PR | 로컬 저장소·origin 설정 확인. PR·Merge 미완료 |
+| Git / PR | `master` 원격 반영 확인: `2b3fdf7`. PR·Merge는 별도 절차 |
 | Agent 연동 | 프로젝트 로컬 Codex·Claude Code Skill 제공 |
 | Agent 검증 한계 | Codex CLI 절차 확인, Claude Code 실제 호출·자동 재발견 UI 미검증 |
 
@@ -197,7 +199,8 @@ Temp 경로 접근 오류 시 대응: 사용 가능한 새 프로젝트 내부 �
 
 ## 문서 안내
 
-- [문서 첫 화면: 작업 흐름·변경·검증 기록](docs/index.html)
+- [공개 문서: 소개·작업 단계·검증 기록](https://seo-gali.github.io/sql-plan-visualizer/)
+- [로컬 문서 첫 화면](docs/index.html)
 - [전체 계약·최종 완료 기준](.project/plan.md)
 - [전체 기획의 현행 정리본](기획서.md)
 - [프로젝트 운영·승인 규칙](AGENTS.md)
@@ -207,10 +210,11 @@ Temp 경로 접근 오류 시 대응: 사용 가능한 새 프로젝트 내부 �
 - [이후 코드 개선·검증 기록](docs/code-improvements-2026-11-05.md)
 - [대신 내린 선택 기록](docs/sqlpvi-decisions-2026-11-05.html)
 
-문서 사이트 진입점: `docs/index.html`. 흐름도의 HTML/CSS 직접 표시와 인터넷 없는 열람 지원.
+문서 사이트 진입점: `docs/index.html`. 주제별 탭과 이전·다음 단계 이동 지원.
+흐름도의 HTML/CSS 직접 표시와 인터넷 없는 열람 지원.
 선택 기록·샘플 보고서의 `docs` 내부 상대 경로 연결. 문서 HTML의 별도 그림 파일·Mermaid 실행 도구 요구 없음.
 
 GitHub 웹 게시 방법: 저장소 업로드 후 Settings → Pages → Deploy from a branch → 게시할 브랜치와 `/docs` 선택.
 `docs/.nojekyll`: 별도 Jekyll 변환 없는 정적 파일 제공.
 설정 근거: [GitHub Pages 게시 경로 안내](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
-현재 수행 범위: 로컬 문서 준비·검증. Git Push·웹 게시 미수행.
+공개 문서 주소: 위 GitHub Pages 링크. 이번 문서 수정의 공개 반영 시점: 변경 사항의 Push·Pages 배포 이후.
