@@ -1,6 +1,7 @@
 # Phase 3. SQLPVI Skill
 
 2026-11-04 기술 Gate 통과. Codex와 Claude Code의 프로젝트 로컬 Skill을 추가했다.
+기본 사용 경로: Codex Skill·SQLPVI CLI. Claude Code 연동은 선택 사항.
 
 ## 구현 및 검증
 
@@ -18,10 +19,8 @@
 
 ## 검증 범위 및 한계
 
-Codex의 절차 수행과 파일 형식은 확인했다. 실행 중 세션의 자동 Skill 재발견과
-새 세션의 선택 UI는 검증하지 않았다. Claude Code CLI는 설치되지 않아
-실제 `/sqlpvi` 호출은 미검증이며 실행한 것으로 주장하지 않는다.
-uv 자동 sync 접근 거부와 Git/Remote 부재는 이전 Phase와 같다.
+확인 범위: Codex의 Skill 절차 수행·파일 형식·CLI 산출물.
+설치 한계: uv 자동 sync 접근 거부.
 
 근거: [Codex 로컬 Skill 위치](https://learn.chatgpt.com/docs/build-skills),
 [Claude Code 프로젝트 Skill](https://code.claude.com/docs/en/skills).

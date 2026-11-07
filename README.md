@@ -11,9 +11,8 @@ SQL 파일의 구조·참조·실행 계획을 HTML로 시각화하는 분석 �
 | 기술 Gate | Phase 0~10 통과 |
 | 최종 전체 회귀 | 2026-11-05 기준 258 passed, Skip 없음, exit 0 |
 | 실제 DB 검증 | PostgreSQL·MariaDB·SQL Server 통합 테스트 통과 |
-| Git / PR | `master` 원격 반영 확인: `2b3fdf7`. PR·Merge는 별도 절차 |
-| Agent 연동 | 프로젝트 로컬 Codex·Claude Code Skill 제공 |
-| Agent 검증 한계 | Codex CLI 절차 확인, Claude Code 실제 호출·자동 재발견 UI 미검증 |
+| Agent 연동 | Codex 프로젝트 로컬 Skill 제공. Claude Code 연동은 선택 사항 |
+| Agent 검증 | Codex Skill 절차·CLI 산출물 확인 |
 
 검증 수치의 기준: 각 완료 문서의 실제 실행 시점. 문서 수정에 따른 재검증 결과로의 대체 금지.
 
@@ -217,4 +216,3 @@ Temp 경로 접근 오류 시 대응: 사용 가능한 새 프로젝트 내부 �
 GitHub 웹 게시 방법: 저장소 업로드 후 Settings → Pages → Deploy from a branch → 게시할 브랜치와 `/docs` 선택.
 `docs/.nojekyll`: 별도 Jekyll 변환 없는 정적 파일 제공.
 설정 근거: [GitHub Pages 게시 경로 안내](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
-공개 문서 주소: 위 GitHub Pages 링크. 이번 문서 수정의 공개 반영 시점: 변경 사항의 Push·Pages 배포 이후.

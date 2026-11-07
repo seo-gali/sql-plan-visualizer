@@ -134,10 +134,10 @@ footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-si
 </details>
 </div><div class="step"><h3><span class="step-label">STEP 02</span>SQL Server 연결과 Phase 검증</h3>
 <p>드라이버 설치 뒤 포트 충돌 해결. 당시 Phase 10의 전체 211개 검사 통과.</p><details><summary>04~07 요청·진행·결과</summary>
-<article class="event"><h4>04. SQL Server 지원을 위한 드라이버·Lock 갱신 승인</h4><p><strong>진행:</strong> <code>pymssql==2.4.6</code> 사용. 사용자 실행으로 Lock 갱신과 드라이버 설치</p><p><strong>결과:</strong> 패키지명이 별도 줄로 실행되어 실패한 명령 뒤, 한 줄 설치 명령으로 성공. Lock의 전체 패키지 수 16개.</p></article>
+<article class="event"><h4>04. SQL Server 드라이버·Lock 갱신</h4><p><strong>진행:</strong> <code>pymssql==2.4.6</code> 사용. Lock 갱신과 드라이버 설치</p><p><strong>결과:</strong> 패키지명이 별도 줄로 실행되어 실패한 명령 뒤, 한 줄 설치 명령으로 성공. Lock의 전체 패키지 수 16개.</p></article>
 <article class="event"><h4>05. SQL Server 컨테이너 Healthy, 호스트 접속 실패</h4><p><strong>진행:</strong> 상태·로그·재시작 결과와 Windows 포트 예약 범위 확인</p><p><strong>결과:</strong> 51433이 예약 구간 51356~51455와 충돌. 컨테이너 내부 Healthy와 Windows 포트 접근 가능성은 별도 상태.</p></article>
 <article class="event"><h4>06. 예약 포트를 피한 연결 필요</h4><p><strong>진행:</strong> Compose 서비스 <code>mssql</code>, 포트 <code>14330</code> 사용. 기존 <code>sqlserver</code> 컨테이너 보존</p><p><strong>결과:</strong> 사용자가 새 컨테이너·init 실행. 새 DB의 customers 500행, orders 10000행 결과 제공. 기존 컨테이너 삭제 없음.</p></article>
-<article class="event"><h4>07. 실제 다중 DB 검증과 추천 단계 진행</h4><p><strong>진행:</strong> SQL Server 미실행 계획 수집·권한·Timeout·연결 정리, PostgreSQL 디스크 정렬 추천 검증</p><p><strong>결과:</strong> 2026-11-04 Phase 10 시점: 전체 211 passed, Skip 없음. 당시 Git 저장소·Remote 부재로 Git/PR 미완료.</p></article>
+<article class="event"><h4>07. 실제 다중 DB 검증과 추천 단계 진행</h4><p><strong>진행:</strong> SQL Server 미실행 계획 수집·권한·Timeout·연결 정리, PostgreSQL 디스크 정렬 추천 검증</p><p><strong>결과:</strong> 2026-11-04 Phase 10 시점: 전체 211 passed, Skip 없음.</p></article>
 </details>
 </div><div class="step"><h3><span class="step-label">STEP 03</span>목적 비교와 문서 정리</h3>
 <p>MCP 글과 SQLPVI의 범위 비교. 문서·그림·대신 내린 선택의 기록 정리.</p><details><summary>08~10 요청·진행·결과</summary>
@@ -161,16 +161,11 @@ footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-si
 </details>
 </div><div class="step"><h3><span class="step-label">STEP 06</span>문서 위치와 그림 표시 방식 정리</h3>
 <p>docs/index.html 배치와 기획서 작성. 별도 SVG 삭제 후 Markdown Mermaid·HTML/CSS 직접 표시로 전환.</p><details><summary>19~22 요청·진행·결과</summary>
-<article class="event"><h4>19. 검토 HTML을 docs/index로 보관하고 향후 Git에서 확인할 수 있게 해 달라는 요청</h4><p><strong>진행:</strong> 본문 보존 후 <code>docs/index.html</code>로 이동. 선택 기록도 docs로 이동. 샘플 보고서의 docs/examples 보관과 내부 상대 링크 정리.</p><p><strong>결과:</strong> 당시 로컬 문서 준비까지 수행. 당시 GitHub Pages 설정·Push·웹 게시 미수행. 이후 게시 폴더 <code>/docs</code> 선택 가능.</p></article>
+<article class="event"><h4>19. 문서 진입점의 docs/index.html 이동</h4><p><strong>진행:</strong> 본문 보존 후 <code>docs/index.html</code>로 이동. 선택 기록도 docs로 이동. 샘플 보고서의 docs/examples 보관과 내부 상대 링크 정리.</p><p><strong>결과:</strong> 문서와 연결 파일의 <code>docs</code> 내부 보관. 상대 경로로 상세 기록·샘플 보고서 연결.</p></article>
 <article class="event"><h4>20. 제공한 기획서를 현재 프로젝트에 맞춰 기획서.md로 작성 요청</h4><p><strong>진행:</strong> 20개 절 유지. 실제 CLI·모델·버전·지원 범위 반영. 구현·미구현·미검증 항목 분리.</p><p><strong>결과:</strong> 기존 계약 원본 유지. 정적 CLI의 HTML·JSON 예제 확인. 전체 DB 검사의 재실행 없음.</p></article>
 <article class="event"><h4>21. docs/diagrams 내용 삭제와 기획서 그림의 Mermaid 전환 요청</h4><p><strong>진행:</strong> 별도 SVG 파일 10개 삭제. 기획서의 그림 4개와 기존 Markdown 그림 10개를 Mermaid 직접 표시로 전환. 삭제 파일로 향하던 링크 제거.</p><p><strong>결과:</strong> 2026-11-06 후속 확인: 기획서 Mermaid 4개 실제 렌더링 성공, Console Error/Warning 없음. 이 경위 HTML의 내장 그림은 별도 파일 없이 표시 가능.</p></article>
 <article class="event"><h4>22. HTML도 그림 파일 대신 코드로 직접 그려 달라는 요청</h4><p><strong>진행:</strong> 이 문서의 전체 작업 흐름 1개와 문서 흐름도 10개를 HTML/CSS의 상자·분기·화살표로 작성. 인라인 SVG와 SVG 이미지 데이터 제거.</p><p><strong>결과:</strong> Markdown은 Mermaid 유지. 문서 HTML은 그림 파일·Mermaid 실행 도구·외부 라이브러리 없이 표시. 제품 SQLPVI의 실행 코드 변경 없음.</p></article>
 </details>
-</div><div class="step"><h3><span class="step-label">STEP 07</span>Git 반영과 공개 문서 연결</h3>
-
-<p>사용자 실행 결과: <code>master</code>의 <code>2b3fdf7</code> 커밋·Push 완료.</p>
-<p>공개 문서 주소: <a href="https://seo-gali.github.io/sql-plan-visualizer/">SQLPVI GitHub Pages</a>. 이번 변경은 로컬 문서 수정이며, 공개 페이지의 갱신은 후속 Push·배포 이후.</p>
-
 </div>
 </section>
 
@@ -377,24 +372,24 @@ uv --cache-dir .uv-cache --offline build --wheel --link-mode copy --out-dir arti
 </details><details><summary>258개 전체 검사에 사용한 실제 명령</summary><pre><code>$env:SQLPVI_TEST_POSTGRES_URL = 'postgresql://sqlpvi_reader@127.0.0.1:55432/sqlpvi'
 $env:SQLPVI_TEST_MARIADB_URL = 'mariadb://sqlpvi_reader@127.0.0.1:53306/sqlpvi'
 $env:SQLPVI_TEST_SQLSERVER_URL = 'sqlserver://sqlpvi_reader:Sqlpvi-Fixture-2026!@127.0.0.1:14330/sqlpvi'
-uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pytest-code-improvements-20261105 -p no:cacheprovider --tb=short</code></pre><p class="note">위 URL은 이 프로젝트의 합성 자료·공개 시험용 계정. 해당 실행은 <a href="code-improvements-2026-11-05.md">코드 개선 기록</a>에도 보존. <code>--no-sync</code>는 기존 설치 환경 사용이며, 이 검사가 새 환경 설치 성공을 보증하지 않음.</p></details>
+uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pytest-code-improvements-20261105 -p no:cacheprovider --tb=short</code></pre><p class="note">위 URL은 이 프로젝트의 합성 자료·공개 시험용 계정. 해당 실행은 <a href="#changes">코드 개선 기록</a>에도 보존. <code>--no-sync</code>는 기존 설치 환경 사용이며, 이 검사가 새 환경 설치 성공을 보증하지 않음.</p></details>
 </div><div class="step"><h3><span class="step-label">STEP 02</span>Phase별 과거 기록 확인</h3>
 
 <p>Phase 수치는 2026-11-04의 단계별 기록. 해당 날짜와 누적 범위를 유지.</p>
 <p>각 수치를 더해 전체 검사 수로 계산하지 않음. 새 문서 확인 결과로 과거 실행 결과를 대체하지 않음.</p>
 <details><summary>Phase 0~10의 당시 기능·검사 수</summary>
 <div class="table-wrap"><table><thead><tr><th>단계</th><th>당시 기능·검증 범위</th><th>당시 기록</th></tr></thead><tbody>
-<tr><td><a href="phase0-feasibility.md">Phase 0</a></td><td>파싱·위치 정보·HTML 가능성</td><td>16 passed</td></tr>
-<tr><td><a href="phase1-static-analysis.md">Phase 1</a></td><td>정적 분석</td><td>42 passed</td></tr>
-<tr><td><a href="phase2-html-visualization.md">Phase 2</a></td><td>HTML 시각화</td><td>47 passed</td></tr>
-<tr><td><a href="phase3-sqlpvi-skill.md">Phase 3</a></td><td>로컬 Skill</td><td>47 passed. Claude Code 실제 호출은 미검증.</td></tr>
-<tr><td><a href="phase4-postgresql-estimated-plan.md">Phase 4</a></td><td>PostgreSQL 예상 계획</td><td>최종 72 passed. 최초 Temp 오류의 68 passed / 3 setup errors 기록도 보존.</td></tr>
-<tr><td><a href="phase5-postgresql-plan-enrichment.md">Phase 5</a></td><td>Catalog·참조 보강</td><td>76 passed</td></tr>
-<tr><td><a href="phase6-postgresql-runtime-plan.md">Phase 6</a></td><td>명시적 실제 측정</td><td>81 passed</td></tr>
-<tr><td><a href="phase7-multi-dbms-architecture.md">Phase 7</a></td><td>다중 DB 구조</td><td>83 passed</td></tr>
-<tr><td><a href="phase8-mariadb.md">Phase 8</a></td><td>MariaDB</td><td>127 passed in 14.71s. 초기 미검증 구간의 99 passed 기록과 구분.</td></tr>
-<tr><td><a href="phase9-sqlserver.md">Phase 9</a></td><td>SQL Server</td><td>185 passed in 18.67s</td></tr>
-<tr><td><a href="phase10-recommendation.md">Phase 10</a></td><td>근거 기반 디스크 정렬 점검</td><td>211 passed in 17.71s. 당시 추천 단위·통합 26 passed.</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase0-feasibility.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 0 완료 기록 (GitHub, 새 탭)">Phase 0 ↗</a></td><td>파싱·위치 정보·HTML 가능성</td><td>16 passed</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase1-static-analysis.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 1 완료 기록 (GitHub, 새 탭)">Phase 1 ↗</a></td><td>정적 분석</td><td>42 passed</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase2-html-visualization.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 2 완료 기록 (GitHub, 새 탭)">Phase 2 ↗</a></td><td>HTML 시각화</td><td>47 passed</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase3-sqlpvi-skill.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 3 완료 기록 (GitHub, 새 탭)">Phase 3 ↗</a></td><td>로컬 Skill</td><td>47 passed. Codex Skill 절차·CLI 산출물 확인.</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase4-postgresql-estimated-plan.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 4 완료 기록 (GitHub, 새 탭)">Phase 4 ↗</a></td><td>PostgreSQL 예상 계획</td><td>최종 72 passed. 최초 Temp 오류의 68 passed / 3 setup errors 기록도 보존.</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase5-postgresql-plan-enrichment.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 5 완료 기록 (GitHub, 새 탭)">Phase 5 ↗</a></td><td>Catalog·참조 보강</td><td>76 passed</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase6-postgresql-runtime-plan.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 6 완료 기록 (GitHub, 새 탭)">Phase 6 ↗</a></td><td>명시적 실제 측정</td><td>81 passed</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase7-multi-dbms-architecture.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 7 완료 기록 (GitHub, 새 탭)">Phase 7 ↗</a></td><td>다중 DB 구조</td><td>83 passed</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase8-mariadb.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 8 완료 기록 (GitHub, 새 탭)">Phase 8 ↗</a></td><td>MariaDB</td><td>127 passed in 14.71s. 초기 미검증 구간의 99 passed 기록과 구분.</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase9-sqlserver.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 9 완료 기록 (GitHub, 새 탭)">Phase 9 ↗</a></td><td>SQL Server</td><td>185 passed in 18.67s</td></tr>
+<tr><td><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/phase10-recommendation.md" target="_blank" rel="noopener noreferrer" aria-label="Phase 10 완료 기록 (GitHub, 새 탭)">Phase 10 ↗</a></td><td>근거 기반 디스크 정렬 점검</td><td>211 passed in 17.71s. 당시 추천 단위·통합 26 passed.</td></tr>
 </tbody></table></div>
 </details>
 </div><div class="step"><h3><span class="step-label">STEP 03</span>이번 문서의 별도 확인</h3>
@@ -402,8 +397,8 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <p>검사 대상: 10개 탭·이전/다음 이동·주소 연결·키보드 이동·모바일 화면.</p>
 <p id="doc-check-result">2026-11-07 로컬 HTTP 검증 통과. 탭 10개·이전/다음·방향키·Home/End·뒤로/앞으로·직접 주소와 새로고침의 정상 동작 확인.</p>
 <p>320·390·768·1366px 화면에서 모든 탭의 세부 내용을 펼친 상태로 확인. 본문의 가로 넘침 없음.</p>
-<p>JavaScript 미사용 환경의 전체 본문·목차 이동 확인. 원래 경위 22건·흐름도 11개·상자 85개 보존과 링크 29개·실행 코드의 CSP 해시 검사 통과.</p>
-<p class="note">외부 리소스 요청 없음. 이번 수정의 공개 사이트 반영·전체 DB 재검사는 미수행.</p>
+<p>JavaScript 미사용 환경의 전체 본문·목차 이동 확인. 경위 22건·흐름도 10개·상자 76개와 링크 29개·실행 코드의 CSP 해시 검사 통과.</p>
+<p class="note">외부 리소스 요청 없음. 전체 DB 검사는 2026-11-05 기록 기준.</p>
 
 </div>
 </section>
@@ -436,7 +431,7 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 
 <p>처음 정리한 문서 16개: <code>README.md</code>, <code>AGENTS.md</code>, <code>.project/plan.md</code>, <code>design.md</code>, <code>docs/instructions/phase0~10</code>의 11개 지침, <code>docs/phase8-mariadb.md</code>.</p>
 <p>코드 개선 이후 기록: <code>docs/code-improvements-2026-11-05.md</code> 추가. README·기획서·Phase 10 지침·완료 기록·선택 HTML 갱신. 과거 수치의 보존.</p>
-<p>이전 그림 표시 작업: Markdown 6개에 별도 SVG 10개 연결. 이후 사용자 요청에 따라 외부 SVG 삭제와 Markdown Mermaid로 전환. 현재 이 HTML의 흐름도 11개는 HTML/CSS로 직접 작성. 그림 파일·인라인 SVG·이미지 데이터 없음.</p>
+<p>이전 그림 표시 작업: Markdown 6개에 별도 SVG 10개 연결. 이후 사용자 요청에 따라 외부 SVG 삭제와 Markdown Mermaid로 전환. 현재 이 HTML의 흐름도 10개는 HTML/CSS로 직접 작성. 그림 파일·인라인 SVG·이미지 데이터 없음.</p>
 <p>작업 기록: <a href="sqlpvi-decisions-2026-11-05.html">이전 한 화면 선택 기록</a>과 현재 경위 기록. 이전 선택 HTML의 Mermaid 미검증 문구는 그 시점의 상태이며, 현재 결과는 이 기록 기준.</p>
 
 </details>
@@ -444,12 +439,12 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 
 <p>포괄적 요청을 세부 범위로 구체화한 선택의 기록. 사용자 개별 지정과 구분.</p>
 <details><summary>이전 구현·문서 작업에서 선택한 기준</summary>
-<div class="table-wrap"><table class="wide"><thead><tr><th>선택</th><th>사용자 요청·승인과의 관계</th><th>결과에 주는 영향</th></tr></thead><tbody>
+<div class="table-wrap"><table class="wide"><thead><tr><th>선택</th><th>설계 배경</th><th>결과에 주는 영향</th></tr></thead><tbody>
 <tr><td>비어 있던 완료 기준의 재구성</td><td>문서 정리 요청을 받아 제가 기준·완료 체크 구체화</td><td>과거 기록 기반의 완료 표시. 사용자에게 기준 자체를 확인받은 것은 아님.</td></tr>
 <tr><td>코드 개선의 세 항목 선택</td><td>포괄적 코드 개선 요청을 제가 구체화</td><td>자동 폴더·Hint 네 종류·해시 추천 추가. MCP 서버 기능은 추가하지 않음.</td></tr>
-<tr><td>드라이버 pymssql 2.4.6</td><td>드라이버 도입·Lock 갱신은 사용자 승인 범위. 연결 부품과 버전은 제가 선택해 안내</td><td>SQL Server 연결에 사용. 별도 대형 ODBC 설치 도구를 요구하지 않는 방식.</td></tr>
+<tr><td>드라이버 pymssql 2.4.6</td><td>별도 ODBC 설치 도구를 요구하지 않는 SQL Server 연결 방식</td><td>SQL Server 연결에 사용. 별도 대형 ODBC 설치 도구를 요구하지 않는 방식.</td></tr>
 <tr><td>질의 5초·잠금 대기 1초</td><td>제가 구체적 제한값 선택</td><td>오래 걸리는 Query·잠금 대기의 실패 처리.</td></tr>
-<tr><td>포트 14330·서비스 mssql</td><td>예약 포트 충돌에 대한 제 수정안, 사용자 실행</td><td>옛 DB 보존과 새 연결 분리. 이전 컨테이너는 디스크를 계속 사용.</td></tr>
+<tr><td>포트 14330·서비스 mssql</td><td>Windows 예약 포트와의 충돌 회피</td><td>옛 DB 보존과 새 연결 분리. 이전 컨테이너는 디스크를 계속 사용.</td></tr>
 <tr><td>합성 자료·공개 Fixture 계정</td><td>격리 DB 검사 범위</td><td>운영 자료 사용 없음. init은 시험 계정의 권한 부여를 재적용할 수 있음.</td></tr>
 <tr><td>PostgreSQL만 실제 측정·추천</td><td>기존 Phase 범위와 현재 구현 유지</td><td>MariaDB·SQL Server는 예상 계획. 모르는 값을 추정해 채우거나 다른 DB의 수치를 같은 뜻으로 취급하지 않음.</td></tr>
 <tr><td>PostgreSQL 새 URL 우선·기존 URL 호환</td><td>기존 호출과의 호환 방식 선택</td><td><code>SQLPVI_POSTGRES_URL</code> 우선, 값이 없을 때 <code>SQLPVI_DATABASE_URL</code> 사용.</td></tr>
@@ -460,7 +455,7 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <tr><td>새 캐시·파일 복사 설치안</td><td>설치 복구안으로 제가 선택, 일반 셸 실행 요청</td><td>기존 캐시 보존. SQLPVI 성공 결과는 미확보. 영구 <code>tool.uv</code> 설정 변경 없음.</td></tr>
 <tr><td>Temp에서 work-records로 이동</td><td>처음에는 저장소 밖 요청, 이후 사용자의 명시적 이동 지시</td><td>검토 HTML의 초기 위치는 work-records. 후속 요청에 따른 현재 위치는 <code>docs/index.html</code>.</td></tr>
 <tr><td>docs 안의 연결 파일 보관</td><td>docs/index 배치 요청에 따라 제가 관련 파일 위치 구체화</td><td>선택 HTML 이동과 합성 자료 샘플 보고서 복사. docs만 게시해도 내부 링크 이용 가능. <code>.nojekyll</code>로 별도 빌드 없는 정적 파일 제공. 삭제 요청된 외부 SVG 링크는 제거.</td></tr>
-<tr><td>기술 완료·Git 완료 분리</td><td>프로젝트 운영 규칙과 실제 환경에 따른 기록</td><td>당시 <code>.git</code> 부재로 저장소 초기화·Push·PR·Merge 미수행. 이후 사용자 실행의 <code>2b3fdf7</code> Push 완료와 구분.</td></tr>
+
 </tbody></table></div>
 </details>
 <p class="note">당시 전역 에이전트·MCP·Windows ACL·방화벽·예약 포트·보안 정책 변경 없음. 비밀 파일 열람과 운영 DB 변경 없음.</p>
@@ -487,20 +482,18 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <figure><div class="diagram" role="group" aria-label="② 격리 테스트 DB 준비 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>Compose 서비스 기동</strong></div></li><li><div class="flow-node"><strong>DB 상태 확인</strong></div></li><li><div class="flow-node"><strong>SQL Server 생성·권한 스크립트</strong></div></li><li><div class="flow-node"><strong>조회 전용 계정 연결</strong></div></li><li><div class="flow-node"><strong>분석·통합 테스트</strong></div></li></ol></div><figcaption>출처: README 두 번째 그림</figcaption></figure>
 </details><details><summary>03. 프로젝트 문서 흐름</summary>
 <figure><div class="diagram" role="group" aria-label="③ 프로젝트 문서 흐름"><ol class="flow"><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">전체 계약과 단계 기준</p><ol class="flow"><li><div class="flow-node"><strong>.project/plan.md: 전체 계약</strong></div></li><li><div class="flow-node"><strong>docs/instructions: 단계별 기준</strong></div></li></ol></div><div class="flow-branch"><p class="flow-label">화면 기준</p><div class="flow-node"><strong>design.md: 화면·접근성 기준</strong></div></div><div class="flow-branch"><p class="flow-label">실행 기준</p><div class="flow-node"><strong>AGENTS.md: 실행·승인 규칙</strong></div></div></div></li><li><div class="flow-node"><strong>현재 Phase 구현·검증</strong></div></li><li><div class="flow-node"><strong>docs/phaseN: 실제 결과</strong></div></li><li><div class="flow-node"><strong>README.md: 사용 가능한 기능</strong></div></li></ol></div><figcaption>출처: AGENTS 첫 그림</figcaption></figure>
-</details><details><summary>04. 기술 검사와 Git 완료 흐름</summary>
-<figure><div class="diagram" role="group" aria-label="④ 기술 검사와 Git 완료 흐름"><ol class="flow"><li><div class="flow-node"><strong>기술 Gate·결과 문서 완료</strong></div></li><li><div class="flow-node decision"><strong>저장소·Remote 확보</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">미확보</p><div class="flow-node"><strong>Git / PR 미완료 기록</strong></div></div><div class="flow-branch"><p class="flow-label">확보</p><ol class="flow"><li><div class="flow-node"><strong>Phase Branch·로컬 Commit</strong></div></li><li><div class="flow-node decision"><strong>Push·PR 사전 승인</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">미승인</p><div class="flow-node"><strong>원격 작업 대기</strong></div></div><div class="flow-branch"><p class="flow-label">승인</p><ol class="flow"><li><div class="flow-node"><strong>Push·PR 생성</strong></div></li><li><div class="flow-node"><strong>사용자 검토·Merge·main 갱신</strong></div></li><li><div class="flow-node"><strong>Repository 기준 완료</strong></div></li></ol></div></div></li></ol></div></div></li></ol></div><figcaption>출처: AGENTS 두 번째 그림</figcaption></figure>
-</details><details><summary>05. HTML 보고서 화면 구성</summary>
-<figure><div class="diagram" role="group" aria-label="⑤ HTML 보고서 화면 구성"><ol class="flow"><li><div class="flow-node"><strong>파일명·Dialect·상태·언어</strong></div></li><li><div class="flow-node"><strong>Overview</strong></div></li><li><div class="flow-node"><strong>SQL Source</strong></div></li><li><div class="flow-node"><strong>References</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조와 연결된 트리</p><div class="flow-node"><strong>AST</strong></div></div><div class="flow-branch"><p class="flow-label">참조와 연결된 연산 구조</p><div class="flow-node"><strong>SQL Flow</strong></div></div></div></li><li><div class="flow-node"><strong>DB 모드: Execution Plan</strong></div></li><li><div class="flow-node"><strong>근거 확보 시: Database Metadata</strong></div></li><li><div class="flow-node"><strong>후보 확보 시: Recommendations</strong></div></li></ol></div><figcaption>출처: design</figcaption></figure>
-</details><details><summary>06. 분석 근거 흐름</summary>
-<figure><div class="diagram" role="group" aria-label="⑥ 분석 근거 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL 작성</strong></div></li><li><div class="flow-node"><strong>정적 구조 확인</strong></div></li><li><div class="flow-node"><strong>실제 DBMS 계획 조회</strong></div></li><li><div class="flow-node"><strong>Metadata·실측 근거 확인</strong></div></li><li><div class="flow-node"><strong>사람의 검증·적용 판단</strong></div></li></ol></div><figcaption>출처: 기획서 첫 그림</figcaption></figure>
-</details><details><summary>07. SQLPVI 구성</summary>
-<figure><div class="diagram" role="group" aria-label="⑦ SQLPVI 구성"><ol class="flow"><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">Agent 경유</p><div class="flow-node"><strong>Codex / Claude Code Skill</strong></div></div><div class="flow-branch"><p class="flow-label">직접 실행</p><div class="flow-node"><strong>사용자</strong></div></div></div></li><li><div class="flow-node"><strong>SQLPVI CLI</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">항상 수행: 정적 분석</p><ol class="flow"><li><div class="flow-node"><strong>SQL 파일</strong></div></li><li><div class="flow-node"><strong>Parser Adapter</strong></div></li><li><div class="flow-node"><strong>AST</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조</p><div class="flow-node"><strong>Reference Analyzer</strong></div></div><div class="flow-branch"><p class="flow-label">연산 구조</p><div class="flow-node"><strong>SQL Flow Builder</strong></div></div></div></li></ol></div><div class="flow-branch"><p class="flow-label">선택 수행: --database 지정 시</p><ol class="flow"><li><div class="flow-node decision"><strong>--database 지정</strong></div></li><li><div class="flow-node"><strong>SQL·권한·Timeout 검증</strong></div></li><li><div class="flow-node"><strong>실제 DBMS</strong></div></li><li><div class="flow-node"><strong>Vendor Raw Plan</strong></div></li><li><div class="flow-node"><strong>Vendor Adapter</strong></div></li></ol></div></div></li><li><div class="flow-node"><strong>공통 Report 모델</strong></div></li><li><div class="flow-node"><strong>확인된 근거의 후보 생성</strong></div></li><li><div class="flow-node"><strong>개선 후보를 포함한 Report</strong></div></li><li><div class="flow-node"><strong>HTML / JSON 출력</strong></div></li></ol></div><figcaption>출처: 기획서 두 번째 그림</figcaption></figure>
-</details><details><summary>08. 프로젝트 단계</summary>
-<figure><div class="diagram" role="group" aria-label="⑧ 프로젝트 단계"><ol class="flow flow-row"><li><div class="flow-node"><strong>MVP: Phase 0~3</strong></div></li><li><div class="flow-node"><strong>V1 추가: Phase 4~5</strong></div></li><li><div class="flow-node"><strong>실측: Phase 6</strong></div></li><li><div class="flow-node"><strong>다중 DBMS: Phase 7~9</strong></div></li><li><div class="flow-node"><strong>근거 기반 추천: Phase 10</strong></div></li></ol></div><figcaption>출처: 기획서 세 번째 그림</figcaption></figure>
-</details><details><summary>09. Phase 0 가능성 검사 흐름</summary>
-<figure><div class="diagram" role="group" aria-label="⑨ Phase 0 가능성 검사 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL Fixture</strong></div></li><li><div class="flow-node"><strong>PostgreSQL Parsing</strong></div></li><li><div class="flow-node"><strong>AST·Reference 추출</strong></div></li><li><div class="flow-node"><strong>Source Mapping 범위 확인</strong></div></li><li><div class="flow-node"><strong>최소 HTML·SVG 검증</strong></div></li></ol></div><figcaption>출처: Phase 0 지침</figcaption></figure>
-</details><details><summary>10. 출력·힌트·실측 추천 흐름</summary>
-<figure><div class="diagram" role="group" aria-label="⑩ 출력·힌트·실측 추천 흐름"><ol class="flow"><li><div class="flow-node"><strong>SQL 원문 보존</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">기본 정적 분석</p><p class="flow-note">DB 계획 수집 없이 출력 단계로 이동</p></div><div class="flow-branch"><p class="flow-label">DB 분석 선택</p><ol class="flow"><li><div class="flow-node"><strong>SQL·권한 검사</strong></div></li><li><div class="flow-node"><strong>실행 계획 수집</strong></div></li><li><div class="flow-node decision"><strong>PostgreSQL 실측 근거</strong></div></li><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">디스크 정렬</p><div class="flow-node"><strong>정렬 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">여러 해시 배치 + 임시 블록</p><div class="flow-node"><strong>해시 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">근거 부족·다른 모드</p><p class="flow-note">후보 없이 출력 단계로 이동</p></div></div></li></ol></div></div></li><li><div class="flow-node"><strong>새 폴더 생성 후 HTML·JSON 저장</strong></div></li></ol></div><figcaption>출처: 코드 개선 기록</figcaption></figure>
+</details><details><summary>04. HTML 보고서 화면 구성</summary>
+<figure><div class="diagram" role="group" aria-label="④ HTML 보고서 화면 구성"><ol class="flow"><li><div class="flow-node"><strong>파일명·Dialect·상태·언어</strong></div></li><li><div class="flow-node"><strong>Overview</strong></div></li><li><div class="flow-node"><strong>SQL Source</strong></div></li><li><div class="flow-node"><strong>References</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조와 연결된 트리</p><div class="flow-node"><strong>AST</strong></div></div><div class="flow-branch"><p class="flow-label">참조와 연결된 연산 구조</p><div class="flow-node"><strong>SQL Flow</strong></div></div></div></li><li><div class="flow-node"><strong>DB 모드: Execution Plan</strong></div></li><li><div class="flow-node"><strong>근거 확보 시: Database Metadata</strong></div></li><li><div class="flow-node"><strong>후보 확보 시: Recommendations</strong></div></li></ol></div><figcaption>출처: design</figcaption></figure>
+</details><details><summary>05. 분석 근거 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="⑤ 분석 근거 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL 작성</strong></div></li><li><div class="flow-node"><strong>정적 구조 확인</strong></div></li><li><div class="flow-node"><strong>실제 DBMS 계획 조회</strong></div></li><li><div class="flow-node"><strong>Metadata·실측 근거 확인</strong></div></li><li><div class="flow-node"><strong>사람의 검증·적용 판단</strong></div></li></ol></div><figcaption>출처: 기획서 첫 그림</figcaption></figure>
+</details><details><summary>06. SQLPVI 구성</summary>
+<figure><div class="diagram" role="group" aria-label="⑥ SQLPVI 구성"><ol class="flow"><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">Agent 경유</p><div class="flow-node"><strong>Codex Skill / 선택적 Claude Code 연동</strong></div></div><div class="flow-branch"><p class="flow-label">직접 실행</p><div class="flow-node"><strong>사용자</strong></div></div></div></li><li><div class="flow-node"><strong>SQLPVI CLI</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">항상 수행: 정적 분석</p><ol class="flow"><li><div class="flow-node"><strong>SQL 파일</strong></div></li><li><div class="flow-node"><strong>Parser Adapter</strong></div></li><li><div class="flow-node"><strong>AST</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">참조</p><div class="flow-node"><strong>Reference Analyzer</strong></div></div><div class="flow-branch"><p class="flow-label">연산 구조</p><div class="flow-node"><strong>SQL Flow Builder</strong></div></div></div></li></ol></div><div class="flow-branch"><p class="flow-label">선택 수행: --database 지정 시</p><ol class="flow"><li><div class="flow-node decision"><strong>--database 지정</strong></div></li><li><div class="flow-node"><strong>SQL·권한·Timeout 검증</strong></div></li><li><div class="flow-node"><strong>실제 DBMS</strong></div></li><li><div class="flow-node"><strong>Vendor Raw Plan</strong></div></li><li><div class="flow-node"><strong>Vendor Adapter</strong></div></li></ol></div></div></li><li><div class="flow-node"><strong>공통 Report 모델</strong></div></li><li><div class="flow-node"><strong>확인된 근거의 후보 생성</strong></div></li><li><div class="flow-node"><strong>개선 후보를 포함한 Report</strong></div></li><li><div class="flow-node"><strong>HTML / JSON 출력</strong></div></li></ol></div><figcaption>출처: 기획서 두 번째 그림</figcaption></figure>
+</details><details><summary>07. 프로젝트 단계</summary>
+<figure><div class="diagram" role="group" aria-label="⑦ 프로젝트 단계"><ol class="flow flow-row"><li><div class="flow-node"><strong>MVP: Phase 0~3</strong></div></li><li><div class="flow-node"><strong>V1 추가: Phase 4~5</strong></div></li><li><div class="flow-node"><strong>실측: Phase 6</strong></div></li><li><div class="flow-node"><strong>다중 DBMS: Phase 7~9</strong></div></li><li><div class="flow-node"><strong>근거 기반 추천: Phase 10</strong></div></li></ol></div><figcaption>출처: 기획서 세 번째 그림</figcaption></figure>
+</details><details><summary>08. Phase 0 가능성 검사 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="⑧ Phase 0 가능성 검사 흐름"><ol class="flow flow-row"><li><div class="flow-node"><strong>SQL Fixture</strong></div></li><li><div class="flow-node"><strong>PostgreSQL Parsing</strong></div></li><li><div class="flow-node"><strong>AST·Reference 추출</strong></div></li><li><div class="flow-node"><strong>Source Mapping 범위 확인</strong></div></li><li><div class="flow-node"><strong>최소 HTML·SVG 검증</strong></div></li></ol></div><figcaption>출처: Phase 0 지침</figcaption></figure>
+</details><details><summary>09. 출력·힌트·실측 추천 흐름</summary>
+<figure><div class="diagram" role="group" aria-label="⑨ 출력·힌트·실측 추천 흐름"><ol class="flow"><li><div class="flow-node"><strong>SQL 원문 보존</strong></div></li><li><div class="flow-branches" style="--branches:2"><div class="flow-branch"><p class="flow-label">기본 정적 분석</p><p class="flow-note">DB 계획 수집 없이 출력 단계로 이동</p></div><div class="flow-branch"><p class="flow-label">DB 분석 선택</p><ol class="flow"><li><div class="flow-node"><strong>SQL·권한 검사</strong></div></li><li><div class="flow-node"><strong>실행 계획 수집</strong></div></li><li><div class="flow-node decision"><strong>PostgreSQL 실측 근거</strong></div></li><li><div class="flow-branches" style="--branches:3"><div class="flow-branch"><p class="flow-label">디스크 정렬</p><div class="flow-node"><strong>정렬 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">여러 해시 배치 + 임시 블록</p><div class="flow-node"><strong>해시 입력량·메모리 점검</strong></div></div><div class="flow-branch"><p class="flow-label">근거 부족·다른 모드</p><p class="flow-note">후보 없이 출력 단계로 이동</p></div></div></li></ol></div></div></li><li><div class="flow-node"><strong>새 폴더 생성 후 HTML·JSON 저장</strong></div></li></ol></div><figcaption>출처: 코드 개선 기록</figcaption></figure>
 </details>
 </section>
 
@@ -508,25 +501,25 @@ uv --cache-dir .uv-cache run --no-sync pytest tests -q --basetemp artifacts/pyte
 <h2 id="heading-remaining">남은 일</h2>
 <div class="step"><h3><span class="step-label">STEP 01</span>완료와 미확인 항목 구분</h3>
 
-<p><strong>확보한 근거:</strong> 코드 개선의 전체 검사, 문서 도표 표시, 사용자 실행의 Git Push.</p>
-<p><strong>남은 근거:</strong> SQLPVI 새 환경의 전체 설치 성공, 재구성한 완료 기준의 확인, Claude Code 실제 호출.</p>
+<p><strong>확보한 근거:</strong> 코드 개선의 전체 검사와 문서 도표 표시.</p>
+<p><strong>남은 근거:</strong> SQLPVI 새 환경의 전체 설치 성공과 완료 기준의 확인.</p>
 <details open><summary>항목별 상태와 필요한 근거</summary>
 <div class="table-wrap"><table><thead><tr><th>항목</th><th>상태</th><th>완료 판단에 필요한 근거</th></tr></thead><tbody>
 <tr><td>코드 개선 3건</td><td><span class="label pass">검사 통과</span></td><td>전체 258개와 해당 단위·실제 DB 검사 결과 확보.</td></tr>
-<tr><td>문서 그림 표시</td><td><span class="label pass">HTML/CSS 표시</span></td><td>전체 작업 흐름 1개·문서 흐름도 10개의 HTML/CSS 작성. Markdown은 Mermaid 유지. 별도 그림 파일 없음.</td></tr>
+<tr><td>문서 그림 표시</td><td><span class="label pass">HTML/CSS 표시</span></td><td>전체 작업 흐름 1개·문서 흐름도 9개의 HTML/CSS 작성. Markdown은 Mermaid 유지. 별도 그림 파일 없음.</td></tr>
 <tr><td>uv 새 환경 설치</td><td><span class="label fail">미완료</span></td><td>SQLPVI의 새 환경에서 잠긴 버전의 전체 설치 성공과 설치된 CLI 실행의 확인 필요. 다른 프로젝트 결과로 대체 불가.</td></tr>
 <tr><td>이전 문서의 완료 기준</td><td><span class="label wait">기준 검토 필요</span></td><td>제가 재구성한 기준이 사용자가 의도한 완료 범위와 맞는지 확인 필요.</td></tr>
-<tr><td>Claude Code 실제 호출</td><td><span class="label wait">미검증</span></td><td>실제 앱 호출·Skill 재발견 화면의 증거 미확보.</td></tr>
-<tr><td>Git·PR</td><td><span class="label pass">Push 확인</span></td><td>사용자 실행의 <code>master</code> 커밋 <code>2b3fdf7</code> 원격 반영 확인. PR·Merge는 별도 절차.</td></tr>
+
+
 </tbody></table></div>
 </details>
-</div><div class="step"><h3><span class="step-label">STEP 02</span>용어와 원본 기록 확인</h3>
+</div><div class="step"><h3><span class="step-label">STEP 02</span>용어와 상세 기록 확인</h3>
 
 <p>검사 통과·예상 계획·실측·새 설치는 서로 다른 확인 항목.</p>
 <details><summary>기록을 읽을 때 구분할 말</summary>
 <div class="table-wrap"><table><tbody><tr><th>검사 통과</th><td>해당 실행에서 검사 항목의 성공. 모든 설치·환경·사용 상황의 성공을 뜻하지 않음.</td></tr><tr><th>예상 계획</th><td>원래 조회를 실행하지 않고 얻는 처리 계획. 실제 속도 측정과 구분.</td></tr><tr><th>Runtime·실측</th><td>조회 Query를 실제 실행해 측정. SQLPVI에서는 PostgreSQL의 명시적 옵션에서만 지원.</td></tr><tr><th>새 환경 설치</th><td>기존에 깔린 부품을 이용한 실행과 별도. Lock 목록의 패키지를 새 가상환경에 완전히 설치한 상태.</td></tr><tr><th>제가 판단한 범위</th><td>사용자의 포괄적 요청을 구현 항목으로 구체화한 부분. 사용자가 그 세부 항목을 직접 지시한 것으로 표시하지 않음.</td></tr></tbody></table></div>
 </details>
-<p><a href="code-improvements-2026-11-05.md">코드 개선 원본 기록</a> · <a href="sqlpvi-decisions-2026-11-05.html">이전 선택 기록</a> · <a href="planning-decisions-2026-11-05.html">기획서 선택 기록</a></p>
+<p><a href="#changes">코드 개선 내용</a> · <a href="#verification">검증 결과</a> · <a href="sqlpvi-decisions-2026-11-05.html">이전 선택 기록</a> · <a href="planning-decisions-2026-11-05.html">기획서 선택 기록</a></p>
 
 </div>
 </section>

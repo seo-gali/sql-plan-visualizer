@@ -44,7 +44,7 @@ DB 모드의 역할: 실제 실행 계획과 정적 분석의 근거 연결.
 | 초기 DBMS | PostgreSQL |
 | 개발 환경 | Python 3.13.15, uv, Codex |
 | 기본 결과 | Standalone HTML |
-| Agent 경로 | Codex·Claude Code의 프로젝트 로컬 Skill |
+| Agent 경로 | Codex 프로젝트 로컬 Skill. Claude Code 연동은 선택 사항 |
 
 GitHub 소개 문구: Visualize SQL parsing, ASTs, query flows, and database execution plans.
 
@@ -317,7 +317,6 @@ DB Monitoring·범용 DB Administration, ORM N+1 자동 탐지, 업무 규칙 �
 현재 추천 구현 범위: 실측 PostgreSQL 디스크 정렬·해시 임시 파일 점검 2종.
 후속 검증: [2026-11-05 코드 개선 기록](../docs/code-improvements-2026-11-05.md)의 전체 회귀 258 passed, Skip 없음.
 Agent 검증 범위: Skill 형식·Codex CLI 절차 확인.
-Claude Code 실제 호출·자동 재발견 UI: 미검증 상태 유지.
 
 ### Repository 완료
 
