@@ -1,12 +1,62 @@
 # SQL Plan Visualizer (SQLPVI)
 
-SQL 파일의 구조·참조·실행 계획을 HTML로 시각화하는 분석 도구.
+SQL의 JOIN 관계와 DB 실행 계획의 인덱스 사용 정보를 HTML로 확인하는 분석 도구.
 
 [프로젝트 문서 보기](https://seo-gali.github.io/sql-plan-visualizer/)
 
 [그림으로 보는 사용 방법](docs/usage.html) · [웹 사용 안내](https://seo-gali.github.io/sql-plan-visualizer/usage.html)
 
 [보안 점검 보고서](docs/security.html) · [보안 기준](SECURITY.md)
+
+## SQLPVI가 답하는 질문
+
+> 이 JOIN이 어떤 테이블을 연결하고, 실제로 어떤 인덱스를 사용하는지 보여줘.
+
+### Step 1. SQL의 연결 관계 확인
+
+DB 접속 없이 JOIN의 Table·Alias·연결 조건과 Column 참조 분석.
+SQL Source·References·SQL Flow를 함께 보며 연결 관계 확인.
+확정 근거가 부족한 참조의 `AMBIGUOUS`·`UNRESOLVED` 유지.
+
+### Step 2. DB의 인덱스 선택 근거 확인
+
+`--database` 지정 시 실제 DBMS가 생성한 예상 실행 계획 조회.
+Execution Plan에서 JOIN 연산·테이블 접근 방식·응답에 포함된 인덱스 정보 확인.
+인덱스 사용 판단의 근거: DB 실행 계획.
+존재하는 인덱스 목록과 계획에서 선택된 인덱스의 구분.
+
+예상 실행 계획: DB가 선택한 실행 예정 경로. 실제 실행 이력과의 구분.
+실제 실행과 측정이 필요한 경우: PostgreSQL의 `--database --runtime` 명시.
+Runtime 선택 시 조회 Query의 실제 실행과 Actual Rows·Loops·Time 등 확인.
+
+```mermaid
+flowchart TD
+    SQL["분석할 SELECT SQL"] --> Static["정적 분석: JOIN 관계·참조·SQL Flow"]
+    SQL -->|"--database 명시"|DB["DBMS의 예상 실행 계획 조회"]
+    DB --> Plan["JOIN 연산·접근 방식·인덱스 정보"]
+    Static --> Report["HTML에서 SQL 구조와 DB 판단의 근거 확인"]
+    Plan --> Report
+```
+
+## Database Architect와의 차이
+
+Database Architect의 중심: **DB를 어떻게 설계하고 변경할지에 대한 판단**.
+SQLPVI의 중심: **작성한 SQL의 연결 관계와 DB 실행 계획의 근거 확인**.
+
+| 구분 | Claude Code Database Architect | SQLPVI |
+| --- | --- | --- |
+| 대표 질문 | 테이블·PK/FK·인덱스·데이터 격리의 설계 방법 | JOIN의 연결 대상과 실행 계획의 인덱스 사용 정보 |
+| 동작 방식 | Claude가 역할 지침을 읽고 도구 사용 | Python 분석 엔진 실행, Skill의 CLI 호출 |
+| 결과물 | 설계안·DDL·마이그레이션 코드·검토 의견 | AST·참조·SQL Flow·실행 계획의 HTML·JSON |
+| DB 검증 | 공개 지침의 실제 DB 테스트 요구 | 명시적 DB 모드의 계획 수집, PostgreSQL Runtime의 실제 측정 |
+| 변경 범위 | 요청·권한 범위의 파일 작성·수정과 명령 실행 | 입력 SQL·인덱스·스키마의 자동 변경 금지 |
+
+비교 근거: [Database Architect 공개 지침](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/agents/database/database-architect.md).
+지침에 명시된 역할의 비교이며, 해당 에이전트의 설치·실행 검증은 미수행.
+
+함께 쓰는 흐름: 설계 에이전트의 SELECT 제안 → SQLPVI 구조·실행 계획 확인 → 사용자 판단.
+SQLPVI의 검증 범위 밖: CREATE TABLE·RLS 정책·마이그레이션·롤백의 안전성.
+실행 계획의 인덱스 선택 확인과 최적 인덱스 설계 보증의 구분.
 
 ## 사용 방법
 
