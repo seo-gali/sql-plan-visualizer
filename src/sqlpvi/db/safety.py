@@ -1,5 +1,7 @@
 """Shared statement boundary; each vendor adds its transaction protections."""
 
+from ipaddress import ip_address
+
 from sqlglot import exp
 
 from sqlpvi.parser import parse_sql
@@ -7,6 +9,15 @@ from sqlpvi.parser import parse_sql
 
 class DatabaseError(ValueError):
     """A safe user-facing database error, never a driver exception string."""
+
+
+def is_loopback_host(host: str) -> bool:
+    if host.lower() == "localhost":
+        return True
+    try:
+        return ip_address(host).is_loopback
+    except ValueError:
+        return False
 
 
 def safe_query(sql: str, dialect: str = "postgres") -> str:

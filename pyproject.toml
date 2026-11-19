@@ -4,14 +4,17 @@ version = "0.1.0"
 description = "Visualize SQL parsing, ASTs, query flows, and database execution plans."
 requires-python = "==3.13.15"
 dependencies = [
-    "pymssql==2.4.6",
-    "pymysql>=1.1.1",
-    "psycopg[binary]>=3.2.0",
     "jinja2>=3.1.6",
-    "pytest>=9.1.1",
-    "ruff>=0.16.8",
     "sqlglot>=30.18.0",
 ]
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.2.0"]
+mariadb = ["pymysql>=1.2.3"]
+sqlserver = ["pymssql==2.4.6"]
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "ruff>=0.16.8"]
 
 [build-system]
 requires = ["setuptools==84.2.1"]

@@ -4,6 +4,7 @@ from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
+from html_document import Document
 
 from sqlpvi.analyze import analyze
 from sqlpvi.cli import main
@@ -109,7 +110,7 @@ def test_runtime_dialect_and_missing_driver(monkeypatch):
         collect_sqlserver("SELECT 1", URL, runtime=True)
     with pytest.raises(DatabaseError, match="tsql"):
         collect_sqlserver("SELECT 1", URL, dialect="postgres")
-    with pytest.raises(DatabaseError, match="install the locked pymssql"):
+    with pytest.raises(DatabaseError, match=r"sql-plan-visualizer\[sqlserver\]"):
         collect_sqlserver("SELECT 1", URL)
 
 
@@ -133,12 +134,11 @@ def test_showplan_batches_timeouts_and_cleanup(fake_driver):
     plan = collect_sqlserver("SELECT 1", URL)
     assert plan.vendor == "sqlserver"
     statements = [call.args[0] for call in cursor.execute.call_args_list]
-    assert statements[0] == "SET LOCK_TIMEOUT 1000"
-    assert statements[-3:] == [
-        "SET SHOWPLAN_XML ON",
-        "SELECT 1",
-        "SET SHOWPLAN_XML OFF",
-    ]
+    query_at = statements.index("SELECT 1")
+    on_at = statements.index("SET SHOWPLAN_XML ON")
+    off_at = statements.index("SET SHOWPLAN_XML OFF")
+    assert statements.index("SET LOCK_TIMEOUT 1000") < on_at < query_at < off_at
+    assert any("sys.fn_my_permissions" in statement for statement in statements[:on_at])
     kwargs = driver.connect.call_args.kwargs
     assert kwargs["login_timeout"] == kwargs["timeout"] == 5
     assert kwargs["encryption"] == "require" and kwargs["read_only"] is True
@@ -156,9 +156,14 @@ def test_argument_free_read_hints_reach_showplan(fake_driver, hint):
     sql = f"SELECT c.id FROM customers AS c WITH ({hint}) WHERE c.id = 1"
     plan = collect_sqlserver(sql, URL)
     assert plan.mode == "ESTIMATED"
-    assert cursor.execute.call_args_list[-3].args == ("SET SHOWPLAN_XML ON",)
-    assert cursor.execute.call_args_list[-2].args == (safe_query(sql, "tsql"),)
-    assert hint.upper() in cursor.execute.call_args_list[-2].args[0].upper()
+    statements = [call.args[0] for call in cursor.execute.call_args_list]
+    query = safe_query(sql, "tsql")
+    assert (
+        statements.index("SET SHOWPLAN_XML ON")
+        < statements.index(query)
+        < statements.index("SET SHOWPLAN_XML OFF")
+    )
+    assert hint.upper() in query.upper()
     connection.commit.assert_not_called()
 
 
@@ -195,7 +200,7 @@ def test_failure_always_attempts_showplan_off_and_rollback(fake_driver, stage):
     with pytest.raises(DatabaseError) as error:
         collect_sqlserver("SELECT 1", URL)
     assert "private-fixture-value" not in str(error.value)
-    assert cursor.execute.call_args_list[-1].args == ("SET SHOWPLAN_XML OFF",)
+    cursor.execute.assert_any_call("SET SHOWPLAN_XML OFF")
     connection.rollback.assert_called_once()
     driver.connect.return_value.__exit__.assert_called_once()
 
@@ -232,9 +237,12 @@ def test_html_escapes_plan_identifiers():
         XML.replace("[orders_customer_idx]", "&lt;script&gt;alert(1)&lt;/script&gt;")
     )
     html = render_html(report)
-    assert "<span>sqlserver</span>" in html and ">DATABASE</span>" in html
-    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in html
-    assert "<script>alert(1)</script>" not in html
+    document = Document(html)
+    assert "plan-title" in document.ids
+    assert "sqlserver" in document.text and "DATABASE" in document.text
+    assert "<script>alert(1)</script>" in document.text
+    assert all("alert(1)" not in script for script in document.scripts)
+    assert not document.external and not document.event_handlers
 
 
 def test_static_cli_without_driver_and_runtime_rejection(monkeypatch, capsys):

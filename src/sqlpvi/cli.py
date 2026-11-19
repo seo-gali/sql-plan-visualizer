@@ -4,13 +4,25 @@ import argparse
 import json
 import sys
 from dataclasses import asdict
+from hashlib import sha256
 from pathlib import Path
+from time import sleep
 
 from sqlpvi.analyze import analyze
 from sqlpvi.database import VENDOR_DIALECTS, DatabaseError, collect_database
 from sqlpvi.parser import AnalysisError
 from sqlpvi.recommend import recommend
 from sqlpvi.render import render_html
+
+MAX_SQL_BYTES = 1024 * 1024
+
+
+def _read_sql_bytes(path: Path) -> bytes:
+    with path.open("rb") as stream:
+        data = stream.read(MAX_SQL_BYTES + 1)
+    if len(data) > MAX_SQL_BYTES:
+        raise AnalysisError("SQL_INPUT_ERROR: SQL file exceeds the 1 MiB limit")
+    return data
 
 
 def main() -> int:
@@ -22,6 +34,11 @@ def main() -> int:
     command.add_argument("--vendor", choices=tuple(VENDOR_DIALECTS), default="postgres")
     command.add_argument("--output", type=Path)
     command.add_argument("--format", choices=("html", "json"), default="html")
+    command.add_argument(
+        "--watch",
+        action="store_true",
+        help="Rebuild static HTML when the SQL file changes",
+    )
     command.add_argument(
         "--database",
         action="store_true",
@@ -37,6 +54,38 @@ def main() -> int:
         parser.error("--runtime requires --database")
     if args.runtime and args.vendor != "postgres":
         parser.error("--runtime is supported only for PostgreSQL")
+    if args.watch and (args.database or args.format != "html"):
+        parser.error(
+            "--watch supports static HTML only; omit --database and --format json"
+        )
+    return _watch(args) if args.watch else _analyze_once(args)
+
+
+def _watch(args: argparse.Namespace) -> int:
+    previous = object()
+    print(
+        f"WATCH: {args.file}. Save SQL to rebuild; refresh HTML with F5. Ctrl+C to stop."
+    )
+    try:
+        while True:
+            try:
+                current = sha256(_read_sql_bytes(args.file)).digest()
+            except (OSError, AnalysisError):
+                current = None
+            if current != previous:
+                previous = current
+                if _analyze_once(args):
+                    print(
+                        "WATCH: analysis failed; report not updated. Fix the file and save again.",
+                        file=sys.stderr,
+                    )
+            sleep(0.5)
+    except KeyboardInterrupt:
+        print("\nWATCH: stopped.")
+        return 0
+
+
+def _analyze_once(args: argparse.Namespace) -> int:
     try:
         output = args.output
         if args.format == "html" and output is None:
@@ -46,7 +95,12 @@ def main() -> int:
             or (output.exists() and output.samefile(args.file))
         ):
             raise AnalysisError("OUTPUT_ERROR: output must not overwrite the SQL input")
-        sql = args.file.read_text(encoding="utf-8-sig")
+        sql = (
+            _read_sql_bytes(args.file)
+            .decode("utf-8-sig")
+            .replace("\r\n", "\n")
+            .replace("\r", "\n")
+        )
         dialect = args.dialect or VENDOR_DIALECTS[args.vendor]
         report = analyze(sql, str(args.file), dialect)
         if args.database:

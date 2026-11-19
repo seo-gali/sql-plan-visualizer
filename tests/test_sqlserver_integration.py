@@ -10,15 +10,13 @@ from sqlpvi.db.safety import DatabaseError, safe_query
 from sqlpvi.db.sqlserver import collect_sqlserver
 
 TEST_URL = os.environ.get("SQLPVI_TEST_SQLSERVER_URL", "")
-if TEST_URL:
-    import pymssql
 pytestmark = [
     pytest.mark.integration,
     pytest.mark.skipif(not TEST_URL, reason="isolated SQL Server URL not set"),
 ]
 
 
-def fixture_connection(user="sqlpvi_reader", timeout=5):
+def fixture_connection(pymssql, user="sqlpvi_reader", timeout=5):
     return pymssql.connect(
         server="127.0.0.1",
         port="14330",
@@ -49,12 +47,12 @@ def test_real_estimated_plan(filename):
     assert plan.root.operation and plan.root.estimated_rows >= 0
 
 
-def test_showplan_does_not_execute_the_query():
+def test_showplan_does_not_execute_the_query(pymssql):
     sql = "SELECT c.id / (c.id - c.id) FROM dbo.customers AS c"
     plan = collect_sqlserver(sql, TEST_URL)
     assert plan.root.operation
     with (
-        fixture_connection() as connection,
+        fixture_connection(pymssql) as connection,
         connection.cursor() as cursor,
         pytest.raises(pymssql.Error),
     ):
@@ -83,8 +81,8 @@ def test_privileged_accounts_are_rejected(user):
         )
 
 
-def test_reader_cannot_write_and_data_is_preserved():
-    with fixture_connection() as connection, connection.cursor() as cursor:
+def test_reader_cannot_write_and_data_is_preserved(pymssql):
+    with fixture_connection(pymssql) as connection, connection.cursor() as cursor:
         cursor.execute("SELECT COUNT(*), SUM(CAST(active AS int)) FROM dbo.customers")
         before = cursor.fetchone()
         with pytest.raises(pymssql.Error):
@@ -112,7 +110,7 @@ def test_permission_sql_and_authentication_errors_are_masked():
 @pytest.mark.parametrize(
     "sql", ["SELECT 1", "SELECT missing_fixture_column FROM customers"]
 )
-def test_showplan_restored_and_connection_closed(monkeypatch, sql):
+def test_showplan_restored_and_connection_closed(monkeypatch, sql, pymssql):
     original_connect = pymssql.connect
     observed = []
 
@@ -137,15 +135,18 @@ def test_showplan_restored_and_connection_closed(monkeypatch, sql):
         observed[0].cursor().execute("SELECT 1")
 
 
-def test_actual_driver_query_timeout():
-    with fixture_connection(timeout=1) as connection, connection.cursor() as cursor:
+def test_actual_driver_query_timeout(pymssql):
+    with (
+        fixture_connection(pymssql, timeout=1) as connection,
+        connection.cursor() as cursor,
+    ):
         with pytest.raises(pymssql.Error) as error:
             cursor.execute("WAITFOR DELAY '00:00:03'")
         assert "timed out" in str(error.value).lower()
 
 
-def test_collector_lock_timeout():
-    with fixture_connection("sa") as connection, connection.cursor() as cursor:
+def test_collector_lock_timeout(pymssql):
+    with fixture_connection(pymssql, "sa") as connection, connection.cursor() as cursor:
         cursor.execute("ALTER TABLE dbo.customers SET (LOCK_ESCALATION = TABLE)")
         try:
             with pytest.raises(DatabaseError, match="OperationalError"):

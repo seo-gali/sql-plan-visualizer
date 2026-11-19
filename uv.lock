@@ -194,23 +194,40 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "jinja2" },
-    { name = "psycopg", extra = ["binary"] },
-    { name = "pymssql" },
+    { name = "sqlglot" },
+]
+
+[package.optional-dependencies]
+mariadb = [
     { name = "pymysql" },
+]
+postgres = [
+    { name = "psycopg", extra = ["binary"] },
+]
+sqlserver = [
+    { name = "pymssql" },
+]
+
+[package.dev-dependencies]
+dev = [
     { name = "pytest" },
     { name = "ruff" },
-    { name = "sqlglot" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "jinja2", specifier = ">=3.1.6" },
-    { name = "psycopg", extras = ["binary"], specifier = ">=3.2.0" },
-    { name = "pymssql", specifier = "==2.4.6" },
-    { name = "pymysql", specifier = ">=1.1.1" },
+    { name = "psycopg", extras = ["binary"], marker = "extra == 'postgres'", specifier = ">=3.2.0" },
+    { name = "pymssql", marker = "extra == 'sqlserver'", specifier = "==2.4.6" },
+    { name = "pymysql", marker = "extra == 'mariadb'", specifier = ">=1.2.3" },
+    { name = "sqlglot", specifier = ">=30.18.0" },
+]
+provides-extras = ["postgres", "mariadb", "sqlserver"]
+
+[package.metadata.requires-dev]
+dev = [
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "ruff", specifier = ">=0.16.8" },
-    { name = "sqlglot", specifier = ">=30.18.0" },
 ]
 
 [[package]]

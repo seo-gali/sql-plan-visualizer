@@ -5,9 +5,10 @@ from dataclasses import asdict
 from pathlib import Path
 
 import pytest
+from sqlglot import exp
 
 from sqlpvi.analyze import analyze
-from sqlpvi.parser import AnalysisError
+from sqlpvi.parser import AnalysisError, parse_sql, source_range
 
 FIXTURES = Path(__file__).parent.parent / "fixtures" / "sql"
 
@@ -127,6 +128,69 @@ def test_all_clauses_and_join():
     }
     report = analyze((FIXTURES / "join.sql").read_text(encoding="utf-8"))
     assert "Join" in {node.operation for node in report.flow.nodes}
+
+
+@pytest.mark.parametrize(
+    ("expression", "aggregate_count"),
+    [
+        ("SUM(amount) OVER ()", 0),
+        ("SUM(amount) FILTER (WHERE amount > 0) OVER ()", 0),
+        ("SUM(SUM(amount)) OVER ()", 1),
+        ("SUM(amount) OVER (ORDER BY SUM(amount))", 1),
+    ],
+)
+def test_window_and_group_aggregates_have_distinct_flow(expression, aggregate_count):
+    report = analyze(f"SELECT {expression} FROM orders")
+    operations = [node.operation for node in report.flow.nodes]
+    assert operations.count("Window") == 1
+    assert operations.count("Aggregate") == aggregate_count
+    if aggregate_count:
+        assert operations.index("Aggregate") < operations.index("Window")
+    assert operations.index("Window") < operations.index("Project")
+
+
+def test_named_window_definition_is_not_a_second_computation():
+    report = analyze("SELECT ROW_NUMBER() OVER w FROM orders WINDOW w AS (ORDER BY id)")
+    assert sum(node.operation == "Window" for node in report.flow.nodes) == 1
+    assert not any(node.operation == "Aggregate" for node in report.flow.nodes)
+
+
+def test_window_in_a_subquery_is_not_counted_again_in_the_outer_scope():
+    report = analyze(
+        "SELECT s.total FROM (SELECT SUM(amount) OVER () AS total FROM orders) s"
+    )
+    assert sum(node.operation == "Window" for node in report.flow.nodes) == 1
+    assert not any(node.operation == "Aggregate" for node in report.flow.nodes)
+
+
+@pytest.mark.parametrize("operator", ["UNION ALL", "INTERSECT", "EXCEPT"])
+def test_set_operation_preserves_its_sort_offset_and_limit(operator):
+    report = analyze(
+        f"SELECT 2 AS x {operator} SELECT 1 AS x ORDER BY x LIMIT 1 OFFSET 2"
+    )
+    nodes = {node.id: node for node in report.flow.nodes}
+    limit = nodes[report.flow.root]
+    assert limit.operation == "Limit"
+    offset = nodes[limit.inputs[0]]
+    assert offset.operation == "Offset"
+    sort = nodes[offset.inputs[0]]
+    assert sort.operation == "Sort"
+    combined = nodes[sort.inputs[0]]
+    assert combined.operation.upper() == operator.split()[0]
+    assert len(combined.inputs) == 2
+    assert all(nodes[input].operation == "Project" for input in combined.inputs)
+
+
+def test_source_mapping_accepts_parent_or_identifier_metadata():
+    sql = "SELECT o.id FROM orders AS o"
+    table = parse_sql(sql, "postgres").find(exp.Table)
+    source = source_range(table)
+    assert source is not None
+    assert "orders" in sql[source.start : source.end]
+    start = sql.index("orders")
+    table.meta.update(start=start, end=len(sql) - 1, line=1, col=len(sql))
+    source = source_range(table)
+    assert source is not None and sql[source.start : source.end] == "orders AS o"
 
 
 @pytest.mark.parametrize(

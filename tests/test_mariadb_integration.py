@@ -8,8 +8,6 @@ from sqlpvi.db.mariadb import collect_mariadb
 from sqlpvi.db.safety import DatabaseError
 
 TEST_URL = os.environ.get("SQLPVI_TEST_MARIADB_URL", "")
-if TEST_URL:
-    import pymysql
 pytestmark = [
     pytest.mark.integration,
     pytest.mark.skipif(not TEST_URL, reason="isolated MariaDB URL not set"),
@@ -30,7 +28,7 @@ def test_real_mariadb_plan(filename):
     assert plan.root.children
 
 
-def test_actual_read_only_and_timeout():
+def test_actual_read_only_and_timeout(pymysql):
     url = urlsplit(TEST_URL)
     with (
         pymysql.connect(
@@ -83,7 +81,7 @@ def test_sql_and_authentication_errors_are_masked():
     assert "private-fixture-value" not in str(error.value)
 
 
-def test_read_only_transaction_blocks_even_a_privileged_account():
+def test_read_only_transaction_blocks_even_a_privileged_account(pymysql):
     with (
         pymysql.connect(
             host="127.0.0.1", port=53306, user="root", database="sqlpvi"
@@ -97,7 +95,7 @@ def test_read_only_transaction_blocks_even_a_privileged_account():
         connection.rollback()
 
 
-def test_collector_lock_timeout():
+def test_collector_lock_timeout(pymysql):
     with (
         pymysql.connect(
             host="127.0.0.1", port=53306, user="root", database="sqlpvi"

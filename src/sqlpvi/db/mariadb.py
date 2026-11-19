@@ -1,10 +1,11 @@
 """MariaDB EXPLAIN JSON is preserved as MariaDB operations and fields."""
 
 import json
+import ssl
 from itertools import count
 from urllib.parse import unquote, urlsplit
 
-from sqlpvi.db.safety import DatabaseError, safe_query
+from sqlpvi.db.safety import DatabaseError, is_loopback_host, safe_query
 from sqlpvi.models import ExecutionPlan, PlanNode
 
 
@@ -60,7 +61,7 @@ def collect_mariadb(
         import pymysql
     except ImportError:
         raise DatabaseError(
-            "DATABASE_CONFIG_ERROR: install the locked PyMySQL dependency for MariaDB"
+            "DATABASE_CONFIG_ERROR: install sql-plan-visualizer[mariadb] for MariaDB"
         ) from None
     try:
         url = urlsplit(dsn)
@@ -72,6 +73,12 @@ def collect_mariadb(
             or url.fragment
         ):
             raise DatabaseError("DATABASE_CONFIG_ERROR: set a MariaDB connection URL")
+        remote = not is_loopback_host(url.hostname)
+        # --no-sync can leave a driver that permits TLS downgrade installed.
+        if remote and tuple(getattr(pymysql, "VERSION", ())[:3]) < (1, 2, 3):
+            raise DatabaseError(
+                "DATABASE_CONFIG_ERROR: remote MariaDB requires PyMySQL 1.2.3 or later"
+            )
         with (
             pymysql.connect(
                 host=url.hostname,
@@ -85,6 +92,7 @@ def collect_mariadb(
                 write_timeout=5,
                 autocommit=False,
                 local_infile=False,
+                ssl=ssl.create_default_context() if remote else None,
             ) as connection,
             connection.cursor() as cursor,
         ):

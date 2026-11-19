@@ -4,6 +4,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 import pytest
+from html_document import Document
 
 from sqlpvi import cli
 from sqlpvi.analyze import analyze
@@ -153,12 +154,16 @@ def test_recommendation_html_links_evidence_and_escapes_sql(report):
     unsafe.plan = report.plan
     unsafe.recommendations = recommend(unsafe)
     html = render_html(unsafe)
-    assert 'id="recommendations-title"' in html
-    assert ">RECOMMENDATION</span>" in html
-    assert 'href="#plan-0"' in html and 'id="plan-0"' in html
-    assert "&lt;script&gt;window.recommendInjected=true&lt;/script&gt;" in html
-    assert "<script>window.recommendInjected" not in html
-    assert html.count("<script>") == 1
+    document = Document(html)
+    assert "recommendations-title" in document.ids
+    assert "RECOMMENDATION" in document.text
+    for candidate in unsafe.recommendations:
+        for evidence in candidate.evidence:
+            assert f"#{evidence.target_id}" in document.links
+            assert evidence.target_id in document.ids
+    assert document.source == unsafe.sql
+    assert all("window.recommendInjected" not in script for script in document.scripts)
+    assert not document.external and not document.event_handlers
 
 
 def test_cli_collects_once_and_preserves_input(monkeypatch, capsys, report):
@@ -291,4 +296,6 @@ def test_sort_and_hash_spills_have_separate_linked_candidates(report):
         candidate.evidence[0].target_id for candidate in report.recommendations
     ] == ["plan-0", "plan-1"]
     html = render_html(report)
-    assert 'href="#plan-0"' in html and 'href="#plan-1"' in html
+    document = Document(html)
+    assert {"#plan-0", "#plan-1"} <= set(document.links)
+    assert {"plan-0", "plan-1"} <= document.ids

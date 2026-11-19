@@ -2,42 +2,14 @@ import json
 import os
 import subprocess
 import sys
-from html.parser import HTMLParser
 from pathlib import Path
 
 import pytest
+from html_document import Document
 
 from sqlpvi.analyze import analyze
 from sqlpvi.cli import main
 from sqlpvi.render import render_html
-
-
-class Document(HTMLParser):
-    def __init__(self, content):
-        super().__init__()
-        self.source = ""
-        self.in_source = False
-        self.scripts = 0
-        self.external = []
-        self.feed(content)
-
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if tag == "pre" and attrs.get("id") == "sql-source":
-            self.in_source = True
-        if tag == "script":
-            self.scripts += 1
-        for name in ("src", "href"):
-            if attrs.get(name, "").startswith(("http:", "https:", "//")):
-                self.external.append(attrs[name])
-
-    def handle_endtag(self, tag):
-        if tag == "pre":
-            self.in_source = False
-
-    def handle_data(self, data):
-        if self.in_source:
-            self.source += data
 
 
 @pytest.mark.parametrize(
@@ -51,13 +23,25 @@ def test_safe_standalone_html(filename):
     content = render_html(report)
     document = Document(content)
     assert document.source == sql
-    assert document.scripts == 1
     assert not document.external
-    assert "<script>window.filenameInjected" not in content
-    assert "<script>window.sqlpviInjected" not in content
-    assert "innerHTML" not in content
-    assert 'id="flow-edges"' in content
-    assert all(f'id="{node.id}"' in content for node in report.flow.nodes)
+    assert not document.event_handlers
+    assert all(
+        "window.filenameInjected" not in script
+        and "window.sqlpviInjected" not in script
+        for script in document.scripts
+    )
+    assert {node.id for node in report.flow.nodes} <= document.ids
+    assert all(
+        href[1:] in document.ids for href in document.links if href.startswith("#")
+    )
+
+
+def test_javascript_words_in_sql_are_plain_source_text():
+    sql = "SELECT 'innerHTML; document.createElement' AS payload"
+    document = Document(render_html(analyze(sql)))
+    assert document.source == sql
+    assert all(sql not in script for script in document.scripts)
+    assert not document.external and not document.event_handlers
 
 
 def test_default_html_cli_and_hardlink_input_protection(tmp_path):

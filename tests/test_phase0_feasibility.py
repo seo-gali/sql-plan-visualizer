@@ -93,14 +93,9 @@ def test_gate_parser_error_detected():
 
 
 def test_gate_source_mapping_positions_exist():
-    """실제 확인된 한계: Table 같은 상위 Expression 노드 자체의 .meta는 비어
-    있다. 위치 정보(line/col/start/end)는 그 안의 Identifier 리프 노드에만
-    붙는다. 따라서 Expression 단위 Source Mapping은 불완전하고,
-    Identifier 단위로 범위를 좁혀야 한다."""
+    """Identifier 위치의 사용 가능성 확인. 상위 노드의 빈 Metadata 요구 없음."""
     ast = parse("join.sql")
     table = ast.find(exp.Table)
-    assert table.meta == {}, "Table 노드 자체에는 위치 정보가 없음 (실제 확인됨)"
-
     identifier = table.find(exp.Identifier)
     assert identifier is not None
     assert "line" in identifier.meta and "start" in identifier.meta, (

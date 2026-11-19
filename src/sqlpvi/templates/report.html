@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-{{ js_hash }}'; style-src 'sha256-{{ css_hash }}'; img-src data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <link rel="icon" href="data:,">
   <title>SQLPVI · {{ report.filename }}</title>
   <style>{{ css|safe }}</style>

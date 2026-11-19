@@ -1,11 +1,23 @@
 """Catalog evidence can strengthen bindings; incomplete evidence cannot."""
 
-import psycopg
-
+from sqlpvi.db.safety import DatabaseError
 from sqlpvi.models import ColumnMetadata, RelationMetadata, Report
 
 
 def enrich_postgres(report: Report, connection) -> None:
+    try:
+        import psycopg
+    except ImportError:
+        raise DatabaseError(
+            "DATABASE_CONFIG_ERROR: install sql-plan-visualizer[postgres] for PostgreSQL"
+        ) from None
+    report.metadata = []
+    report.warnings = [
+        warning
+        for warning in report.warnings
+        if not warning.startswith("Metadata unavailable for ")
+        and warning != "Catalog statistics are estimates and may be stale."
+    ]
     relations = {ref.relation for ref in report.references if ref.relation}
     known = {}
     for relation in sorted(relations):
@@ -51,6 +63,12 @@ def enrich_postgres(report: Report, connection) -> None:
 
 
 def bind_catalog(report: Report, known: dict[str, set[str]]) -> None:
+    original = {reference.id: reference for reference in report.static_references}
+    for reference in report.references:
+        static = original[reference.id]
+        reference.candidates = list(static.candidates)
+        reference.status = static.status
+        reference.basis = static.basis
     sources = {}
     for reference in report.references:
         if reference.kind == "TABLE" and reference.relation:

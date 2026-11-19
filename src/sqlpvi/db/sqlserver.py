@@ -5,7 +5,7 @@ from itertools import count
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree as ET
 
-from sqlpvi.db.safety import DatabaseError, safe_query
+from sqlpvi.db.safety import DatabaseError, is_loopback_host, safe_query
 from sqlpvi.models import ExecutionPlan, PlanNode
 
 SHOWPLAN_NS = "{http://schemas.microsoft.com/sqlserver/2004/07/showplan}"
@@ -112,7 +112,7 @@ def collect_sqlserver(
         import pymssql
     except ImportError:
         raise DatabaseError(
-            "DATABASE_CONFIG_ERROR: install the locked pymssql dependency for SQL Server"
+            "DATABASE_CONFIG_ERROR: install sql-plan-visualizer[sqlserver] for SQL Server"
         ) from None
     try:
         url = urlsplit(dsn)
@@ -125,6 +125,10 @@ def collect_sqlserver(
         ):
             raise DatabaseError(
                 "DATABASE_CONFIG_ERROR: set a SQL Server connection URL"
+            )
+        if not is_loopback_host(url.hostname):
+            raise DatabaseError(
+                "DATABASE_CONFIG_ERROR: SQL Server remote certificate verification is not configured; use a loopback host"
             )
         with (
             pymssql.connect(

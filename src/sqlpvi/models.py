@@ -1,5 +1,6 @@
 """Parser-independent analysis and report contracts."""
 
+from copy import deepcopy
 from dataclasses import dataclass, field
 
 
@@ -132,3 +133,7 @@ class Report:
     plan: ExecutionPlan | None = None
     metadata: list[RelationMetadata] = field(default_factory=list)
     recommendations: list[Recommendation] = field(default_factory=list)
+    static_references: list[Reference] = field(init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        self.static_references = deepcopy(self.references)

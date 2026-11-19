@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta name="referrer" content="no-referrer">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'sha256-w3ZDLWdmJxad7ZGyvRMB3+BvnhOZmBGVMTcMGSfFtbw='; img-src data:; base-uri 'none'; form-action 'none'">
+<title>SQLPVI 사용 방법</title>
+<style>
+:root{color-scheme:light;--ink:#183249;--muted:#496277;--line:#cbdce8;--blue:#125789}
+*{box-sizing:border-box}body{margin:0;background:#edf3f7;color:var(--ink);font:16px/1.8 system-ui,"Malgun Gothic",sans-serif}
+main{max-width:1080px;margin:auto;padding:28px 24px 48px;min-width:0}header{margin-bottom:24px}h1,h2,h3{line-height:1.5}h1{font-size:30px;margin:12px 0}h2{font-size:23px;margin:0 0 12px}h3{font-size:18px;margin:18px 0 8px}p{margin:0 0 12px;max-width:72ch;overflow-wrap:anywhere}a{color:var(--blue);text-underline-offset:4px}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}.skip{position:absolute;top:-90px;padding:8px 14px;background:white}.skip:focus{top:8px}
+.intro{border-left:4px solid var(--blue);padding:14px 18px;background:#e1edf7;border-radius:6px}.intro p:last-child{margin-bottom:0}.note,figcaption{color:var(--muted);font-size:14px}.step{display:block;color:var(--blue);font-size:13px;letter-spacing:.08em;margin-bottom:4px}
+nav ul{display:flex;flex-wrap:wrap;gap:8px 24px;list-style:none;margin:20px 0;padding:0}section{padding:26px 28px;margin:18px 0;background:white;border:1px solid var(--line);border-radius:10px;scroll-margin-top:20px}
+figure{margin:18px 0}figcaption{margin-top:10px}.flow{display:flex;gap:28px;list-style:none;padding:0;margin:0}.flow li{position:relative;flex:1;min-width:0;padding:15px 10px;border:1px solid #9eb8cd;border-radius:8px;background:#e8f0f7;text-align:center}.flow li strong,.flow li span{display:block}.flow li span{font-size:14px;color:var(--muted);margin-top:5px}.flow li:not(:last-child)::after{content:"→" / "";position:absolute;right:-24px;top:50%;transform:translateY(-50%);font-weight:700;color:#48677e}
+pre{max-width:100%;overflow-x:auto;background:#10263b;color:#eaf4fb;padding:16px;border-radius:7px;font:14px/1.8 Consolas,"Malgun Gothic",monospace}code{font:14px/1.7 Consolas,"Malgun Gothic",monospace;overflow-wrap:anywhere}p code,td code{background:#edf2f7;padding:2px 4px;border-radius:4px}.command-label{font-size:14px;font-weight:700;margin:18px 0 6px}.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mode{border:1px solid var(--line);padding:16px;border-radius:8px}.mode h3{margin:0 0 10px}.mode.runtime{border-color:#d4aa67;background:#fff8e9}.mode p:last-child{margin-bottom:0}
+details{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}summary{cursor:pointer;font-weight:700}table{width:100%;border-collapse:collapse;margin:16px 0;font-size:15px}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{width:30%}footer{padding-top:16px;font-size:14px;color:var(--muted)}
+@media(max-width:760px){main{padding:16px 14px 32px}section{padding:22px 18px}h1{font-size:26px}h2{font-size:21px}.flow{flex-direction:column}.flow li:not(:last-child)::after{content:"↓" / "";right:auto;left:50%;top:auto;bottom:-29px;transform:translateX(-50%)}.modes{grid-template-columns:1fr}pre{font-size:13px}th{width:33%}}
+@media print{body{background:white}main{padding:0}nav,.skip{display:none}section{border:0;padding:20px 0;break-inside:avoid}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f1f1;color:black}.modes{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#start">사용 순서로 이동</a>
+<main>
+<header>
+<a href="index.html">← 프로젝트 문서</a>
+<h1>SQLPVI 사용 방법</h1>
+<p>SQL 파일 준비부터 분석 리포트 열기까지의 순서.</p>
+<div class="intro"><p><strong>현재 연결: Codex → 로컬 Skill → SQLPVI CLI.</strong></p><p>MCP 서버·MCP 등록 설정의 현재 구현 없음. 입력은 <code>.sql</code> 파일, 출력은 HTML·JSON 분석 리포트.</p></div>
+<nav aria-label="사용 단계"><ul><li><a href="#start">1. 준비</a></li><li><a href="#request">2. 분석 요청</a></li><li><a href="#read">3. 결과 열기</a></li><li><a href="#watch">반복 수정</a></li><li><a href="#database">4. DB 계획 추가</a></li></ul></nav>
+<figure aria-label="기본 사용 흐름"><ol class="flow"><li><strong>SQL 파일</strong><span>분석할 명령 준비</span></li><li><strong>Codex의 $sqlpvi 요청</strong><span>Skill의 CLI 실행</span></li><li><strong>HTML 생성</strong><span>경로·성공 결과 확인</span></li><li><strong>브라우저 열기</strong><span>원문·참조·흐름 확인</span></li></ol><figcaption>기본 경로의 DB 접속 없음. 넓은 화면의 가로 순서, 작은 화면의 세로 순서.</figcaption></figure>
+</header>
+
+<section id="start" aria-labelledby="start-title">
+<h2 id="start-title"><span class="step">STEP 01</span>프로젝트와 SQL 준비</h2>
+<p>작업 위치: 내려받은 <code>sql-plan-visualizer</code> 프로젝트 폴더.</p>
+<p>준비 환경: Python 3.13.15·uv. 처음 사용할 SQL: <code>fixtures/sql/join.sql</code>.</p>
+<p>처음 설치의 목적: 정적 분석에 필요한 Core 패키지 준비.</p>
+<p class="command-label">PowerShell · 프로젝트 폴더에서 최초 설치</p>
+<pre><code>uv --cache-dir .uv-cache sync --locked --no-dev</code></pre>
+<p class="note">이미 필요한 패키지가 설치된 환경은 다음 단계로 이동. 새 설치가 실패한 경우 실제 오류 확인 필요. 기존 환경의 실행 성공과 신규 설치 성공은 별도 항목.</p>
+</section>
+
+<section id="request" aria-labelledby="request-title">
+<h2 id="request-title"><span class="step">STEP 02</span>Codex 대화에서 분석 요청</h2>
+<p>Codex에서 이 프로젝트를 열고 로컬 <code>sqlpvi</code> Skill에 요청.</p>
+<p class="command-label">Codex 대화창 · PowerShell 명령과 구분</p>
+<pre><code>$sqlpvi
+입력: fixtures/sql/join.sql
+HTML 출력: artifacts/sqlpvi-join.html</code></pre>
+<p>Skill의 처리: CLI 실행 → 종료 결과 확인 → 생성한 HTML 경로 안내.</p>
+<p>다른 SQL의 분석: 입력 경로와 출력 경로 교체. 원본과 다른 출력 경로 사용.</p>
+<p class="note">SQL 파일 상한: 1MiB. 리포트에 SQL 원문·DB 근거가 포함되므로 공개 전 검토 필요.</p>
+<details><summary>PowerShell에서 직접 실행하는 방법</summary>
+<p class="command-label">필요한 패키지가 설치된 기존 환경의 명령</p>
+<pre><code>uv --cache-dir .uv-cache run --no-sync sqlpvi analyze fixtures/sql/join.sql --output artifacts/sqlpvi-join.html</code></pre>
+<p class="note"><code>--no-sync</code>: 설치된 환경 사용. 실패한 새 설치를 복구하는 옵션은 아님.</p>
+<p>자동화용 JSON 출력: <code>--format json</code> 추가와 <code>--output artifacts/sqlpvi-join.json</code> 지정.</p>
+</details>
+</section>
+
+<section id="read" aria-labelledby="read-title">
+<h2 id="read-title"><span class="step">STEP 03</span>HTML 열기와 결과 확인</h2>
+<p>성공 결과에서 출력 경로 확인 후 브라우저로 열기.</p>
+<p class="command-label">PowerShell · Windows 기본 앱으로 HTML 열기</p>
+<pre><code>Invoke-Item artifacts/sqlpvi-join.html</code></pre>
+<figure aria-label="리포트 읽는 순서"><ol class="flow"><li><strong>SQL Source</strong><span>원문과 분석 대상 확인</span></li><li><strong>References</strong><span>Table·Column 연결 확인</span></li><li><strong>SQL Flow</strong><span>필터·집계·윈도 관계 확인</span></li><li><strong>AST 상세</strong><span>필요한 문법 구조 확인</span></li></ol><figcaption>토큰 Hover·키보드 Focus의 연결 강조와 한/영 전환 지원.</figcaption></figure>
+<table><caption>오해하기 쉬운 표시</caption><tbody><tr><th scope="row"><code>PARSED</code></th><td>Parser 처리 성공. 실제 DB 실행 가능성·객체 존재 보증 제외.</td></tr><tr><th scope="row"><code>AMBIGUOUS</code></th><td>연결 대상 후보가 여러 개인 상태.</td></tr><tr><th scope="row"><code>UNRESOLVED</code></th><td>연결 대상을 확정할 근거가 부족한 상태.</td></tr><tr><th scope="row">SQL Flow</th><td>SQL의 구조와 연산 관계. 실제 DBMS의 물리 실행 순서와 구분.</td></tr></tbody></table>
+<p><a href="examples/hash-spill.html">기존 DB 분석 리포트 예시 열기 →</a></p>
+<p class="note">예시의 기준: 과거 합성 데이터·실제 DB 측정. 방금 생성한 정적 분석의 결과와 별도.</p>
+</section>
+
+<section id="watch" aria-labelledby="watch-title">
+<h2 id="watch-title">반복 수정: 명령 한 번과 SQL 저장</h2>
+<p>매번 명령을 다시 입력하는 대신, <code>--watch</code>의 파일 변경 감지 사용.</p>
+<p>준비: 분석할 SQL 파일과 기존 설치 환경. 다음 명령의 최초 실행 후 PowerShell 유지.</p>
+<p class="command-label">PowerShell · 현재 실습 파일의 자동 분석 시작</p>
+<pre><code>.\.venv\Scripts\sqlpvi.exe analyze artifacts/my-query.sql --output artifacts/my-query.html --watch</code></pre>
+<figure aria-label="저장 후 자동 분석 흐름"><ol class="flow"><li><strong>SQL 수정·Ctrl+S</strong><span>메모장에서 저장</span></li><li><strong>자동 분석</strong><span>변경 감지·같은 HTML 갱신</span></li><li><strong>브라우저 F5</strong><span>새 결과 확인</span></li></ol><figcaption>종료: PowerShell의 Ctrl+C. 브라우저 새로고침은 F5로 직접 수행.</figcaption></figure>
+<p>문법 오류·파일 부재: 터미널의 오류 표시와 이전 HTML 유지. 수정 저장 후 재분석.</p>
+<p class="note">프로그램 코드 갱신 후 Watch 재시작 필요. 저장 감지의 대상은 SQL 파일 내용.</p>
+<p class="note">Watch의 범위: 정적 HTML. DB 연결·Query 실행의 자동 반복 없음. <code>--database</code>·JSON 출력과의 결합 거부.</p>
+</section>
+
+<section id="database" aria-labelledby="database-title">
+<h2 id="database-title"><span class="step">STEP 04</span>필요한 경우의 DB 실행 계획 추가</h2>
+<p>추가 준비: DB별 Driver Extra·접속 가능한 개발 또는 테스트 DB·조회 전용 계정·접속 URL.</p>
+<p class="note">원격 PostgreSQL·MariaDB의 검증된 TLS 요구. SQL Server는 Loopback만 허용. <a href="security.html">현재 보안 경계와 미확인 항목 →</a></p>
+<div class="modes" role="group" aria-label="분석 모드별 사용 경로">
+<article class="mode"><h3>기본 파일 분석</h3><p><code>analyze 파일.sql</code></p><p>SQL 파일 → 정적 분석 → HTML.</p><p>DB 접속 없음.</p></article>
+<article class="mode"><h3>예상 실행 계획</h3><p><code>--database</code></p><p>SQL 파일 → 선택 DB의 예상 계획 조회 → 리포트 추가.</p><p>PostgreSQL·MariaDB·SQL Server 지원.</p></article>
+<article class="mode runtime"><h3>실제 조회 측정</h3><p><code>--database --runtime</code></p><p>SQL 파일 → 조회 Query 실행·측정 → 리포트 추가.</p><p>PostgreSQL만 지원. 실제 실행에 대한 명시적 요청 필요.</p></article>
+</div>
+<details><summary>PostgreSQL 예상 계획의 실행 예</summary>
+<p>전제: 저장소의 격리 PostgreSQL 준비와 조회 전용 Fixture 계정의 사용.</p>
+<p class="command-label">PowerShell · PostgreSQL Driver 설치와 연결 설정</p>
+<pre><code>uv --cache-dir .uv-cache sync --locked --no-dev --extra postgres
+$env:SQLPVI_POSTGRES_URL = 'postgresql://sqlpvi_reader@127.0.0.1:55432/sqlpvi'
+uv --cache-dir .uv-cache run --no-sync sqlpvi analyze fixtures/sql/join.sql --database --output artifacts/sqlpvi-join-plan.html</code></pre>
+<p>결과의 추가 영역: Execution Plan·확보된 Database Metadata.</p>
+<p class="note">현재 설치·Fixture가 준비된 경우의 예제. 이 안내 작성 중 실제 DB 명령의 실행 없음.</p>
+</details>
+<p>기본 Skill의 범위: 정적 파일 분석. DB 실행 요청의 자동 확대 없음.</p>
+<p>추천 SQL·Index·Schema의 자동 변경 없음. 개선 후보는 충분한 실측 근거 확보 시에만 표시.</p>
+<p><a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/README.md#db-분석-실행">DB별 설치·접속·실행의 전체 안내 ↗</a></p>
+</section>
+<footer><p>현재 코드 기준: 2026-11-16. Markdown의 Mermaid, 이 페이지의 HTML/CSS 그림 사용. 외부 그림·CDN·Script 의존 없음.</p><p><a href="index.html">프로젝트 문서</a> · <a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/docs/README.md">문서 맵 ↗</a></p></footer>
+</main>
+</body>
+</html>

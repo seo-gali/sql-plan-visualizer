@@ -50,6 +50,48 @@ def _column_candidates(column: exp.Column, scope: Scope) -> tuple[str, list[str]
     return "UNRESOLVED", []
 
 
+def _query_operations(query: exp.Expression) -> list[tuple[str, exp.Expression]]:
+    if isinstance(query, exp.SetOperation):
+        operations = [(type(query).__name__, query)]
+    else:
+        windows = [
+            node
+            for node in query.find_all(exp.Window)
+            if node.find_ancestor(exp.Select) is query
+            and not isinstance(node.this, exp.Identifier)
+        ]
+        window_functions = set()
+        for window in windows:
+            function = window.this
+            while isinstance(
+                function,
+                (exp.Filter, exp.WithinGroup, exp.IgnoreNulls, exp.RespectNulls),
+            ):
+                function = function.this
+            window_functions.add(id(function))
+        operations = []
+        if query.args.get("where") is not None:
+            operations.append(("Filter", query.args["where"]))
+        group = query.args.get("group")
+        if group is not None or any(
+            isinstance(node, exp.AggFunc)
+            and node.find_ancestor(exp.Select) is query
+            and id(node) not in window_functions
+            for node in query.walk()
+        ):
+            operations.append(("Aggregate", group if group is not None else query))
+        if query.args.get("having") is not None:
+            operations.append(("Filter", query.args["having"]))
+        operations.extend(("Window", window) for window in windows)
+        operations.append(("Project", query))
+        if query.args.get("distinct") is not None:
+            operations.append(("Distinct", query.args["distinct"]))
+    for key, operation in (("order", "Sort"), ("offset", "Offset"), ("limit", "Limit")):
+        if query.args.get(key) is not None:
+            operations.append((operation, query.args[key]))
+    return operations
+
+
 def analyze(sql: str, filename: str = "<sql>", dialect: str = "postgres") -> Report:
     ast = parse_sql(sql, dialect)
     try:
@@ -138,9 +180,7 @@ def analyze(sql: str, filename: str = "<sql>", dialect: str = "postgres") -> Rep
         query = scope.expression
         if isinstance(query, exp.SetOperation):
             inputs = [roots[id(child)] for child in scope.union_scopes]
-            operations = [(type(query).__name__, query)]
         else:
-            operations = []
             for position, join in enumerate(query.args.get("joins") or []):
                 if position + 1 >= len(inputs):
                     raise AnalysisError("SQL_UNSUPPORTED: unsupported join source")
@@ -164,27 +204,7 @@ def analyze(sql: str, filename: str = "<sql>", dialect: str = "postgres") -> Rep
                 )
                 flow.append(node)
                 inputs.append(node.id)
-            for key, operation in (
-                ("where", "Filter"),
-                ("group", "Aggregate"),
-                ("having", "Filter"),
-                ("distinct", "Distinct"),
-                ("order", "Sort"),
-                ("offset", "Offset"),
-                ("limit", "Limit"),
-            ):
-                if query.args.get(key) is not None:
-                    operations.append((operation, query.args[key]))
-            if not query.args.get("group") and any(
-                isinstance(node, exp.AggFunc)
-                and node.find_ancestor(exp.Select) is query
-                for node in query.walk()
-            ):
-                operations.insert(
-                    1 if query.args.get("where") else 0, ("Aggregate", query)
-                )
-            operations.append(("Project", query))
-        for operation, expression in operations:
+        for operation, expression in _query_operations(query):
             node = SqlFlowNode(
                 f"flow-{len(flow)}",
                 operation,

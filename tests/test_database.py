@@ -1,7 +1,8 @@
 import json
+import sys
 from dataclasses import asdict
+from types import SimpleNamespace
 
-import psycopg
 import pytest
 
 from sqlpvi.database import DatabaseError, collect_postgres, postgres_plan, safe_query
@@ -68,16 +69,37 @@ def test_bad_plan(raw):
 
 
 def test_driver_error_does_not_expose_credentials(monkeypatch):
-    def fail(*args, **kwargs):
-        raise psycopg.OperationalError("password=private-test-value host=private-host")
+    class OperationalError(Exception):
+        pass
 
-    monkeypatch.setattr(psycopg, "connect", fail)
+    def fail(*args, **kwargs):
+        raise OperationalError("password=private-test-value host=private-host")
+
+    monkeypatch.setitem(
+        sys.modules,
+        "psycopg",
+        SimpleNamespace(
+            connect=fail,
+            Error=OperationalError,
+            conninfo=SimpleNamespace(
+                conninfo_to_dict=lambda dsn: {"host": "private-host"}
+            ),
+        ),
+    )
     with pytest.raises(DatabaseError) as error:
         collect_postgres(
             "SELECT 1", "postgresql://test:private-test-value@private-host/db"
         )
     assert "private" not in str(error.value)
     assert "OperationalError" in str(error.value)
+
+
+def test_postgres_missing_driver_is_a_configuration_error(monkeypatch):
+    monkeypatch.setitem(sys.modules, "psycopg", None)
+    with pytest.raises(DatabaseError, match=r"sql-plan-visualizer\[postgres\]"):
+        collect_postgres("SELECT 1", "postgresql://reader@localhost/db")
+    with pytest.raises((DatabaseError, AnalysisError), match="UNSUPPORTED"):
+        collect_postgres("DELETE FROM customers", "postgresql://reader@localhost/db")
 
 
 def test_runtime_adapter_requires_actual_measurements():
@@ -87,7 +109,7 @@ def test_runtime_adapter_requires_actual_measurements():
 
 
 def test_missing_configuration_and_wrong_dialect():
-    with pytest.raises(DatabaseError, match="set SQLPVI_DATABASE_URL"):
+    with pytest.raises(DatabaseError, match="set SQLPVI_POSTGRES_URL"):
         collect_postgres("SELECT 1", "")
     with pytest.raises(DatabaseError, match="dialect"):
         collect_postgres("SELECT 1", "", "mysql")

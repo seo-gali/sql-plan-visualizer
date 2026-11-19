@@ -30,6 +30,8 @@ flowchart TD
 출처 구분: STATIC·DATABASE·RECOMMENDATION.
 참조 상태 구분: RESOLVED·AMBIGUOUS·UNRESOLVED.
 SQL Flow의 의미: SQL 구조. 실제 DBMS 실행 순서와의 구분.
+윈도 계산의 표시: `Window · 윈도 계산`. 일반 집계의 `Aggregate`와 별도 노드.
+집합 연산의 후속 절: 실제 존재하는 정렬·Offset·Limit의 연결 표시.
 
 개선 후보 내용: 관측 근거·이유·조건·한계·검증 방법·텍스트 전용 검증 SQL.
 실행·적용 버튼 제공 금지.
@@ -49,6 +51,9 @@ SQL Flow의 의미: SQL 구조. 실제 DBMS 실행 순서와의 구분.
 Source Metadata 없는 노드: 임의 연결 생성 금지.
 SVG 연결선: 장식 요소. 텍스트 관계의 병행 제공.
 
+화면 검증: 표시 문자열·원문 보존·키보드 강조·근거 링크의 실제 동작 확인.
+검사 고정 제외: Script 개수·HTML 속성 순서·특정 Plan 노드 ID.
+
 ## 접근성·반응형
 
 - 기본 정보: lang·UTF-8·viewport·순차적 제목·skip link.
@@ -66,6 +71,11 @@ SVG 연결선: 장식 요소. 텍스트 관계의 병행 제공.
 | 동적 문자열 | textContent 사용, innerHTML 직접 삽입 금지 |
 | script 내부 JSON | 꺾쇠·앰퍼샌드의 Unicode Escape |
 | CSS·JS | 문서 내부 포함 |
+| 실행 정책 | 검토된 JS·CSS Hash 기반 CSP. 임의 Script·Style 허용 금지 |
+| Referrer | `no-referrer` 적용 |
 | Font·CDN·네트워크 | 외부 필수 의존 없음 |
 | 접속 URL·Credential | Report 모델 포함 금지 |
 | 출력 경로 | 입력 SQL의 덮어쓰기 방지 |
+
+공개 HTML의 JS·CSS 수정 시 절차: 코드 검토 → `tools/update_html_csp.py` → 회귀·브라우저 검사.
+HTML Meta 정책을 HTTPS 강제·HSTS 등 호스팅 응답 설정의 대체로 표현하는 방식의 금지.

@@ -5,6 +5,7 @@ SQL Source·AST·SQL Flow·실제 DBMS 실행 계획의 관계를 시각화하�
 세부 구현 기준: `docs/instructions/phaseN-*.md`.
 실제 구현·검증 결과: `docs/phaseN-*.md`.
 현재 기능·상태: [README](../README.md).
+현재 기준·과거 근거의 연결: [문서 맵](../docs/README.md).
 
 ## 1. 프로젝트 배경
 
@@ -88,13 +89,21 @@ DBMS Optimizer의 재구현·흉내 금지.
 | 모델 | 기준 |
 | --- | --- |
 | SQL Flow | SQL 구조의 표현, `Logical Plan` 명칭 사용 금지 |
-| SqlFlow / SqlFlowNode | Scan·Project·Filter·Join·Aggregate·Sort·Distinct·Limit·Offset·CTE·Subquery 표현 |
+| SqlFlow / SqlFlowNode | Scan·Project·Filter·Join·Aggregate·Window·Sort·Distinct·Limit·Offset·CTE·Subquery·집합 연산 표현 |
 | Column Reference | 확정 근거 부족 시 AMBIGUOUS·UNRESOLVED 유지 |
 | Source Mapping | 실제 SQLGlot의 line·col·start·end Metadata 검증 |
 
 모든 AST 노드의 완전한 Source Range 보장 금지.
 Expression 범위 확보 불가 시 Clause·Reference 단위로 축소.
 확인되지 않은 Offset의 임의 계산 금지.
+
+윈도 계산과 일반 집계의 분리: `Window`와 `Aggregate` 노드 사용.
+집합 연산의 후속 절 보존: `Union / Intersect / Except → Sort → Offset → Limit` 연결.
+Select의 표현 순서: Filter·Aggregate·Having Filter → Window → Project → Distinct → Sort·Offset·Limit.
+실제 SQL에 존재하는 연산만 생성. DBMS의 물리 실행 순서 보증 제외.
+
+참조의 두 기록: `static_references`의 최초 정적 후보와 `references`의 현재 판정.
+Catalog 재적용 기준: 정적 보존본에서 재판정, 이전 관측의 Metadata·경고 교체.
 
 ## 5. 아키텍처 계약
 
@@ -165,6 +174,19 @@ PostgreSQL `Seq Scan`, MariaDB `range`, SQL Server `Table Scan`의 임의 동치
 | Phase 9 | pymssql·SQL Server |
 | Phase 10 | 기존 Report 기반 규칙, 추가 외부 의존성 없음 |
 
+현재 설치 구분:
+
+| 구분 | 의존성 | uv 선택 |
+| --- | --- | --- |
+| Core | SQLGlot·Jinja2 | `--no-dev` |
+| 개발 | pytest·Ruff | 기본 `dev` 그룹 |
+| PostgreSQL | Psycopg 3 | `--extra postgres` |
+| MariaDB | PyMySQL | `--extra mariadb` |
+| SQL Server | pymssql | `--extra sqlserver` |
+
+DB Driver 로딩 시점: 실제 해당 Vendor의 DB 수집 경로 진입 시점.
+정적 분석·CLI·비통합 테스트 수집의 DB Driver 요구 금지.
+
 초기 Core 제외 항목: FastAPI·React·Node.js·Pydantic·MCP·LLM API·DB Pool·Graph Library.
 
 Python 변경 이력: 2026-11-04 사용자 승인에 따른 3.13.14 → 3.13.15 전환.
@@ -179,15 +201,25 @@ Python 변경 이력: 2026-11-04 사용자 승인에 따른 3.13.14 → 3.13.15 
 | 모드 | CLI 조건 | 동작 |
 | --- | --- | --- |
 | Static | `sqlpvi analyze <file>` | DB 접속 없는 정적 분석 |
+| Static Watch | `sqlpvi analyze <file> --watch` | SQL 저장 시 정적 HTML 재생성, 브라우저 F5로 확인 |
 | Estimated | `--database` | 선택 Vendor의 Estimated Plan 수집 |
 | Runtime | `--database --runtime` | PostgreSQL 조회 Query의 실제 측정 |
 
 공통 경계: Statement·함수 Allowlist, 최소 권한, Timeout, Credential 비노출.
+SQL 파일 상한: 1MiB. CLI 분석·Watch에서 같은 제한과 BOM·줄바꿈 처리 유지.
+리포트 보호: HTML Escape·검토된 JS/CSS Hash 기반 CSP·Referrer 미전송.
+원격 PostgreSQL: 인증서·호스트 검증과 TLS 1.2 이상 요구. 불명확한 Service 경로의 TLS 예외 금지.
+원격 MariaDB: 검증된 SSLContext와 TLS 요구. Driver 최소 버전 1.2.3.
+SQL Server: 현재 인증서 검증 설정의 한계에 따른 원격 연결 차단. Loopback만 허용.
+PostgreSQL: 관리 Role·상속·DB/Schema 생성·테이블/Column 쓰기·Sequence 변경·조회 권한 위임 검사.
+Watch 범위: 정적 HTML만 허용. `--database`·JSON 출력과의 결합 거부.
+Watch 오류: 이전 HTML 유지와 터미널 오류 표시. 수정 저장 후 재분석.
 PostgreSQL·MariaDB: Read-only Transaction 적용.
 SQL Server: 최소 권한과 SHOWPLAN 미실행 경계 적용. Read-only 접속 의도의 권한 강제 의미 제외.
 
 기본 사용 범위: Local·Development·Test DB.
 Production 자동 실행·튜닝의 기본 사용법 제공 제외.
+세부 보호·공개 범위: [SECURITY.md](../SECURITY.md). 검증 결과: [보안 점검](../docs/security.html).
 
 ## 10. 운영 위험과 대응
 
@@ -241,6 +273,10 @@ flowchart LR
 
 검증 층: Unit·Fixture·Integration·Regression·Agent Integration Test.
 검증 대상: 구조·필드 의미·출처·안전 경계·실제 실행 결과.
+
+유지할 테스트 계약: 원문 보존·Source Range의 유효성·안전 검사 순서·자원 정리·실제 UI 동작.
+고정하지 않는 구현 세부: 빈 Parser Metadata·Script 개수·SQL 호출의 절대 위치.
+브라우저 계약: 언어 전환·키보드 강조·근거 링크·위험 문자열·반응형의 별도 실행 검사.
 
 Golden Value 고정 제외: Exact Cost·Exact Estimated Rows·Planning Time·Runtime·Buffer Count.
 실행 환경에 따라 변하는 수치의 보편 임계값 사용 금지.
@@ -316,6 +352,7 @@ DB Monitoring·범용 DB Administration, ORM N+1 자동 탐지, 업무 규칙 �
 
 현재 추천 구현 범위: 실측 PostgreSQL 디스크 정렬·해시 임시 파일 점검 2종.
 후속 검증: [2026-11-05 코드 개선 기록](../docs/code-improvements-2026-11-05.md)의 전체 회귀 258 passed, Skip 없음.
+품질 수정: [2026-11-16 수정 기록](../docs/audit-fixes-2026-11-16.md)의 DB 제외 검사와 브라우저 확인. 실제 DB 재검증·신규 설치 성공은 미확인.
 Agent 검증 범위: Skill 형식·Codex CLI 절차 확인.
 
 ### Repository 완료
@@ -324,7 +361,6 @@ Agent 검증 범위: Skill 형식·Codex CLI 절차 확인.
 - [ ] 사용자 사전 승인 범위의 Push·PR 생성
 - [ ] 사용자 검토·Merge 완료
 
-현재 Git 상태: 저장소·Remote 부재에 따른 미완료.
 기술 Gate 통과만으로 Repository 완료 판정 금지.
 
 ## 19. 최종 프로젝트 정의

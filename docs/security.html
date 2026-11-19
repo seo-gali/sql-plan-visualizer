@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'sha256-6hZAh/0JAyXqVgoCoZ8XkFXhQu+X47W85YTj9LdFR1w='; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<title>SQLPVI 보안 점검 · 2026-11-18~19</title>
+<style>
+:root{color-scheme:light;--ink:#183249;--muted:#496277;--line:#cbdce8;--blue:#125789}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:#edf3f7;font:16px/1.8 system-ui,"Malgun Gothic",sans-serif}main{max-width:1120px;margin:auto;padding:28px 24px 48px;min-width:0}h1,h2,h3{line-height:1.5}h1{font-size:30px;margin:12px 0}h2{font-size:23px;margin:0 0 14px}h3{font-size:18px;margin:18px 0 8px}p{margin:0 0 12px;max-width:76ch;overflow-wrap:anywhere}a{color:var(--blue);text-underline-offset:4px}a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}nav ul{display:flex;flex-wrap:wrap;gap:8px 24px;list-style:none;margin:20px 0;padding:0}section{background:white;border:1px solid var(--line);border-radius:10px;padding:26px 28px;margin:18px 0;scroll-margin-top:16px}.step{display:block;color:var(--blue);font-size:13px;letter-spacing:.08em}.warning{background:#fff3eb;border-left:5px solid #a44f16;padding:16px 20px;margin:18px 0}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{padding:16px;border:1px solid var(--line);border-radius:8px}.card h3{margin:0 0 8px}.card p:last-child{margin:0}.note,figcaption{font-size:14px;color:var(--muted)}code{font:14px/1.7 Consolas,"Malgun Gothic",monospace;overflow-wrap:anywhere;background:#edf2f7;padding:2px 4px;border-radius:3px}pre{max-width:100%;overflow-x:auto;padding:16px;color:#eaf4fb;background:#10263b;border-radius:7px}pre code{background:none;padding:0}details{margin:16px 0;border-top:1px solid var(--line);padding-top:14px}summary{cursor:pointer;font-weight:700}table{border-collapse:collapse;width:100%;margin:14px 0;font-size:15px;table-layout:fixed}th,td{text-align:left;vertical-align:top;padding:12px 10px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th:first-child,td:first-child{width:27%}th:nth-child(2),td:nth-child(2){width:19%}.status{font-weight:700}.ok{color:#096750}.pending{color:#96501a}.na{color:#496277}.flow{display:flex;gap:28px;list-style:none;padding:0;margin:18px 0}.flow li{flex:1;position:relative;min-width:0;padding:14px 10px;text-align:center;background:#e8f0f7;border:1px solid #9eb8cd;border-radius:8px}.flow li:not(:last-child)::after{content:"→" / "";position:absolute;right:-24px;top:50%;transform:translateY(-50%);font-weight:700;color:#48677e}footer{font-size:14px;color:var(--muted);padding-top:16px}@media(max-width:760px){main{padding:16px 14px 32px}section{padding:22px 16px}h1{font-size:26px}h2{font-size:21px}.cards{grid-template-columns:1fr}.flow{flex-direction:column}.flow li:not(:last-child)::after{content:"↓" / "";right:auto;left:50%;top:auto;bottom:-29px;transform:translateX(-50%)}th,td{padding:10px 6px;font-size:14px}}@media print{body{background:white}main{padding:0}nav{display:none}section{border:0;padding:16px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;color:black;background:#eee}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<header><a href="index.html">← 프로젝트 문서</a><h1>SQLPVI 보안 점검</h1><p>점검 기간: 2026-11-18~19. 현재 코드의 보호 기능·수정 내용·미확인 항목의 구분.</p>
+<p>현재 구조: 로컬 CLI·정적 HTML 리포트·선택적인 DB 실행 계획 수집. 로그인 웹앱·MCP 서버의 현재 구현 없음.</p>
+<div class="warning"><strong>운영 출시 판정: 미완료.</strong><p>로컬 보강의 구현·회귀 확인과 운영 배포의 검증은 별도 항목. 실제 DB·원격 TLS 통합 검사, 의존성 전체 조회, 호스팅 보안 설정의 남은 확인.</p></div>
+<nav aria-label="보안 점검 단계"><ul><li><a href="#fixed">1. 수정 내용</a></li><li><a href="#checklist">2. 요청 항목</a></li><li><a href="#secrets">3. Secret 검사</a></li><li><a href="#dependencies">4. 의존성</a></li><li><a href="#verification">5. 실제 검증</a></li><li><a href="#remaining">6. 남은 일</a></li></ul></nav>
+</header>
+
+<section id="fixed" aria-labelledby="fixed-title"><h2 id="fixed-title"><span class="step">STEP 01</span>발견한 문제와 수정</h2>
+<div class="cards"><article class="card"><h3>임의 Script 실행 허용 범위 축소</h3><p>생성 리포트·공개 HTML의 <code>unsafe-inline</code> 제거. 검토된 JS·CSS Hash만 허용하는 CSP와 Referrer 미전송 적용.</p></article>
+<article class="card"><h3>원격 DB의 TLS 요구</h3><p>PostgreSQL의 인증서·호스트 검증과 TLS 1.2 이상 요구. MariaDB의 검증된 TLS 요구. SQL Server의 원격 연결 차단.</p></article>
+<article class="card"><h3>과권한 PostgreSQL 계정 거부</h3><p>관리 Role·상속 권한·DDL·테이블/Column 쓰기·Sequence 변경·조회 권한 위임의 검사 보완. 검사 실패 시 계획 수집 전 거부.</p></article>
+<article class="card"><h3>대형 SQL 입력 제한</h3><p>일반 분석과 Watch의 1MiB 파일 제한. 무제한 파일 읽기 제거. BOM·줄바꿈 처리와 오류 후 복구 유지.</p></article>
+<article class="card"><h3>생성 리포트의 Git 제외</h3><p>기본 출력 <code>*.sqlpvi.html</code>의 제외 추가. 사용자 지정 HTML·JSON은 공개 전 개별 검토 필요.</p></article>
+<article class="card"><h3>부품·보안 유지 절차</h3><p>PyMySQL 최소 버전 1.2.3 요구. 현재 Lock의 패키지 버전 유지. 공개 HTML 정책 갱신 도구와 보안 회귀 검사 추가.</p></article></div>
+<figure aria-label="DB 보안 경계"><ol class="flow"><li>단일 Query·허용 함수 검사</li><li>TLS·최소 권한 검사</li><li>계획 수집·명시적 실측</li><li>안전한 HTML·출처 표시</li></ol><figcaption>Watch는 첫 정적 분석 경로만 사용. DB 실행의 자동 반복 없음.</figcaption></figure>
+<p class="note">기존 추적 파일의 삭제·이동, 운영 계정 변경, DB 초기화, 키의 외부 전송·회전 미수행.</p>
+</section>
+
+<section id="checklist" aria-labelledby="checklist-title"><h2 id="checklist-title"><span class="step">STEP 02</span>요청 항목별 판정</h2><p>적용 대상 없음은 보호 기능의 구현 완료와 다른 상태. 서버 기능 추가 시 재점검 필요.</p>
+<details><summary>Access · 인증·비밀번호·관리자·세션·재설정</summary><table><thead><tr><th>요청 항목</th><th>판정</th><th>확인 근거</th></tr></thead><tbody>
+<tr><td>적절한 인증</td><td class="status na">웹 인증 비대상</td><td>수신 웹 API·로그인 없음. DB 인증과 권한은 별도 검사 대상.</td></tr>
+<tr><td>모든 비밀번호 해싱</td><td class="status na">사용자 저장소 없음</td><td>사용자 비밀번호 저장·비교 로직 없음. DB 클라이언트 비밀번호를 임의 Hash로 바꾸면 인증 불가. DBMS의 계정 관리 영역과 구분.</td></tr>
+<tr><td>관리자 경로 잠금</td><td class="status na">경로 없음</td><td>관리자 HTTP Route 없음. DB 과권한 계정은 거부.</td></tr>
+<tr><td>세션 쿠키 보안</td><td class="status na">세션 없음</td><td>서버 세션·인증 Cookie 없음. 언어 선택의 브라우저 저장은 인증 세션과 구분.</td></tr>
+<tr><td>재설정 링크 만료</td><td class="status na">기능 없음</td><td>계정·메일 발송·비밀번호 재설정 기능 없음.</td></tr>
+</tbody></table></details>
+<details><summary>Secrets · 코드·환경·Git·키 폐기</summary><table><thead><tr><th>요청 항목</th><th>판정</th><th>확인 근거</th></tr></thead><tbody>
+<tr><td>코드 밖 Secret 관리</td><td class="status ok">현재 경로 확인</td><td>접속 URL의 환경 변수 사용. 실제 API 키 사용 코드 없음. 공개 Fixture 암호는 합성 DB 전용.</td></tr>
+<tr><td>환경 변수 검토</td><td class="status ok">범위 내 확인</td><td>현재 프로세스 91항목과 사용자·시스템 지속 환경의 프로젝트 관련 Key 검토. 로컬 <code>.env.example</code>의 URL Key 4개는 빈 값. 비밀값 출력·전역 인증 설정 변경 없음.</td></tr>
+<tr><td>Git 히스토리 스캔</td><td class="status ok">패턴 검사 수행</td><td>현재 파일과 로컬 도달 가능 4개 커밋·104개 Blob 검사. 실제 API 키·개인키 후보 미탐지. 탐지 값은 공개 Fixture·시험값.</td></tr>
+<tr><td>노출 키 폐기·교체</td><td class="status na">대상 미확인</td><td>확인된 실제 유출 키가 없어 폐기·회전 미수행. 발급사 키의 유효성 검사·외부 전송 없음.</td></tr>
+</tbody></table></details>
+<details><summary>Data · DB·쿼리·폼·업로드·결제</summary><table><thead><tr><th>요청 항목</th><th>판정</th><th>확인 근거</th></tr></thead><tbody>
+<tr><td>DB 보안</td><td class="status pending">구현 보강·실DB 미확인</td><td>Read-only·권한·Timeout 유지와 TLS 정책·PostgreSQL 권한 검사 보완. 세 Fixture 포트 닫힘. 19일 Docker 읽기 전용 접근도 거부되어 컨테이너 변경 없음.</td></tr>
+<tr><td>매개변수화 쿼리</td><td class="status ok">값 바인딩 확인</td><td>Metadata 조회의 값 매개변수 사용. 분석 대상 SQL 자체는 AST 허용 검사 후 계획 명령에 전달하는 도구 입력.</td></tr>
+<tr><td>서버 폼 검증</td><td class="status na">폼 서버 없음</td><td>SQL 파일의 단일 문장·문법·지원 범위·파일 크기 검증 적용.</td></tr>
+<tr><td>업로드 유형·크기</td><td class="status na">업로드 없음</td><td>로컬 SQL 파일 입력만 존재. CLI·Watch에 1MiB 상한 적용.</td></tr>
+<tr><td>가격·결제 검증</td><td class="status na">결제 없음</td><td>가격 결정·결제 API·웹훅 없음.</td></tr>
+</tbody></table></details>
+<details><summary>Web · HTTPS·XSS·CSRF·CORS·헤더·속도 제한</summary><table><thead><tr><th>요청 항목</th><th>판정</th><th>확인 근거</th></tr></thead><tbody>
+<tr><td>HTTPS 강제</td><td class="status pending">호스팅 설정 미검증</td><td>제품 HTTP 서버 없음. GitHub Pages의 HTTPS 강제 설정은 저장소 코드 밖의 별도 확인 대상.</td></tr>
+<tr><td>XSS 방지</td><td class="status ok">보강·브라우저 확인</td><td>Escape·textContent·Hash CSP. SQL의 Script 문자열 보존과 비실행, 임의 Script 삽입의 CSP 차단 확인.</td></tr>
+<tr><td>CSRF 방지</td><td class="status na">대상 Endpoint 없음</td><td>인증 Cookie·상태 변경 API·서버 Form 없음. HTML의 Form 전송은 CSP로 차단.</td></tr>
+<tr><td>CORS 제한</td><td class="status na">API 서버 없음</td><td>앱의 CORS 응답 설정 없음. HTML의 외부 연결은 CSP 기본 차단.</td></tr>
+<tr><td>보안 헤더</td><td class="status pending">HTML 정책 적용</td><td>CSP·Referrer Meta 적용. HSTS·nosniff·frame-ancestors 등 HTTP 응답 헤더는 호스팅 설정에서 별도 확인 필요.</td></tr>
+<tr><td>속도 제한</td><td class="status na">외부 요청 수신 없음</td><td>서버 요청·로그인 시도 수신 없음. Watch의 0.5초 내용 비교와 변경 시에만 분석하는 동작 확인.</td></tr>
+</tbody></table></details>
+<details><summary>출시 전 · Debug·의존성·공개 파일·로그·검사</summary><table><thead><tr><th>요청 항목</th><th>판정</th><th>확인 근거</th></tr></thead><tbody>
+<tr><td>운영 Debug 끄기</td><td class="status na">웹 Debug 서버 없음</td><td>CLI의 통제된 오류 표시와 DB 예외 마스킹. 운영 서버 Debug 옵션의 현재 구현 없음.</td></tr>
+<tr><td>취약 의존성 갱신</td><td class="status pending">전체 조회 미완료</td><td>현재 PyPI 확인 가능한 13개 버전의 등록 취약점 목록은 비어 있음. 3개 버전·OSV 전체 조회 미확인. PyMySQL 최소 버전 강화.</td></tr>
+<tr><td>미사용 패키지 제거</td><td class="status ok">분류·용도 확인</td><td>Core의 SQLGlot·Jinja2, 개발 그룹의 pytest·Ruff, DB별 선택 Driver 유지. 이번 추가 설치·패키지 삭제 없음.</td></tr>
+<tr><td>노출 파일 확인</td><td class="status ok">추적·이력 확인</td><td>추적 환경 파일은 빈 <code>.env.example</code>. 기본 생성 HTML의 제외 보완. 공개 보고서의 실제 데이터 포함 여부는 게시 전 별도 검토.</td></tr>
+<tr><td>로깅·모니터링</td><td class="status pending">CLI 오류 출력만 제공</td><td>허용 경계 오류·Watch 오류 표시. 중앙 보안 관제·호스팅 알림은 현재 미구현·미검증.</td></tr>
+<tr><td>모든 보호 기능 검사</td><td class="status pending">실DB 검사 제외</td><td>회귀·브라우저·TLS 구성·권한 차단 검사 수행. 실제 DB·원격 TLS 인증서 통합 검증은 별도 남은 항목.</td></tr>
+<tr><td>발견·수정 보고서</td><td class="status ok">이 문서</td><td>구현 보강·비대상·미확인 항목과 원격 연결의 기능 제한 구분.</td></tr>
+</tbody></table></details>
+</section>
+
+<section id="secrets" aria-labelledby="secrets-title"><h2 id="secrets-title"><span class="step">STEP 03</span>Secret 검사와 노출 범위</h2>
+<p>초기 작업 파일 100개, 19일 최종 작업 파일 104개와 로컬 Git의 4개 커밋·104개 고유 Blob 검사. 비밀값·원문·키 Hash를 결과에 출력하지 않는 방식.</p>
+<p>검사 대상: 개인키 헤더·AWS/GitHub/OpenAI/Anthropic/Google/Slack/Stripe 키 패턴·DB URL 암호·문자열 Secret 할당.</p>
+<p>환경 파일: <code>.env.example</code>만 존재. 프로젝트 접속 URL Key 4개의 빈 값 확인. 현재 프로세스에 SQLPVI 접속 URL 없음.</p>
+<p>환경 범위: 프로세스 91항목, 사용자 지속 환경 3항목, 시스템 지속 환경 23항목의 프로젝트 관련 설정 검토. 현재 도구의 전역 인증값과 다른 실행 중인 셸의 환경은 앱 설정과 구분.</p>
+<p>확인된 값: 공개 SQL Server Fixture 암호와 오류 마스킹 시험값. 실제 계정·운영 환경에서 사용하지 않는 합성 테스트 값.</p>
+<p class="note">검사의 한계: 자체 패턴 검사. 미지의 Secret 형식·바이너리·원격의 미수신 커밋·도달 불가능 객체·다른 셸 환경 전체의 무유출 보증 제외. 실제 키 유효성의 외부 확인 없음.</p>
+<div class="warning"><strong>Compose의 개발 전용 설정 유지.</strong><p>PostgreSQL Trust·MariaDB 무비밀번호 Root·공개 SQL Server 암호는 Loopback 합성 Fixture용. 운영·외부 배포용 인증으로 사용 금지. 이번에 DB·계정·Volume 변경 없음.</p></div>
+</section>
+
+<section id="dependencies" aria-labelledby="dependencies-title"><h2 id="dependencies-title"><span class="step">STEP 04</span>의존성 조회의 실제 범위</h2>
+<p>Lock의 외부 패키지 15개와 빌드 도구 setuptools의 버전별 PyPI JSON 조회 시도. 현재 확인 가능한 13개 응답의 <code>vulnerabilities</code> 목록은 비어 있음.</p>
+<p>등록 취약점 목록이 비어 있는 상태와 전체 안전 판정의 구분. OSV 요청 실패와 3개 응답 미확인으로 전체 자동 취약점 감사는 미완료.</p>
+<details><summary>패키지 16개 버전·확인 상태</summary><table><thead><tr><th>패키지</th><th>버전</th><th>PyPI 등록 취약점</th></tr></thead><tbody>
+<tr><td><a href="https://pypi.org/pypi/colorama/0.4.6/json">colorama</a></td><td>0.4.6</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/iniconfig/2.3.0/json">iniconfig</a></td><td>2.3.0</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/jinja2/3.1.6/json">Jinja2</a></td><td>3.1.6</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/markupsafe/3.0.4/json">MarkupSafe</a></td><td>3.0.4</td><td>응답 내용 미확인</td></tr>
+<tr><td><a href="https://pypi.org/pypi/packaging/26.3/json">packaging</a></td><td>26.3</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/pluggy/1.6.0/json">pluggy</a></td><td>1.6.0</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/psycopg/3.3.7/json">psycopg</a></td><td>3.3.7</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/psycopg-binary/3.3.7/json">psycopg-binary</a></td><td>3.3.7</td><td>응답 내용 미확인</td></tr>
+<tr><td><a href="https://pypi.org/pypi/pygments/2.21.0/json">Pygments</a></td><td>2.21.0</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/pymssql/2.4.6/json">pymssql</a></td><td>2.4.6</td><td>응답 내용 미확인</td></tr>
+<tr><td><a href="https://pypi.org/pypi/pymysql/1.2.3/json">PyMySQL</a></td><td>1.2.3</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/pytest/9.1.1/json">pytest</a></td><td>9.1.1</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/ruff/0.16.8/json">Ruff</a></td><td>0.16.8</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/sqlglot/30.18.0/json">SQLGlot</a></td><td>30.18.0</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/tzdata/2026.6/json">tzdata</a></td><td>2026.6</td><td>확인 응답: 빈 목록</td></tr>
+<tr><td><a href="https://pypi.org/pypi/setuptools/84.2.1/json">setuptools</a></td><td>84.2.1</td><td>확인 응답: 빈 목록</td></tr>
+</tbody></table></details>
+<p>변경 범위: PyMySQL 요구 하한 <code>&gt;=1.1.1</code> → <code>&gt;=1.2.3</code>. 현재 Lock의 16개 항목은 프로젝트를 포함한 버전 모두 유지. setuptools의 빌드 고정 버전도 유지. 신규 설치·기존 가상환경 동기화 미수행.</p>
+<p>선택 이유: 고정된 PyMySQL의 명시적 SSL 요구 경로 사용. TLS 미지원 서버의 인증 전 거부를 현재 설치된 Driver에서 확인. <code>--no-sync</code>의 오래된 Driver도 원격 연결 전에 버전 검사로 거부.</p>
+<p class="note">OpenSSL·libpq·FreeTDS·컨테이너 이미지·Python Runtime·OS 전체의 취약점 검사는 이 PyPI 목록으로 대체하지 않는 기준.</p>
+</section>
+
+<section id="verification" aria-labelledby="verification-title"><h2 id="verification-title"><span class="step">STEP 05</span>실제 검증</h2>
+<table><thead><tr><th>검사</th><th>상태</th><th>결과</th></tr></thead><tbody>
+<tr><td>최종 비통합 회귀</td><td class="status ok">11월 19일 통과</td><td id="test-result">267 passed, 52 deselected in 53.93s. Exit 0. 실제 DB 검사 52개의 명시적 제외.</td></tr>
+<tr><td>Ruff·Lock</td><td class="status ok">통과</td><td>All checks passed. 36 files already formatted. Lock 16개 항목 검사 Exit 0.</td></tr>
+<tr><td>문서·Git 변경 형식</td><td class="status ok">통과</td><td>42개 문서의 로컬 링크·HTML Fragment 검사와 기존 10개 탭 검사 통과. git diff --check 통과.</td></tr>
+<tr><td>브라우저 계약</td><td class="status ok">11월 18일 통과</td><td>생성 리포트의 원문 보존·키보드 강조·한/영 전환·근거 링크·390px/1366px·임의 Script CSP 차단. 19일에는 브라우저 도구 제공 중단, 기존 브라우저 대체 검사도 시간초과로 미완료.</td></tr>
+<tr><td>PyMySQL TLS 거부</td><td class="status ok">확인</td><td>실제 설치 Driver의 비네트워크 인증 경로 검사. TLS 없는 서버의 인증 전 오류 확인.</td></tr>
+<tr><td>실제 DB 통합</td><td class="status pending">미실행</td><td>Fixture 포트 55432·53306·14330 닫힘. Docker 읽기 전용 점검도 Access denied, exit 125. DB 권한·인증서·Timeout의 실제 연결 재검증 없음.</td></tr>
+<tr><td>패키지·호스팅 감사</td><td class="status pending">일부 미확인</td><td>OSV의 URLError, PyPI 3개 응답 미확인. 호스팅 설정 변경·운영 배포 미수행.</td></tr>
+</tbody></table>
+<details><summary>실행한 검사 명령과 변경 파일</summary><pre><code>.\.venv\Scripts\python.exe -m pytest tests -m 'not integration' -q --basetemp artifacts/pytest-security-reviewed-20261119 -p no:cacheprovider --tb=short
+.\.venv\Scripts\python.exe -m ruff check src tests tools
+.\.venv\Scripts\python.exe -m ruff format --check src tests tools
+uv --cache-dir .uv-cache --offline lock --check
+.\.venv\Scripts\python.exe tools/update_html_csp.py</code></pre>
+<p>주요 변경: <code>cli.py</code>·<code>render.py</code>·리포트 Template·DB Safety/Adapter·공개 HTML·<code>test_security.py</code>·브라우저 검사·<code>.gitignore</code>·PyMySQL 하한/Lock Metadata·보안 정책.</p>
+<p>공개 HTML의 검토된 JS·CSS 수정 후 <code>tools/update_html_csp.py</code> 실행과 회귀·브라우저 검사 필요.</p>
+</details>
+</section>
+
+<section id="remaining" aria-labelledby="remaining-title"><h2 id="remaining-title"><span class="step">STEP 06</span>출시 전 남은 확인</h2>
+<p><strong>1. 실제 DB·TLS 통합 확인.</strong> 현재 보강한 PostgreSQL 권한 SQL과 원격 인증서 정책의 실제 서버 검증 필요.</p>
+<p><strong>2. 의존성 전체 감사.</strong> 실패한 OSV 조회와 미확인 3개 버전, Runtime·네이티브 라이브러리·이미지 검사 필요.</p>
+<p><strong>3. 운영 인증·호스팅.</strong> Fixture 설정의 운영 재사용 금지. Pages의 HTTPS 강제·응답 보안 헤더·보안 알림 설정 확인 필요.</p>
+<p class="note">19일 읽기 시도: Pages API와 공개 사이트의 응답을 이 웹 도구에서 가져오지 못함. HTTPS 강제 설정의 확인·변경 완료로 기록하지 않은 상태.</p>
+<p><strong>호환성 변화.</strong> 1MiB 초과 SQL과 원격 SQL Server의 거부. 원격 PostgreSQL·MariaDB에 신뢰 가능한 인증서 요구.</p>
+<p><strong>Secret 검사 한계.</strong> 실제 유출 키의 미탐지를 무유출 확정으로 해석하지 않는 기준. 키 폐기·교체·Git 히스토리 재작성 없음.</p>
+</section>
+<footer><p>근거: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src">CSP Hash 정책</a> · <a href="https://www.postgresql.org/docs/18/libpq-connect.html">PostgreSQL TLS</a> · <a href="https://www.postgresql.org/docs/18/functions-info.html">PostgreSQL 권한 조회</a> · <a href="https://pymysql.readthedocs.io/en/latest/modules/connections.html">PyMySQL SSL</a> · <a href="https://github.com/PyMySQL/PyMySQL/blob/v1.2.3/pymysql/connections.py">고정 Driver 인증 경로</a> · <a href="https://pymssql.readthedocs.io/en/stable/ref/pymssql.html">pymssql 암호화 설정</a> · <a href="https://docs.pypi.org/api/json/">PyPI JSON의 범위</a></p><p><a href="usage.html">사용 방법</a> · <a href="index.html">프로젝트 문서</a> · <a href="https://github.com/seo-gali/sql-plan-visualizer/blob/master/SECURITY.md">보안 기준 ↗</a></p></footer>
+</main></body></html>

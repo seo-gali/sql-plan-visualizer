@@ -3,7 +3,6 @@
 import os
 from pathlib import Path
 
-import psycopg
 import pytest
 
 from sqlpvi.analyze import analyze
@@ -32,7 +31,7 @@ def test_real_estimated_plan(filename):
     assert "Actual Rows" not in plan.root.details
 
 
-def test_actual_reader_permissions_and_timeouts():
+def test_actual_reader_permissions_and_timeouts(psycopg):
     with psycopg.connect(TEST_URL) as connection:
         assert connection.execute("SHOW transaction_read_only").fetchone()[0] == "on"
         before = connection.execute(
@@ -57,14 +56,14 @@ def test_privileged_account_is_rejected():
         collect_postgres("SELECT 1", "postgresql://postgres@127.0.0.1:55432/sqlpvi")
 
 
-def test_collector_lock_timeout_is_enforced():
+def test_collector_lock_timeout_is_enforced(psycopg):
     with psycopg.connect("postgresql://postgres@127.0.0.1:55432/sqlpvi") as locker:
         locker.execute("LOCK TABLE customers IN ACCESS EXCLUSIVE MODE")
         with pytest.raises(DatabaseError, match="LockNotAvailable"):
             collect_postgres("SELECT c.id FROM customers c", TEST_URL)
 
 
-def test_catalog_schema_and_permission_boundaries():
+def test_catalog_schema_and_permission_boundaries(psycopg):
     sql = "SELECT name FROM alternate.customers"
     report = analyze(sql)
     collect_postgres(sql, TEST_URL, report=report)
@@ -99,7 +98,7 @@ def test_real_runtime_plan(filename):
     assert "Shared Hit Blocks" in plan.root.buffers
 
 
-def test_runtime_timeout_and_data_preservation():
+def test_runtime_timeout_and_data_preservation(psycopg):
     with psycopg.connect(TEST_URL) as connection:
         before = connection.execute(
             "SELECT COUNT(*), SUM(amount) FROM orders"

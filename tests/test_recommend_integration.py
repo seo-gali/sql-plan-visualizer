@@ -5,7 +5,6 @@ import os
 import sys
 from pathlib import Path
 
-import psycopg
 import pytest
 
 from sqlpvi.cli import main
@@ -20,7 +19,7 @@ pytestmark = [
 @pytest.mark.parametrize("work_mem,expected", [("64kB", True), ("8MB", False)])
 @pytest.mark.parametrize("filename", ["sort.sql", "hash-spill.sql"])
 def test_actual_recommendation_preserves_input_data_and_indexes(
-    monkeypatch, capsys, work_mem, expected, filename
+    monkeypatch, capsys, work_mem, expected, filename, psycopg
 ):
     original_connect = psycopg.connect
     observed = []

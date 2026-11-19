@@ -15,6 +15,7 @@ wheels/
 .pytest_cache/
 .ruff_cache/
 artifacts/
+*.sqlpvi.html
 .playwright-mcp/
 .env
 .env.*
