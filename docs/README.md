@@ -24,6 +24,7 @@ flowchart TD
 | 처음 사용·대화 요청·결과 열기 | [그림 사용 안내](usage.html) | Skill·CLI 사용 순서와 DB 모드 구분 |
 | 보안 경계·공개 범위 | [보안 기준](../SECURITY.md) | 입력·CSP·DB 연결·Secret·Fixture 기준 |
 | 보안 점검·출시 전 확인 | [2026-11-18~19 보안 보고서](security.html) | 수정·검사·비대상·미확인 항목 |
+| 외부 리소스의 실제 해시 대조 | [2026-11-21 무결성 대조](resource-integrity-2026-11-21.md) | 패키지 원본·이미지 digest·Config 검증, 로컬 Layer의 미검증 기록 |
 | 기능 범위·아키텍처·안전 계약 | [작업 계약](../.project/plan.md) | 구현 판단의 원본 |
 | HTML 보고서·접근성 | [화면 설계](../design.md) | 제품 화면 기준 |
 | 실행·승인·Git 운영 | [AGENTS](../AGENTS.md) | 작업 규칙 |

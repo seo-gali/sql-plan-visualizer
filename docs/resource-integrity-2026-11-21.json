@@ -1,0 +1,672 @@
+{
+    "SchemaVersion":  1,
+    "CheckedAtUtc":  "2026-11-21T08:12:23.5906834Z",
+    "Scope":  ".venv installed distributions and Compose image references; no package or container execution",
+    "Inputs":  [
+                   {
+                       "Path":  "uv.lock",
+                       "Sha256":  "aaaab6dccedf218013df44b8c44123f07930e36c1346af327a8f19e58546473f"
+                   },
+                   {
+                       "Path":  "pyproject.toml",
+                       "Sha256":  "27dc4b4b7ec745753fe535248da15f974f96a439c9998bfddea792a2ade6816c"
+                   },
+                   {
+                       "Path":  "compose.yaml",
+                       "Sha256":  "b9d5f105298577d783821380d28340fc1fd63e27fd426ff0990e1d99aa4f8738"
+                   }
+               ],
+    "Packages":  [
+                     {
+                         "Name":  "colorama",
+                         "Version":  "0.4.6",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl",
+                         "Filename":  "colorama-0.4.6-py2.py3-none-any.whl",
+                         "ExpectedSha256":  "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+                         "ActualSha256":  "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  16,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "76dbf7d26970938d18bff5f3bab412e69384fbbb67bb01af01cfea7aad658c8a",
+                         "InstalledRecordFilesMatched":  18,
+                         "InstalledRecordUnhashed":  14,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "colorama-0.4.6.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "iniconfig",
+                         "Version":  "2.3.0",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl",
+                         "Filename":  "iniconfig-2.3.0-py3-none-any.whl",
+                         "ExpectedSha256":  "f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12",
+                         "ActualSha256":  "f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  9,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "3f8e256f937bfa9ca43d9da29af6055656a08bd899602c8c3bc00854247bffb8",
+                         "InstalledRecordFilesMatched":  11,
+                         "InstalledRecordUnhashed":  5,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "iniconfig-2.3.0.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "Jinja2",
+                         "Version":  "3.1.6",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl",
+                         "Filename":  "jinja2-3.1.6-py3-none-any.whl",
+                         "ExpectedSha256":  "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+                         "ActualSha256":  "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  30,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "355e13c6a37eaa7471fa26cd9f770a3625c095a5ce6e0eb95e7334bc0419d936",
+                         "InstalledRecordFilesMatched":  32,
+                         "InstalledRecordUnhashed":  26,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "jinja2-3.1.6.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "MarkupSafe",
+                         "Version":  "3.0.4",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/6f/36/163da64de88a13db79214ef75fa041be7fa13bdb42261cf5b7484de14bfb/markupsafe-3.0.4-cp313-cp313-win_amd64.whl",
+                         "Filename":  "markupsafe-3.0.4-cp313-cp313-win_amd64.whl",
+                         "ExpectedSha256":  "1f1f9477e174582b0a1b583d60b66e1f2cf5d3fe12cee985e4aedf44766600e5",
+                         "ActualSha256":  "1f1f9477e174582b0a1b583d60b66e1f2cf5d3fe12cee985e4aedf44766600e5",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  10,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "b5b5a6caf0e66b839c2216d744f99dd17e29d710ca0940ef12bff0228f74f36c",
+                         "InstalledRecordFilesMatched":  12,
+                         "InstalledRecordUnhashed":  3,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "markupsafe-3.0.4.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "packaging",
+                         "Version":  "26.3",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+                         "Filename":  "packaging-26.3-py3-none-any.whl",
+                         "ExpectedSha256":  "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+                         "ActualSha256":  "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  28,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "8f7319b67472d7006578ea99cee185a4754d1e2bf05a11ea552f6b60efb1eee9",
+                         "InstalledRecordFilesMatched":  30,
+                         "InstalledRecordUnhashed":  23,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "packaging-26.3.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "pip",
+                         "Version":  "26.2.1",
+                         "Reference":  "PYPI_VERSION_REFERENCE",
+                         "Url":  "https://files.pythonhosted.org/packages/f3/6e/1736e5b4ae2b778ef2f81c47d797de9f891d4d8acb047a24ca37a60294dd/pip-26.2.1-py3-none-any.whl",
+                         "Filename":  "pip-26.2.1-py3-none-any.whl",
+                         "ExpectedSha256":  "71138adf1f4ca900cdb7d289c21b7494329f2332b6d85f0e1c42108c0384ed3e",
+                         "ActualSha256":  "71138adf1f4ca900cdb7d289c21b7494329f2332b6d85f0e1c42108c0384ed3e",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  475,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "40bd27e78baa29240c27baa6544a6a45fbdb6e044d772a218bdad7d94ecd2bfa",
+                         "InstalledRecordFilesMatched":  479,
+                         "InstalledRecordUnhashed":  405,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "pip-26.2.1.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "pluggy",
+                         "Version":  "1.6.0",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl",
+                         "Filename":  "pluggy-1.6.0-py3-none-any.whl",
+                         "ExpectedSha256":  "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746",
+                         "ActualSha256":  "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  13,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "3b585904163fb1a1db2574fac9e35976a02c34e536e663b69ceff14656cfa93e",
+                         "InstalledRecordFilesMatched":  15,
+                         "InstalledRecordUnhashed":  9,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "pluggy-1.6.0.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "psycopg",
+                         "Version":  "3.3.7",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/b0/2a/2e05cc01b2817b8baff419823774bb928efd0a36de12da78f19482cfa329/psycopg-3.3.7-py3-none-any.whl",
+                         "Filename":  "psycopg-3.3.7-py3-none-any.whl",
+                         "ExpectedSha256":  "d592e88a077e01ff57f22d59f16e828b92f2b2d9f439b6679d582b48d74cf306",
+                         "ActualSha256":  "d592e88a077e01ff57f22d59f16e828b92f2b2d9f439b6679d582b48d74cf306",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  89,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "e9584581f0dd93eb7ebee0acb6e001bba1fef7967a230d98c4b3c078d17e1792",
+                         "InstalledRecordFilesMatched":  91,
+                         "InstalledRecordUnhashed":  84,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "psycopg-3.3.7.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "psycopg-binary",
+                         "Version":  "3.3.7",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/dd/92/2a1ad37faa52270594e92c483a28084d75a3c696b95ad8f6fc18faf39ead/psycopg_binary-3.3.7-cp313-cp313-win_amd64.whl",
+                         "Filename":  "psycopg_binary-3.3.7-cp313-cp313-win_amd64.whl",
+                         "ExpectedSha256":  "63fc0a5a226e63db37a3f038f2581ea8b8189112daa86bd8ae52c3897ca105da",
+                         "ActualSha256":  "63fc0a5a226e63db37a3f038f2581ea8b8189112daa86bd8ae52c3897ca105da",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  18,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "694a6d93a783295a73bb3f0d56128ee259d8bc1ea198a72aeda3a9aec0fd2dae",
+                         "InstalledRecordFilesMatched":  20,
+                         "InstalledRecordUnhashed":  4,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "psycopg_binary-3.3.7.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "Pygments",
+                         "Version":  "2.21.0",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+                         "Filename":  "pygments-2.21.0-py3-none-any.whl",
+                         "ExpectedSha256":  "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+                         "ActualSha256":  "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  348,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "c3182cb332f417beca6645e05e1e333c07db5716e7a76fe42538330c7ac5209e",
+                         "InstalledRecordFilesMatched":  351,
+                         "InstalledRecordUnhashed":  344,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "pygments-2.21.0.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "pymssql",
+                         "Version":  "2.4.6",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/4e/35/556c317f18f36ae714efffc94dc972e003088158890e5deb3e1c908d3f6f/pymssql-2.4.6-cp313-cp313-win_amd64.whl",
+                         "Filename":  "pymssql-2.4.6-cp313-cp313-win_amd64.whl",
+                         "ExpectedSha256":  "e4ff7d8c1adbbace3591c021149ddb8fcd82697eb2cf75dfab627b8df846b06a",
+                         "ActualSha256":  "e4ff7d8c1adbbace3591c021149ddb8fcd82697eb2cf75dfab627b8df846b06a",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  18,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "84d68fa033a2e4ee286587f58898e69f18e648743a093a81f2a1cadff15db8fe",
+                         "InstalledRecordFilesMatched":  20,
+                         "InstalledRecordUnhashed":  1,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "pymssql-2.4.6.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "PyMySQL",
+                         "Version":  "1.2.3",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/a9/4b/0a906d8184f011ff8dbd4722743783867589b33269d2c5fff238d636fdcb/pymysql-1.2.3-py3-none-any.whl",
+                         "Filename":  "pymysql-1.2.3-py3-none-any.whl",
+                         "ExpectedSha256":  "14f1c68e2ed859243ae5ca41ffbe677027fc46bc136a9f0be8a4e928e5e7415a",
+                         "ActualSha256":  "14f1c68e2ed859243ae5ca41ffbe677027fc46bc136a9f0be8a4e928e5e7415a",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  22,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "c7b7c2c56a84b7498e72144adb1e02e926b8c222ff28fa76ddc8068b751989d7",
+                         "InstalledRecordFilesMatched":  24,
+                         "InstalledRecordUnhashed":  1,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "pymysql-1.2.3.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "pytest",
+                         "Version":  "9.1.1",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl",
+                         "Filename":  "pytest-9.1.1-py3-none-any.whl",
+                         "ExpectedSha256":  "37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c",
+                         "ActualSha256":  "37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  88,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "d95b8016343d0baad61b113c19a448a8b0194007c6ffb029449c871a0775e4f6",
+                         "InstalledRecordFilesMatched":  92,
+                         "InstalledRecordUnhashed":  82,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "pytest-9.1.1.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "ruff",
+                         "Version":  "0.16.8",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/1e/5d/a509c07d714b6da88f2c518b4637cf6f1d46b074be8f0f1e5fb9ff5126fe/ruff-0.16.8-py3-none-win_amd64.whl",
+                         "Filename":  "ruff-0.16.8-py3-none-win_amd64.whl",
+                         "ExpectedSha256":  "a6b85621fd3c81e31fc5f5add09c9c078b430db3595ca632efafdec9e64ebfaa",
+                         "ActualSha256":  "a6b85621fd3c81e31fc5f5add09c9c078b430db3595ca632efafdec9e64ebfaa",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  8,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "edd7507e327c2343c079e8a73ed3903b9ba927c8e82f1f4f0ec069e46d39f2d1",
+                         "InstalledRecordFilesMatched":  10,
+                         "InstalledRecordUnhashed":  4,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "ruff-0.16.8.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "sqlglot",
+                         "Version":  "30.18.0",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/08/9f/3dd2ec8dd84a33e0092f1c815267bc055073f9e833b93e389c59c10f62cc/sqlglot-30.18.0-py3-none-any.whl",
+                         "Filename":  "sqlglot-30.18.0-py3-none-any.whl",
+                         "ExpectedSha256":  "ee0f9a9f3e2193e763c326e52dfb377b96fdb4292f6305c3ff2d9a220e71c601",
+                         "ActualSha256":  "ee0f9a9f3e2193e763c326e52dfb377b96fdb4292f6305c3ff2d9a220e71c601",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  188,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "3a1d1ac962ea3cf9b0b46b93cfafa794adfaaeda7b5d30686df936a1a9170d0a",
+                         "InstalledRecordFilesMatched":  190,
+                         "InstalledRecordUnhashed":  184,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "sqlglot-30.18.0.dist-info/RECORD"
+                                                ]
+                     },
+                     {
+                         "Name":  "tzdata",
+                         "Version":  "2026.6",
+                         "Reference":  "LOCKED",
+                         "Url":  "https://files.pythonhosted.org/packages/0a/66/9a06c2227fedfd4919f0eaaa8b94377d9730882a7e4f95823c9a331ab5e1/tzdata-2026.6-py2.py3-none-any.whl",
+                         "Filename":  "tzdata-2026.6-py2.py3-none-any.whl",
+                         "ExpectedSha256":  "0a10eec6e13ef16b627fabed9a5f2ba61a62b1c67f327305f4e7e412a70b4aec",
+                         "ActualSha256":  "0a10eec6e13ef16b627fabed9a5f2ba61a62b1c67f327305f4e7e412a70b4aec",
+                         "ArchiveStatus":  "MATCH",
+                         "WheelFilesMatched":  632,
+                         "WheelFailures":  0,
+                         "InstalledRecordSha256":  "26d5c69d6e32270a9dab7a565585e39c06c41e9749de51a5365ad0820acb24d6",
+                         "InstalledRecordFilesMatched":  634,
+                         "InstalledRecordUnhashed":  23,
+                         "InstalledRecordFailures":  0,
+                         "InstallerRewritten":  [
+                                                    "tzdata-2026.6.dist-info/RECORD"
+                                                ]
+                     }
+                 ],
+    "Totals":  {
+                   "ExternalPackages":  16,
+                   "LockedWheelArchives":  15,
+                   "PyPIOnlyWheelArchives":  1,
+                   "ArchiveHashesMatched":  16,
+                   "WheelPayloadFilesMatched":  1992,
+                   "WheelPayloadMismatches":  0,
+                   "AllInstalledDistributions":  17,
+                   "AllInstalledRecordFilesMatched":  2038,
+                   "AllInstalledRecordMismatches":  0,
+                   "UnhashedBytecode":  1196,
+                   "UnhashedRecordFiles":  17,
+                   "AuditSelfChecks":  8,
+                   "RegistryMetadataRetrieved":  3,
+                   "InstalledImageRootDigestsMatched":  3,
+                   "InstalledImageConfigsMatched":  3,
+                   "InstalledImagePlatformsMatched":  3,
+                   "InstalledImagePlatformManifestsMatched":  2,
+                   "InstalledImageMetadataHashNodesMatched":  8,
+                   "CurrentTagManifestHashesMatched":  1,
+                   "PostgreSQLReportedLayerIdsMatched":  9,
+                   "LocalLayerByteComparisons":  0
+               },
+    "MetadataReceipts":  {
+                             "value":  [
+                                           {
+                                               "Url":  "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl",
+                                               "Basis":  "uv.lock",
+                                               "File":  "colorama-0.4.6-py2.py3-none-any.whl",
+                                               "Bytes":  25335,
+                                               "Sha256":  "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"
+                                           },
+                                           {
+                                               "Url":  "https://pypi.org/pypi/pip/26.2.1/json",
+                                               "Basis":  "HTTPS retrieval; no independent pre-existing metadata hash",
+                                               "File":  "pip-26.2.1.metadata.json",
+                                               "Bytes":  6683,
+                                               "Sha256":  "c580bb03e4db3f88c8d8173da893ee8f900d251f0e30c6a171a4fd6e9a035522"
+                                           }
+                                       ],
+                             "Count":  2
+                         },
+    "AuditScripts":  [
+                         {
+                             "LocalPath":  "artifacts/integrity-2026-11-21/check-records.ps1",
+                             "Sha256":  "885b05c1997f8daf8548fa6f78a9c84ef34306bf44dd67ef33f86c297d33e964"
+                         },
+                         {
+                             "LocalPath":  "artifacts/integrity-2026-11-21/check-wheel-payloads.ps1",
+                             "Sha256":  "298a20f08acb9e44658c82d540dbca31565ae5666bb0f623de2be64d43c72b2f"
+                         }
+                     ],
+    "GeneratedSiteHooks":  [
+                               {
+                                   "Name":  "_virtualenv.pth",
+                                   "Sha256":  "69ac3d8f27e679c81b94ab30b3b56e9cd138219b1ba94a1fa3606d5a76a1433d",
+                                   "Status":  "RECORDED_ONLY_NO_PUBLISHER_BASELINE"
+                               },
+                               {
+                                   "Name":  "__editable__.sql_plan_visualizer-0.1.0.pth",
+                                   "Sha256":  "8c997de12d6507c1258ea30f70da44b1ee05212b602541bba120963d436be250",
+                                   "Status":  "RECORDED_ONLY_NO_PUBLISHER_BASELINE"
+                               }
+                           ],
+    "Containers":  [
+                       {
+                           "Image":  "postgres:18.6-alpine",
+                           "Status":  "REPORTED_REPODIGEST_CHAIN_MATCH",
+                           "LocalMetadataSource":  "USER_SHELL_FORMATTED_INSPECT_EXIT_0",
+                           "DirectLocalReadByAgent":  false,
+                           "LocalImageId":  "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                           "LocalRepoDigest":  "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                           "Platform":  "linux/amd64",
+                           "RegistryDigest":  "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                           "RegistryManifestUrl":  "https://registry-1.docker.io/v2/library/postgres/manifests/sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                           "RootManifestMediaType":  "application/vnd.oci.image.index.v1+json",
+                           "PlatformManifestDigest":  "sha256:3b0ef735388b2cb097fc29b8bb421d86d57d0ddbe7aa1fbd6493e06d65028503",
+                           "ConfigDigest":  "sha256:57b23a0326ee442e83b3d3fa027c5a148be0a392d7c91d1ca4e1e70131ee859a",
+                           "ConfigRootFsDiffIds":  [
+                                                       "sha256:75c137aedfb2760f88629236cb7b797630aed0c3d91d626d1d1bb694878fc2ba",
+                                                       "sha256:4d0273c37bdc514fffff95149ce8785621655581d2c069a31cf3038e08c308fa",
+                                                       "sha256:364b86e7bc378a980468461c9c7fa8f825d173bbd7b512ad62757fee133eb7e6",
+                                                       "sha256:81000a837ae268cccacb50c4ac69341aa6eaf11dbc1baba83ebb829c87299ae2",
+                                                       "sha256:d948599f0e747cf5ceeb3302b4a67fde5edd06abbe9f61fd4d4e2fe4e4980294",
+                                                       "sha256:26a545bd361b13e34447f803d18a6244c5bfcbb929135528c39d55c90e22d75b",
+                                                       "sha256:7ca201ad0f726c7eaf249399e04994c30e26d3c9e06e43d6b371e3b25f8630bc",
+                                                       "sha256:2343fb8f16ceba7c1a809c8517142814afe99462036a7aa83ef784bbb3312ad4",
+                                                       "sha256:ac355b2037545737428ed497d5706127f23722edfa2f5f6d9ac7a75fd30d75c6"
+                                                   ],
+                           "MetadataNodes":  [
+                                                 {
+                                                     "Image":  "postgres:18.6-alpine",
+                                                     "Url":  "https://registry-1.docker.io/v2/library/postgres/manifests/sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                                                     "ExpectedDigest":  "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                                                     "ActualDigest":  "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                                                     "ReportedDigest":  "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+                                                     "ResponseFile":  "postgres_18.6-alpine.installed-manifest.json",
+                                                     "Status":  "MATCH",
+                                                     "MediaType":  "application/vnd.oci.image.index.v1+json",
+                                                     "Platform":  "linux/amd64"
+                                                 },
+                                                 {
+                                                     "Image":  "postgres:18.6-alpine",
+                                                     "Kind":  "platform-manifest",
+                                                     "Url":  "https://registry-1.docker.io/v2/library/postgres/manifests/sha256:3b0ef735388b2cb097fc29b8bb421d86d57d0ddbe7aa1fbd6493e06d65028503",
+                                                     "ExpectedDigest":  "sha256:3b0ef735388b2cb097fc29b8bb421d86d57d0ddbe7aa1fbd6493e06d65028503",
+                                                     "ActualDigest":  "sha256:3b0ef735388b2cb097fc29b8bb421d86d57d0ddbe7aa1fbd6493e06d65028503",
+                                                     "ResponseFile":  "postgres_18.6-alpine.installed-platform-manifest.json",
+                                                     "Status":  "MATCH",
+                                                     "Redirects":  0
+                                                 },
+                                                 {
+                                                     "Image":  "postgres:18.6-alpine",
+                                                     "Kind":  "config",
+                                                     "Url":  "https://registry-1.docker.io/v2/library/postgres/blobs/sha256:57b23a0326ee442e83b3d3fa027c5a148be0a392d7c91d1ca4e1e70131ee859a",
+                                                     "ExpectedDigest":  "sha256:57b23a0326ee442e83b3d3fa027c5a148be0a392d7c91d1ca4e1e70131ee859a",
+                                                     "ActualDigest":  "sha256:57b23a0326ee442e83b3d3fa027c5a148be0a392d7c91d1ca4e1e70131ee859a",
+                                                     "ResponseFile":  "postgres_18.6-alpine.installed-config.json",
+                                                     "Status":  "MATCH",
+                                                     "Redirects":  1
+                                                 }
+                                             ],
+                           "ReportedLocalDiffIdsCompared":  9,
+                           "LocalLayerBytesRehashed":  false,
+                           "WritableLayerInspected":  false,
+                           "VolumesInspected":  false,
+                           "CurrentTagDigest":  "sha256:9ba53c7d41ea093baf5c1ba635ba5434c4f979880527d49bb7d9237d3193085b",
+                           "CurrentTagDigestEqualsReportedLocalDigest":  false
+                       },
+                       {
+                           "Image":  "mariadb:11.8",
+                           "Status":  "REPORTED_REPODIGEST_CHAIN_MATCH",
+                           "LocalMetadataSource":  "USER_SHELL_FORMATTED_INSPECT_EXIT_0",
+                           "DirectLocalReadByAgent":  false,
+                           "LocalImageId":  "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                           "LocalRepoDigest":  "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                           "Platform":  "linux/amd64",
+                           "RegistryDigest":  "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                           "RegistryManifestUrl":  "https://registry-1.docker.io/v2/library/mariadb/manifests/sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                           "RootManifestMediaType":  "application/vnd.oci.image.index.v1+json",
+                           "PlatformManifestDigest":  "sha256:8a4a99eff981d95c3ab12d019b82fe59725fb7761f1f9a5f155bc3f025528f4f",
+                           "ConfigDigest":  "sha256:0f2506b4b989879f5e004ba606b1d6711d467dee12be80c81799dd046fcc753c",
+                           "ConfigRootFsDiffIds":  [
+                                                       "sha256:bec87777bc2fb2edcdf9af11df1531469e7df911309c1413082b18fcb8610278",
+                                                       "sha256:54f9585a130244a1152f36cf0141c19664ee47a2f509728986d54c3b51047bc1",
+                                                       "sha256:1eaeb29306e84e43c2fc2361c1e6ae4bf447f8dc6a34437743273dab546cb809",
+                                                       "sha256:783ad0b90b4651088b4ca05a1ac9b70fae1232a77e18f79935326251e7573bc1",
+                                                       "sha256:0b56f4e86db0b2b5919298cbbbc87421b9a11034a56cb1be62e78d8ef63d69a9",
+                                                       "sha256:05c36aee9631489f12c0c274809694a4d8d18bcc9c2828310de192baa54f729a",
+                                                       "sha256:d81f26058b7398a2f61f3fbb7c8a3da4842093218f1af54c6655d40bb16feb8b",
+                                                       "sha256:97b385546d314e7d4b2d2134502d247567696867283855a7656dc25ff6e07a06"
+                                                   ],
+                           "MetadataNodes":  [
+                                                 {
+                                                     "Image":  "mariadb:11.8",
+                                                     "Url":  "https://registry-1.docker.io/v2/library/mariadb/manifests/sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                                                     "ExpectedDigest":  "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                                                     "ActualDigest":  "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                                                     "ReportedDigest":  "sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd",
+                                                     "ResponseFile":  "mariadb_11.8.installed-manifest.json",
+                                                     "Status":  "MATCH",
+                                                     "MediaType":  "application/vnd.oci.image.index.v1+json",
+                                                     "Platform":  "linux/amd64"
+                                                 },
+                                                 {
+                                                     "Image":  "mariadb:11.8",
+                                                     "Kind":  "platform-manifest",
+                                                     "Url":  "https://registry-1.docker.io/v2/library/mariadb/manifests/sha256:8a4a99eff981d95c3ab12d019b82fe59725fb7761f1f9a5f155bc3f025528f4f",
+                                                     "ExpectedDigest":  "sha256:8a4a99eff981d95c3ab12d019b82fe59725fb7761f1f9a5f155bc3f025528f4f",
+                                                     "ActualDigest":  "sha256:8a4a99eff981d95c3ab12d019b82fe59725fb7761f1f9a5f155bc3f025528f4f",
+                                                     "ResponseFile":  "mariadb_11.8.installed-platform-manifest.json",
+                                                     "Status":  "MATCH",
+                                                     "Redirects":  0
+                                                 },
+                                                 {
+                                                     "Image":  "mariadb:11.8",
+                                                     "Kind":  "config",
+                                                     "Url":  "https://registry-1.docker.io/v2/library/mariadb/blobs/sha256:0f2506b4b989879f5e004ba606b1d6711d467dee12be80c81799dd046fcc753c",
+                                                     "ExpectedDigest":  "sha256:0f2506b4b989879f5e004ba606b1d6711d467dee12be80c81799dd046fcc753c",
+                                                     "ActualDigest":  "sha256:0f2506b4b989879f5e004ba606b1d6711d467dee12be80c81799dd046fcc753c",
+                                                     "ResponseFile":  "mariadb_11.8.installed-config.json",
+                                                     "Status":  "MATCH",
+                                                     "Redirects":  1
+                                                 }
+                                             ],
+                           "ReportedLocalDiffIdsCompared":  0,
+                           "LocalLayerBytesRehashed":  false,
+                           "WritableLayerInspected":  false,
+                           "VolumesInspected":  false,
+                           "CurrentTagDigest":  "sha256:e1d5495f445654134f226f55a41ce0da227116f6f27f283101f405c794d841fc",
+                           "CurrentTagDigestEqualsReportedLocalDigest":  false
+                       },
+                       {
+                           "Image":  "mcr.microsoft.com/mssql/server:2022-latest",
+                           "Status":  "REPORTED_REPODIGEST_CHAIN_MATCH",
+                           "LocalMetadataSource":  "USER_SHELL_FORMATTED_INSPECT_EXIT_0",
+                           "DirectLocalReadByAgent":  false,
+                           "LocalImageId":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                           "LocalRepoDigest":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                           "Platform":  "linux/amd64",
+                           "RegistryDigest":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                           "RegistryManifestUrl":  "https://mcr.microsoft.com/v2/mssql/server/manifests/sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                           "RootManifestMediaType":  "application/vnd.docker.distribution.manifest.v2+json",
+                           "PlatformManifestDigest":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                           "ConfigDigest":  "sha256:7fb2139341715e8a71843cfc2f02bab6e95f1c52c0fa9f9a6b2e7b761f060780",
+                           "ConfigRootFsDiffIds":  [
+                                                       "sha256:73974f74b436f39a2fdb6461b1e3f7c3e41c73325776fa71d16b942a5b4a365b",
+                                                       "sha256:104c63c3ffa4cd4bca6b042dd1909c06edf48fb1c8c794b92a3020aa8cb98aa4",
+                                                       "sha256:562bf246073c20ec679f54e010758f257dfaf42022d4c0d362e103721abf2886"
+                                                   ],
+                           "MetadataNodes":  [
+                                                 {
+                                                     "Image":  "mcr.microsoft.com/mssql/server:2022-latest",
+                                                     "Url":  "https://mcr.microsoft.com/v2/mssql/server/manifests/sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                                                     "ExpectedDigest":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                                                     "ActualDigest":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                                                     "ReportedDigest":  "sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718",
+                                                     "ResponseFile":  "mcr.microsoft.com_mssql_server_2022-latest.installed-manifest.json",
+                                                     "Status":  "MATCH",
+                                                     "MediaType":  "application/vnd.docker.distribution.manifest.v2+json",
+                                                     "Platform":  "linux/amd64"
+                                                 },
+                                                 {
+                                                     "Image":  "mcr.microsoft.com/mssql/server:2022-latest",
+                                                     "Kind":  "config",
+                                                     "Url":  "https://mcr.microsoft.com/v2/mssql/server/blobs/sha256:7fb2139341715e8a71843cfc2f02bab6e95f1c52c0fa9f9a6b2e7b761f060780",
+                                                     "ExpectedDigest":  "sha256:7fb2139341715e8a71843cfc2f02bab6e95f1c52c0fa9f9a6b2e7b761f060780",
+                                                     "ActualDigest":  "sha256:7fb2139341715e8a71843cfc2f02bab6e95f1c52c0fa9f9a6b2e7b761f060780",
+                                                     "ResponseFile":  "mcr.microsoft.com_mssql_server_2022-latest.installed-config.json",
+                                                     "Status":  "MATCH",
+                                                     "Redirects":  1
+                                                 }
+                                             ],
+                           "ReportedLocalDiffIdsCompared":  0,
+                           "LocalLayerBytesRehashed":  false,
+                           "WritableLayerInspected":  false,
+                           "VolumesInspected":  false,
+                           "CurrentTagDigest":  "sha256:e10cd49443c94dbdcb7a050987db22ff4d8c87052ac53768abe1ed848d3fcef6",
+                           "CurrentTagDigestEqualsReportedLocalDigest":  false
+                       }
+                   ],
+    "Unverified":  [
+                       "Generated pyc files; installer-written metadata and launchers; virtual environment bootstrap hooks",
+                       "Editable project source is first-party and excluded from external-wheel equivalence",
+                       "Python runtime, uv, host OS, build cache and globally installed packages",
+                       "Stored local image layer bytes, running container writable layers and volume contents; MariaDB and SQL Server local RootFS layer identifiers not supplied"
+                   ],
+    "LocalEvidenceDirectory":  "artifacts/integrity-2026-11-21",
+    "MutationPolicy":  "No install, upgrade, lock update, container pull/start/stop/delete, DB connection or secret-file read",
+    "RegistryEvidence":  [
+                             {
+                                 "Image":  "postgres:18.6-alpine",
+                                 "Url":  "https://hub.docker.com/v2/repositories/library/postgres/tags/18.6-alpine",
+                                 "Status":  200,
+                                 "ResponseFile":  "postgres_18.6-alpine.registry.json",
+                                 "ResponseSha256":  "a88e40f7f34dc84990d468b831dff25fffb2bfc110bb7602996ccae240642da9",
+                                 "ReportedDigest":  null,
+                                 "CurrentTagDigest":  "sha256:9ba53c7d41ea093baf5c1ba635ba5434c4f979880527d49bb7d9237d3193085b",
+                                 "LinuxAmd64Manifest":  "sha256:300ebd02c6d4de9ee27ad7f6855d5d21b4d3a4a5117767c1197d284c635d9736",
+                                 "ConfigDigest":  null,
+                                 "ManifestBytesVerified":  false,
+                                 "Method":  "Playwright request API over HTTPS"
+                             },
+                             {
+                                 "Image":  "mariadb:11.8",
+                                 "Url":  "https://hub.docker.com/v2/repositories/library/mariadb/tags/11.8",
+                                 "Status":  200,
+                                 "ResponseFile":  "mariadb_11.8.registry.json",
+                                 "ResponseSha256":  "90930b8148b410c7f8e029bbdb7f55cf1de827893634dd70e3a9c7ba8c39d7aa",
+                                 "ReportedDigest":  null,
+                                 "CurrentTagDigest":  "sha256:e1d5495f445654134f226f55a41ce0da227116f6f27f283101f405c794d841fc",
+                                 "LinuxAmd64Manifest":  "sha256:6e562000e74ce36a9c7cc1302e462c271e3e3a5e0e7ae0ec2ab5f71f0f586f02",
+                                 "ConfigDigest":  null,
+                                 "ManifestBytesVerified":  false,
+                                 "Method":  "Playwright request API over HTTPS"
+                             },
+                             {
+                                 "Image":  "mcr.microsoft.com/mssql/server:2022-latest",
+                                 "Url":  "https://mcr.microsoft.com/v2/mssql/server/manifests/2022-latest",
+                                 "Status":  200,
+                                 "ResponseFile":  "mcr.microsoft.com_mssql_server_2022-latest.registry.json",
+                                 "ResponseSha256":  "e10cd49443c94dbdcb7a050987db22ff4d8c87052ac53768abe1ed848d3fcef6",
+                                 "ReportedDigest":  "sha256:e10cd49443c94dbdcb7a050987db22ff4d8c87052ac53768abe1ed848d3fcef6",
+                                 "CurrentTagDigest":  "sha256:e10cd49443c94dbdcb7a050987db22ff4d8c87052ac53768abe1ed848d3fcef6",
+                                 "LinuxAmd64Manifest":  null,
+                                 "ConfigDigest":  "sha256:548ecf4a83632020d95dfc744bac431f91e31458c2a785b61275941abae7c2bf",
+                                 "ManifestBytesVerified":  true,
+                                 "Method":  "Playwright request API over HTTPS"
+                             }
+                         ],
+    "LocalEvidence":  [
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/installed-records.json",
+                              "Sha256":  "f8b0a3d97e243674d2eaf6fba4ff28355d28ef7a0a40750e5a86fea1b0fa29d7",
+                              "Bytes":  1395915
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/wheel-payloads.json",
+                              "Sha256":  "cfa50d961b495d19c586f712f3322fcdbf585df7d0853fbeb91d47311bcd7e27",
+                              "Bytes":  1240090
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/archive-receipts.json",
+                              "Sha256":  "26f1e60afdca235fec4eb095f5c44b5d55f35e4e9e34912f5f7b99ff5e6eeb5b",
+                              "Bytes":  9059
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/registry-api-receipts.json",
+                              "Sha256":  "fe7b293a38daf894c34a63555859d3a48e6014032c01a3e05dc361dc469648d9",
+                              "Bytes":  2218
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/local-image-metadata.json",
+                              "Sha256":  "40743c6383abc5f4e1855560c324ac0737edc272e572fb658a246b6f5f22e85c",
+                              "Bytes":  2047
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/installed-image-manifest-receipts.json",
+                              "Sha256":  "76d12c5619328f97c34c25b57ed40d83c53fa9489545697e20c9d9c2c499542f",
+                              "Bytes":  2199
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/installed-image-stage2-receipts.json",
+                              "Sha256":  "4212f54c99cde4b7cc459044af97a53b5a21dd62fac688ba755930a578a23676",
+                              "Bytes":  1764
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/installed-image-stage3-receipts.json",
+                              "Sha256":  "7802e87e878cacc2c208cd7b3a13b074aa5f04be5432d1a24a0c582e8954edb5",
+                              "Bytes":  1112
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/installed-image-config-details.json",
+                              "Sha256":  "376573ea16090efb140b3486d144e6b4fa62ad32cb748cc32d5da47e86a4cb62",
+                              "Bytes":  2878
+                          },
+                          {
+                              "Path":  "artifacts/integrity-2026-11-21/postgres-layer-metadata-comparison.json",
+                              "Sha256":  "28b5546fd82139cbbdb25258591c49e3c817dda5d3344b044d07cda1b6d1903f",
+                              "Bytes":  152
+                          }
+                      ],
+    "UpdatedAtUtc":  "2026-11-21T13:17:21.9971722Z",
+    "LocalReadLimitations":  [
+                                 "Agent DockSlate CLI access denied; direct daemon/context metadata unavailable",
+                                 "Local image IDs and RepoDigests taken from user shell command output, not independently re-read by agent"
+                             ]
+}

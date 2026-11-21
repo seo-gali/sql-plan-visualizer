@@ -69,3 +69,5 @@ CLI 오류 출력을 중앙 보안 관제·운영 모니터링으로 간주하�
 공개 Issue·리포트에 실제 토큰·비밀번호·민감한 SQL·접속 URL 기재 금지.
 
 [2026-11-18 보안 점검·수정 보고서](docs/security.html)
+
+[2026-11-21 외부 리소스 무결성 대조](docs/resource-integrity-2026-11-21.md): 패키지 원본·설치 파일과 이미지 digest·Config 비교. 로컬 Layer·Volume 내용의 미검증 구분.
